@@ -1,0 +1,537 @@
+{
+  "admin": {},
+  "app": {
+    "base": [
+      {
+        "module": "base",
+        "side": "app",
+        "prefix": "/app/base/comm",
+        "info": {
+          "type": {
+            "name": "comm",
+            "description": "通用接口"
+          }
+        },
+        "api": [
+          {
+            "method": "post",
+            "path": "/upload",
+            "summary": "获取云端上传签名",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/base/comm",
+            "ignoreToken": false,
+            "ignorePerms": false,
+            "perms": []
+          }
+        ],
+        "columns": [],
+        "pageQueryOp": {
+          "keyWordLikeFields": [],
+          "fieldEq": [],
+          "fieldLike": [],
+          "fieldArray": [],
+          "fieldRange": []
+        },
+        "pageColumns": []
+      },
+      {
+        "module": "base",
+        "side": "app",
+        "prefix": "/app/base/dict",
+        "info": {
+          "type": {
+            "name": "dict",
+            "description": "dict"
+          }
+        },
+        "api": [
+          {
+            "method": "get",
+            "path": "/types",
+            "summary": "字典类型列表",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/base/dict",
+            "ignoreToken": true,
+            "ignorePerms": false,
+            "perms": []
+          },
+          {
+            "method": "post",
+            "path": "/data",
+            "summary": "获得字典数据（扁平，前端组树）",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/base/dict",
+            "ignoreToken": true,
+            "ignorePerms": false,
+            "perms": []
+          },
+          {
+            "method": "post",
+            "path": "/get",
+            "summary": "按类型 key 获得字典树",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/base/dict",
+            "ignoreToken": true,
+            "ignorePerms": false,
+            "perms": []
+          },
+          {
+            "method": "post",
+            "path": "/find",
+            "summary": "按类型 key + value 找树节点",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/base/dict",
+            "ignoreToken": true,
+            "ignorePerms": false,
+            "perms": []
+          },
+          {
+            "method": "post",
+            "path": "/getValues",
+            "summary": "存值反查展示名",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/base/dict",
+            "ignoreToken": true,
+            "ignorePerms": false,
+            "perms": []
+          },
+          {
+            "method": "post",
+            "path": "/pathValue",
+            "summary": "按名称路径直取树上 value",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/base/dict",
+            "ignoreToken": true,
+            "ignorePerms": false,
+            "perms": []
+          },
+          {
+            "method": "post",
+            "path": "/childValue",
+            "summary": "按父 value + 子名称直取子 value",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/base/dict",
+            "ignoreToken": true,
+            "ignorePerms": false,
+            "perms": []
+          }
+        ],
+        "columns": [],
+        "pageQueryOp": {
+          "keyWordLikeFields": [],
+          "fieldEq": [],
+          "fieldLike": [],
+          "fieldArray": [],
+          "fieldRange": []
+        },
+        "pageColumns": []
+      },
+      {
+        "module": "base",
+        "side": "app",
+        "prefix": "/app/base/open",
+        "info": {
+          "type": {
+            "name": "open",
+            "description": "开放接口"
+          }
+        },
+        "api": [
+          {
+            "method": "get",
+            "path": "/eps",
+            "summary": "实体信息与路径",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/base/open",
+            "ignoreToken": true,
+            "ignorePerms": false,
+            "perms": []
+          }
+        ],
+        "columns": [],
+        "pageQueryOp": {
+          "keyWordLikeFields": [],
+          "fieldEq": [],
+          "fieldLike": [],
+          "fieldArray": [],
+          "fieldRange": []
+        },
+        "pageColumns": []
+      }
+    ],
+    "user": [
+      {
+        "module": "user",
+        "side": "app",
+        "prefix": "/app/user/comm",
+        "info": {
+          "type": {
+            "name": "comm",
+            "description": "App 用户通用"
+          }
+        },
+        "api": [
+          {
+            "method": "post",
+            "path": "/wxMpConfig",
+            "summary": "获取微信公众号配置",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/user/comm",
+            "ignoreToken": true,
+            "ignorePerms": false,
+            "perms": []
+          }
+        ],
+        "columns": [],
+        "pageQueryOp": {
+          "keyWordLikeFields": [],
+          "fieldEq": [],
+          "fieldLike": [],
+          "fieldArray": [],
+          "fieldRange": []
+        },
+        "pageColumns": []
+      },
+      {
+        "module": "user",
+        "side": "app",
+        "prefix": "/app/user/info",
+        "info": {
+          "type": {
+            "name": "info",
+            "description": "App 用户信息"
+          }
+        },
+        "api": [
+          {
+            "method": "get",
+            "path": "/person",
+            "summary": "获取用户信息",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/user/info",
+            "ignoreToken": false,
+            "ignorePerms": false,
+            "perms": []
+          },
+          {
+            "method": "post",
+            "path": "/updatePerson",
+            "summary": "更新用户信息",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/user/info",
+            "ignoreToken": false,
+            "ignorePerms": false,
+            "perms": []
+          },
+          {
+            "method": "post",
+            "path": "/updatePassword",
+            "summary": "更新用户密码",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/user/info",
+            "ignoreToken": false,
+            "ignorePerms": false,
+            "perms": []
+          },
+          {
+            "method": "post",
+            "path": "/logoff",
+            "summary": "注销",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/user/info",
+            "ignoreToken": false,
+            "ignorePerms": false,
+            "perms": []
+          },
+          {
+            "method": "post",
+            "path": "/logout",
+            "summary": "退出登录",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/user/info",
+            "ignoreToken": false,
+            "ignorePerms": false,
+            "perms": []
+          },
+          {
+            "method": "post",
+            "path": "/bindPhone",
+            "summary": "绑定手机号",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/user/info",
+            "ignoreToken": false,
+            "ignorePerms": false,
+            "perms": []
+          },
+          {
+            "method": "post",
+            "path": "/miniPhone",
+            "summary": "绑定小程序手机号",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/user/info",
+            "ignoreToken": false,
+            "ignorePerms": false,
+            "perms": []
+          }
+        ],
+        "columns": [],
+        "pageQueryOp": {
+          "keyWordLikeFields": [],
+          "fieldEq": [],
+          "fieldLike": [],
+          "fieldArray": [],
+          "fieldRange": []
+        },
+        "pageColumns": []
+      },
+      {
+        "module": "user",
+        "side": "app",
+        "prefix": "/app/user/login",
+        "info": {
+          "type": {
+            "name": "login",
+            "description": "App 登录"
+          }
+        },
+        "api": [
+          {
+            "method": "get",
+            "path": "/socialProviders",
+            "summary": "已启用的社交 SSO",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/user/login",
+            "ignoreToken": true,
+            "ignorePerms": false,
+            "perms": []
+          },
+          {
+            "method": "get",
+            "path": "/captcha",
+            "summary": "图片验证码",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/user/login",
+            "ignoreToken": true,
+            "ignorePerms": false,
+            "perms": []
+          },
+          {
+            "method": "post",
+            "path": "/otpCode",
+            "summary": "发送验证码（手机/邮箱自动分流）",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/user/login",
+            "ignoreToken": true,
+            "ignorePerms": false,
+            "perms": []
+          },
+          {
+            "method": "post",
+            "path": "/otp",
+            "summary": "验证码登录（登录即注册，手机/邮箱自动分流）",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/user/login",
+            "ignoreToken": true,
+            "ignorePerms": false,
+            "perms": []
+          },
+          {
+            "method": "post",
+            "path": "/smsCode",
+            "summary": "发送短信验证码",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/user/login",
+            "ignoreToken": true,
+            "ignorePerms": false,
+            "perms": []
+          },
+          {
+            "method": "post",
+            "path": "/emailCode",
+            "summary": "发送邮箱验证码",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/user/login",
+            "ignoreToken": true,
+            "ignorePerms": false,
+            "perms": []
+          },
+          {
+            "method": "post",
+            "path": "/phone",
+            "summary": "手机号验证码登录（登录即注册）",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/user/login",
+            "ignoreToken": true,
+            "ignorePerms": false,
+            "perms": []
+          },
+          {
+            "method": "post",
+            "path": "/email",
+            "summary": "邮箱验证码登录（登录即注册）",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/user/login",
+            "ignoreToken": true,
+            "ignorePerms": false,
+            "perms": []
+          },
+          {
+            "method": "post",
+            "path": "/password",
+            "summary": "密码登录（手机号或邮箱）",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/user/login",
+            "ignoreToken": true,
+            "ignorePerms": false,
+            "perms": []
+          },
+          {
+            "method": "post",
+            "path": "/register",
+            "summary": "密码注册（手机号或邮箱）",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/user/login",
+            "ignoreToken": true,
+            "ignorePerms": false,
+            "perms": []
+          },
+          {
+            "method": "post",
+            "path": "/mini",
+            "summary": "小程序登录",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/user/login",
+            "ignoreToken": true,
+            "ignorePerms": false,
+            "perms": []
+          },
+          {
+            "method": "post",
+            "path": "/mp",
+            "summary": "公众号登录",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/user/login",
+            "ignoreToken": true,
+            "ignorePerms": false,
+            "perms": []
+          },
+          {
+            "method": "post",
+            "path": "/wxApp",
+            "summary": "微信APP授权登录",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/user/login",
+            "ignoreToken": true,
+            "ignorePerms": false,
+            "perms": []
+          },
+          {
+            "method": "post",
+            "path": "/uniPhone",
+            "summary": "一键手机号登录",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/user/login",
+            "ignoreToken": true,
+            "ignorePerms": false,
+            "perms": []
+          },
+          {
+            "method": "post",
+            "path": "/miniPhone",
+            "summary": "小程序手机号登录",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/user/login",
+            "ignoreToken": true,
+            "ignorePerms": false,
+            "perms": []
+          },
+          {
+            "method": "post",
+            "path": "/refreshToken",
+            "summary": "刷新token",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/user/login",
+            "ignoreToken": true,
+            "ignorePerms": false,
+            "perms": []
+          }
+        ],
+        "columns": [],
+        "pageQueryOp": {
+          "keyWordLikeFields": [],
+          "fieldEq": [],
+          "fieldLike": [],
+          "fieldArray": [],
+          "fieldRange": []
+        },
+        "pageColumns": []
+      },
+      {
+        "module": "user",
+        "side": "app",
+        "prefix": "/app/user/rbac",
+        "info": {
+          "type": {
+            "name": "rbac",
+            "description": "rbac"
+          }
+        },
+        "api": [
+          {
+            "method": "get",
+            "path": "/perms",
+            "summary": "当前权限",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/user/rbac",
+            "ignoreToken": false,
+            "ignorePerms": false,
+            "perms": []
+          }
+        ],
+        "columns": [],
+        "pageQueryOp": {
+          "keyWordLikeFields": [],
+          "fieldEq": [],
+          "fieldLike": [],
+          "fieldArray": [],
+          "fieldRange": []
+        },
+        "pageColumns": []
+      }
+    ]
+  }
+}
