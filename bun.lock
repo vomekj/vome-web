@@ -18,7 +18,7 @@
         "tailwind-merge": "^3.6.0",
         "tailwindcss": "^4.3.2",
         "tw-animate-css": "^1.4.0",
-        "vome-core": "^0.0.51",
+        "vome-core": "latest",
         "vue": "^3.5.38",
         "vue-router": "^5.1.0",
       },
@@ -1376,7 +1376,7 @@
 
     "vite-plugin-vue-inspector": ["vite-plugin-vue-inspector@6.0.0", "https://registry.npmmirror.com/vite-plugin-vue-inspector/-/vite-plugin-vue-inspector-6.0.0.tgz", { "dependencies": { "@babel/core": "^7.23.0", "@babel/plugin-proposal-decorators": "^7.23.0", "@babel/plugin-syntax-import-attributes": "^7.22.5", "@babel/plugin-syntax-import-meta": "^7.10.4", "@babel/plugin-transform-typescript": "^7.22.15", "@vue/babel-plugin-jsx": "^1.1.5", "@vue/compiler-dom": "^3.3.4", "kolorist": "^1.8.0", "magic-string": "^0.30.4" }, "peerDependencies": { "vite": "^3.0.0 || ^4.0.0 || ^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0" } }, "sha512-OpyITJLgZNibxlrik1EmRtvXHDjLRxNPsWkGFTERZs2LgMEdG4W0WoFt5GIgp3a3jRou+eJR8U1zOBk/XQgEbw=="],
 
-    "vome-core": ["vome-core@0.0.51", "https://registry.npmmirror.com/vome-core/-/vome-core-0.0.51.tgz", { "dependencies": { "@bogeychan/elysia-logger": "^0.1.10", "@elysiajs/openapi": "^1.4.15", "pino": "^10.3.1", "pino-pretty": "^13.1.3", "xlsx": "^0.18.5" }, "peerDependencies": { "@vueuse/core": ">=10.0.0", "clsx": ">=2.0.0", "dompurify": ">=3.0.0", "drizzle-orm": ">=0.30.0", "drizzle-zod": ">=0.5.0", "elysia": ">=1.0.0", "marked": ">=9.0.0", "pinia": ">=2.0.0", "reflect-metadata": ">=0.2.0", "tailwind-merge": ">=2.0.0", "vite": ">=5.0.0", "vue": ">=3.5.0", "vue-router": ">=4.0.0", "vue-sonner": ">=2.0.0" }, "optionalPeers": ["@vueuse/core", "clsx", "dompurify", "drizzle-orm", "drizzle-zod", "marked", "pinia", "tailwind-merge", "vite", "vue", "vue-router", "vue-sonner"] }, "sha512-AVa9bv6J8PhVTRN9DpmRVklVMWQlI5NitzMBKEV1zcR7x/pWoNVsINFbqCW5FwZ+5Y1+4fOWYdaIaldkEbPieQ=="],
+    "vome-core": ["vome-core@0.0.53", "", { "dependencies": { "@bogeychan/elysia-logger": "^0.1.10", "@elysiajs/openapi": "^1.4.15", "pino": "^10.3.1", "pino-pretty": "^13.1.3", "xlsx": "^0.18.5" }, "peerDependencies": { "@vueuse/core": ">=10.0.0", "clsx": ">=2.0.0", "dompurify": ">=3.0.0", "drizzle-orm": ">=0.30.0", "drizzle-zod": ">=0.5.0", "elysia": ">=1.0.0", "marked": ">=9.0.0", "pinia": ">=2.0.0", "reflect-metadata": ">=0.2.0", "tailwind-merge": ">=2.0.0", "vite": ">=5.0.0", "vue": ">=3.5.0", "vue-router": ">=4.0.0", "vue-sonner": ">=2.0.0" }, "optionalPeers": ["@vueuse/core", "clsx", "dompurify", "drizzle-orm", "drizzle-zod", "marked", "pinia", "tailwind-merge", "vite", "vue", "vue-router", "vue-sonner"] }, "sha512-vxmZOpwH6SubQa/Qv7ChuY8xH9Hrngcr1DbeNXMJ4Tnns9qF3yH9sBWRnxk3jWAjfU8KBWF1dHKefBbeZtrsiQ=="],
 
     "vscode-uri": ["vscode-uri@3.1.0", "https://registry.npmmirror.com/vscode-uri/-/vscode-uri-3.1.0.tgz", {}, "sha512-/BpdSx+yCQGnCvecbyXdxHDkuk55/G3xwnC0GqY4gmQ3j+A+g8kzzgB4Nk/SINjqn6+waqw3EgbVF2QKExkRxQ=="],
 
