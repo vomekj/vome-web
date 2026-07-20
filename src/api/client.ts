@@ -37,13 +37,19 @@ export function getRefreshToken() {
   return localStorage.getItem(REFRESH_KEY)
 }
 
-/** 启动时尽量保证有可用 access token（有 refresh 则换新） */
-export async function ensureFreshToken(): Promise<string> {
-  const access = getAccessToken()
-  if (access) return access
-  const refresh = getRefreshToken()
-  if (!refresh) return ''
-  try {
+function redirectLogin() {
+  if (typeof window === 'undefined') return
+  if (location.pathname.startsWith('/login')) return
+  location.href = `/login?redirect=${encodeURIComponent(location.pathname + location.search)}`
+}
+
+let refreshPromise: Promise<string> | null = null
+
+async function sharedRefresh(): Promise<string> {
+  if (refreshPromise) return refreshPromise
+  refreshPromise = (async () => {
+    const refresh = getRefreshToken()
+    if (!refresh) throw new Error('no refresh')
     const res = await request<{
       token: string
       refreshToken: string
@@ -55,16 +61,45 @@ export async function ensureFreshToken(): Promise<string> {
     })
     setTokens(res.token, res.refreshToken || refresh)
     return res.token
+  })().finally(() => {
+    refreshPromise = null
+  })
+  return refreshPromise
+}
+
+/** 启动时尽量保证有可用 access token（有 refresh 则换新） */
+export async function ensureFreshToken(): Promise<string> {
+  const access = getAccessToken()
+  if (access) return access
+  const refresh = getRefreshToken()
+  if (!refresh) return ''
+  try {
+    return await sharedRefresh()
   } catch {
     clearTokens()
     return ''
   }
 }
 
-function redirectLogin() {
-  if (typeof window === 'undefined') return
-  if (location.pathname.startsWith('/login')) return
-  location.href = `/login?redirect=${encodeURIComponent(location.pathname + location.search)}`
+function isAuthFailure(
+  status: number,
+  message: string,
+  skipRefresh?: boolean,
+  path?: string,
+) {
+  if (skipRefresh || path?.includes('refreshToken')) return false
+  if (status === 401) return true
+  return /登录已失效|登录失效|未授权|鉴权失败|Unauthorized|unauthorized|invalid.?token|token.?expired|jwt.?expired/i.test(
+    message,
+  )
+}
+
+async function parseJson(raw: string) {
+  try {
+    return raw ? JSON.parse(raw) : null
+  } catch {
+    return null
+  }
 }
 
 /** App 端通用请求 → /app/... */
@@ -73,40 +108,73 @@ export async function request<T>(
   init?: RequestOptions,
 ): Promise<T> {
   const { toast: showToast = true, skipRefresh, ...rest } = init || {}
-  const headers = new Headers(rest.headers)
-  if (!headers.has('content-type') && rest.body) {
-    headers.set('content-type', 'application/json')
-  }
-  const token = getAccessToken()
-  if (token) headers.set('authorization', `Bearer ${token}`)
 
-  const res = await fetch(apiUrl(path), { ...rest, headers })
-  const raw = await res.text()
-  let json: { code?: number; message?: string; data?: T } | null = null
-  try {
-    json = raw ? JSON.parse(raw) : null
-  } catch {
-    /* ignore */
+  const buildHeaders = (token?: string | null) => {
+    const headers = new Headers(rest.headers)
+    if (!headers.has('content-type') && rest.body) {
+      headers.set('content-type', 'application/json')
+    }
+    if (token) headers.set('authorization', `Bearer ${token}`)
+    return headers
   }
 
-  if (json?.code === 1000) return json.data as T
+  const doFetch = async (token?: string | null) => {
+    const res = await fetch(apiUrl(path), {
+      ...rest,
+      headers: buildHeaders(token),
+    })
+    const raw = await res.text()
+    const json = (await parseJson(raw)) as {
+      code?: number
+      message?: string
+      data?: T
+    } | null
+    return { res, raw, json }
+  }
 
-  const message = json?.message || raw || `请求失败 (${res.status})`
-  const needAuth =
-    !skipRefresh &&
-    (res.status === 401 ||
-      /token|登录|未授权|鉴权|Unauthorized|unauthorized/i.test(message))
-
-  if (needAuth) {
+  const failAuth = () => {
     clearTokens()
     redirectLogin()
     throw new Error('登录已失效，请重新登录')
   }
 
-  if (showToast && import.meta.env.DEV) {
-    console.warn('[api]', message)
+  const failBiz = (msg: string) => {
+    if (showToast && import.meta.env.DEV) {
+      console.warn('[api]', msg)
+    }
+    throw new Error(msg)
   }
-  throw new Error(message)
+
+  const first = await doFetch(getAccessToken())
+  if (first.json?.code === 1000) return first.json.data as T
+
+  const firstMsg =
+    first.json?.message || first.raw || `请求失败 (${first.res.status})`
+  if (!isAuthFailure(first.res.status, firstMsg, skipRefresh, path)) {
+    failBiz(firstMsg)
+  }
+
+  if (!getRefreshToken()) failAuth()
+
+  let next = ''
+  try {
+    next = await sharedRefresh()
+  } catch {
+    failAuth()
+  }
+
+  const retry = await doFetch(next)
+  if (retry.json?.code === 1000) return retry.json.data as T
+
+  const retryMsg =
+    retry.json?.message || retry.raw || `请求失败 (${retry.res.status})`
+  if (
+    retry.res.status === 401 ||
+    isAuthFailure(retry.res.status, retryMsg, false, path)
+  ) {
+    failAuth()
+  }
+  failBiz(retryMsg)
 }
 
 configureClient({ request })
