@@ -7,7 +7,7 @@ const env = isDev ? dev : prod
 
 export const config = {
   app: {
-    name: '微茫科技',
+    name: '威迈科技',
     desc: '高性能快速开发平台',
   },
   ignore: {

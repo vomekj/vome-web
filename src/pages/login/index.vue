@@ -10,8 +10,8 @@ import {
 import logoDark from '@/static/image/logo-dark.png'
 import { startBubble, stopBubble } from '@/utils/login-bubble'
 
-/** 默认常显的 SSO；其余进「更多」 */
-const PRIMARY_SSO = ['github', 'wechat'] as const
+/** 登录下方常显 SSO 数量；超出部分进「更多」 */
+const SSO_PRIMARY_COUNT = 2
 
 type AuthMode = 'login' | 'register'
 type AuthMethod = 'password' | 'code'
@@ -45,13 +45,12 @@ const successMsg = ref('登录成功')
 
 let countdownTimer = 0
 
+/** 按接口返回顺序：前 2 个平铺，其余折叠 */
 const primaryProviders = computed(() =>
-  PRIMARY_SSO.filter((p) => providers.value.includes(p)),
+  providers.value.slice(0, SSO_PRIMARY_COUNT),
 )
 const moreProviders = computed(() =>
-  providers.value.filter(
-    (p) => !(PRIMARY_SSO as readonly string[]).includes(p),
-  ),
+  providers.value.slice(SSO_PRIMARY_COUNT),
 )
 
 const busy = computed(() => loading.value || !!ssoLoading.value)
