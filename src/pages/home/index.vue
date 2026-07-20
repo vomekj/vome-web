@@ -25,15 +25,15 @@
         <ul class="vm-home__stats">
           <li>
             <span>手机号</span>
-            <strong>{{ userStore.profile?.phone || '—' }}</strong>
+            <strong>{{ userStore.info?.phone || '—' }}</strong>
           </li>
           <li>
             <span>邮箱</span>
-            <strong>{{ userStore.profile?.email || '—' }}</strong>
+            <strong>{{ userStore.info?.email || '—' }}</strong>
           </li>
           <li>
             <span>状态</span>
-            <strong>{{ userStore.profile ? '已登录' : '游客' }}</strong>
+            <strong>{{ userStore.info ? '已登录' : '游客' }}</strong>
           </li>
         </ul>
       </aside>

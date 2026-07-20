@@ -40,9 +40,6 @@ export const useUserStore = defineStore('user', () => {
       '用户',
   )
 
-  /** 兼容旧字段名 profile */
-  const profile = computed(() => info.value ?? null)
-
   function setToken(data: UserTokenPayload | { token: string; refreshToken: string }) {
     token.value = data.token
     setTokens(data.token, data.refreshToken)
@@ -129,15 +126,9 @@ export const useUserStore = defineStore('user', () => {
     }
   }
 
-  /** @deprecated 用 get() */
-  async function fetchPerson() {
-    return get()
-  }
-
   return {
     token,
     info,
-    profile,
     loaded,
     displayName,
     setToken,
@@ -147,11 +138,10 @@ export const useUserStore = defineStore('user', () => {
     update,
     clear,
     logout,
-    fetchPerson,
   }
 })
 
-/** 兼容 `userStore.xxx` */
+/** 全局代理（auto-import）；等价 useUserStore() */
 export const userStore = new Proxy({} as ReturnType<typeof useUserStore>, {
   get(_t, prop) {
     const store = useUserStore()

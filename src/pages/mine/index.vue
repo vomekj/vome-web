@@ -5,7 +5,7 @@
     <div class="card">
       <div class="profile">
         <p class="name">{{ helloName }}</p>
-        <p class="meta">{{ userStore.profile?.phone || '未绑定手机号' }}</p>
+        <p class="meta">{{ userStore.info?.phone || '未绑定手机号' }}</p>
       </div>
       <button
         v-if="!authed"

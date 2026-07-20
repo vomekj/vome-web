@@ -70,7 +70,7 @@ export const useAppStore = defineStore('app', {
   },
 })
 
-/** 兼容 `appStore.xxx` 写法 */
+/** 全局代理（auto-import）；等价 useAppStore() */
 export const appStore = new Proxy({} as ReturnType<typeof useAppStore>, {
   get(_t, prop) {
     const store = useAppStore()
