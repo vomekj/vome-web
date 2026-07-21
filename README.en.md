@@ -124,7 +124,7 @@ vome-web/
 │   │   └── socket.ts
 │   ├── stores/                # app / user / theme
 │   ├── router/
-│   ├── config/                # index / dev / prod / proxy (no .env)
+│   ├── config/                # index / dev / prod / proxy
 │   ├── styles/theme.css
 │   └── utils/
 ├── typings/
@@ -149,7 +149,7 @@ vome-web/
 
 ## Configuration
 
-All config lives under `src/config/` (**no `.env`**):
+All config lives under `src/config/` :
 
 | File | Purpose |
 | --- | --- |

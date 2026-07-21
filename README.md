@@ -124,7 +124,7 @@ vome-web/
 │   │   └── socket.ts
 │   ├── stores/                # app / user / theme
 │   ├── router/
-│   ├── config/                # index / dev / prod / proxy（禁止 .env）
+│   ├── config/                # index / dev / prod / proxy
 │   ├── styles/theme.css
 │   └── utils/
 ├── typings/
@@ -149,7 +149,7 @@ vome-web/
 
 ## 配置说明
 
-配置在 `src/config/`（**不使用 `.env`**）：
+配置在 `src/config/`：
 
 | 文件 | 用途 |
 | --- | --- |
