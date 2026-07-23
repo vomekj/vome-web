@@ -168,6 +168,52 @@
         "pageColumns": []
       }
     ],
+    "i18n": [
+      {
+        "module": "i18n",
+        "side": "app",
+        "prefix": "/app/i18n/pack",
+        "info": {
+          "type": {
+            "name": "pack",
+            "description": "App 语言包"
+          }
+        },
+        "api": [
+          {
+            "method": "get",
+            "path": "/locales",
+            "summary": "已生成语言包的可切换语种",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/i18n/pack",
+            "ignoreToken": true,
+            "ignorePerms": false,
+            "perms": []
+          },
+          {
+            "method": "get",
+            "path": "/active",
+            "summary": "运行时拉取语言包",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/i18n/pack",
+            "ignoreToken": true,
+            "ignorePerms": false,
+            "perms": []
+          }
+        ],
+        "columns": [],
+        "pageQueryOp": {
+          "keyWordLikeFields": [],
+          "fieldEq": [],
+          "fieldLike": [],
+          "fieldArray": [],
+          "fieldRange": []
+        },
+        "pageColumns": []
+      }
+    ],
     "user": [
       {
         "module": "user",
@@ -271,7 +317,18 @@
           {
             "method": "post",
             "path": "/bindPhone",
-            "summary": "绑定手机号",
+            "summary": "绑定/验证手机号（验证码，只验一次）",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/user/info",
+            "ignoreToken": false,
+            "ignorePerms": false,
+            "perms": []
+          },
+          {
+            "method": "post",
+            "path": "/bindEmail",
+            "summary": "绑定/验证邮箱（验证码，只验一次）",
             "dts": {},
             "tag": "",
             "prefix": "/app/user/info",

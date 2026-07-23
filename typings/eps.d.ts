@@ -27,6 +27,12 @@ declare namespace Eps {
 		[key: string]: any;
 	}
 
+	interface I18n_packEntity {
+		id?: number;
+
+		[key: string]: any;
+	}
+
 	interface User_commEntity {
 		id?: number;
 
@@ -141,6 +147,33 @@ declare namespace Eps {
 		request: Eps.Request;
 	}
 
+	interface I18n_pack {
+		/** 已生成语言包的可切换语种 */
+		locales(data?: any): Promise<any>;
+
+		/** 运行时拉取语言包 */
+		active(data?: any): Promise<any>;
+
+		page(data?: any): Promise<{ list: I18n_packEntity[]; pagination: { page: number; size: number; total: number } }>;
+
+		list(data?: any): Promise<I18n_packEntity[]>;
+
+		info(data?: { id: number | string }): Promise<I18n_packEntity>;
+
+		add(data?: any): Promise<any>;
+
+		update(data?: any): Promise<any>;
+
+		delete(data?: any): Promise<any>;
+
+		restore(data?: any): Promise<any>;
+
+		namespace: string;
+		permission: { locales: string; active: string; page: string; list: string; info: string; add: string; update: string; delete: string; restore: string };
+		_permission: { locales: boolean; active: boolean; page: boolean; list: boolean; info: boolean; add: boolean; update: boolean; delete: boolean; restore: boolean };
+		request: Eps.Request;
+	}
+
 	interface User_comm {
 		/** 获取微信公众号配置 */
 		wxMpConfig(data?: any): Promise<any>;
@@ -181,8 +214,11 @@ declare namespace Eps {
 		/** 退出登录 */
 		logout(data?: any): Promise<any>;
 
-		/** 绑定手机号 */
+		/** 绑定/验证手机号（验证码，只验一次） */
 		bindPhone(data?: any): Promise<any>;
+
+		/** 绑定/验证邮箱（验证码，只验一次） */
+		bindEmail(data?: any): Promise<any>;
 
 		/** 绑定小程序手机号 */
 		miniPhone(data?: any): Promise<any>;
@@ -202,8 +238,8 @@ declare namespace Eps {
 		restore(data?: any): Promise<any>;
 
 		namespace: string;
-		permission: { person: string; updatePerson: string; updatePassword: string; logoff: string; logout: string; bindPhone: string; miniPhone: string; page: string; list: string; info: string; add: string; update: string; delete: string; restore: string };
-		_permission: { person: boolean; updatePerson: boolean; updatePassword: boolean; logoff: boolean; logout: boolean; bindPhone: boolean; miniPhone: boolean; page: boolean; list: boolean; info: boolean; add: boolean; update: boolean; delete: boolean; restore: boolean };
+		permission: { person: string; updatePerson: string; updatePassword: string; logoff: string; logout: string; bindPhone: string; bindEmail: string; miniPhone: string; page: string; list: string; info: string; add: string; update: string; delete: string; restore: string };
+		_permission: { person: boolean; updatePerson: boolean; updatePassword: boolean; logoff: boolean; logout: boolean; bindPhone: boolean; bindEmail: boolean; miniPhone: boolean; page: boolean; list: boolean; info: boolean; add: boolean; update: boolean; delete: boolean; restore: boolean };
 		request: Eps.Request;
 	}
 
@@ -306,6 +342,9 @@ declare namespace Eps {
 			comm: Base_comm;
 			dict: Base_dict;
 			open: Base_open;
+		};
+		i18n: {
+			pack: I18n_pack;
 		};
 		user: {
 			comm: User_comm;

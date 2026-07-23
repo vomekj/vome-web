@@ -20,8 +20,17 @@ async function main() {
   }
 
   const app = createApp(App)
-  app.use(createPinia())
+  const pinia = createPinia()
+  app.use(pinia)
   app.use(router)
+
+  try {
+    const { useLocaleStore } = await import('@/stores/locale')
+    await useLocaleStore(pinia).initLocale()
+  } catch (e) {
+    console.warn('[boot] initLocale failed', e)
+  }
+
   app.mount('#app')
 
   const { connectWs } = await import('@/lib/socket')
