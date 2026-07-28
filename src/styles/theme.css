@@ -166,3 +166,32 @@ html.dark,
     color: var(--vm-brand-text, var(--foreground));
     }
 }
+
+/* 主题切换：新主题快照从右上角圆弧扫向左下（View Transitions；不改 token） */
+@media (prefers-reduced-motion: no-preference) {
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none;
+    mix-blend-mode: normal;
+    height: 100%;
+    width: 100%;
+  }
+
+  ::view-transition-old(root) {
+    z-index: 1;
+  }
+
+  ::view-transition-new(root) {
+    z-index: 2;
+    animation: vm-theme-flip 0.9s cubic-bezier(0.33, 1, 0.68, 1) both;
+  }
+}
+
+@keyframes vm-theme-flip {
+  from {
+    clip-path: circle(0% at 100% 0%);
+  }
+  to {
+    clip-path: circle(150% at 100% 0%);
+  }
+}

@@ -153,7 +153,6 @@ async function onLogout() {
 
 onMounted(() => {
   appStore.setActive('home')
-  void userStore.get()
 })
 </script>
 

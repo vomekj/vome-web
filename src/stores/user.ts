@@ -14,6 +14,9 @@ export type { AppUser, UserTokenPayload }
 
 const USER_INFO_KEY = 'vome_web_user'
 
+/** 并发 get 只打一轮 person（App / header / 页面会同时触发） */
+let getFlight: Promise<AppUser | null> | null = null
+
 function readCachedUser(): AppUser | undefined {
   try {
     const raw = localStorage.getItem(USER_INFO_KEY)
@@ -43,6 +46,7 @@ export const useUserStore = defineStore('user', () => {
   function setToken(data: UserTokenPayload | { token: string; refreshToken: string }) {
     token.value = data.token
     setTokens(data.token, data.refreshToken)
+    loaded.value = false
   }
 
   async function refreshToken(): Promise<string> {
@@ -93,6 +97,7 @@ export const useUserStore = defineStore('user', () => {
     token.value = ''
     info.value = undefined
     loaded.value = false
+    getFlight = null
     void import('@/lib/socket').then(({ disconnectWs }) => disconnectWs())
   }
 
@@ -105,25 +110,34 @@ export const useUserStore = defineStore('user', () => {
     clear()
   }
 
-  async function get() {
+  /** 全局只打一轮 person；force 用于充值/登录后等需刷新场景 */
+  async function get(opts?: { force?: boolean }) {
     if (!getAccessToken()) {
       info.value = undefined
       loaded.value = true
       return null
     }
-    try {
-      const person =
-        (await service.user?.info?.person?.()) ??
-        (await request<AppUser>('/app/user/info/person', { toast: false }))
-      if (person) set(person)
-      token.value = String(getAccessToken() || '')
-      return person
-    } catch {
-      clear()
-      return null
-    } finally {
-      loaded.value = true
-    }
+    if (!opts?.force && loaded.value) return info.value ?? null
+    if (getFlight) return getFlight
+
+    getFlight = (async () => {
+      try {
+        const person =
+          (await service.user?.info?.person?.()) ??
+          (await request<AppUser>('/app/user/info/person', { toast: false }))
+        if (person) set(person)
+        token.value = String(getAccessToken() || '')
+        return person
+      } catch {
+        clear()
+        return null
+      } finally {
+        loaded.value = true
+        getFlight = null
+      }
+    })()
+
+    return getFlight
   }
 
   return {

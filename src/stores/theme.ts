@@ -9,6 +9,15 @@ const PAGE_BG = { light: '#f4f6fc', dark: '#141625' } as const
 const themeMode = ref<ThemeMode>('system')
 const systemDark = ref(false)
 
+/** 弧形扫瞄过渡中，避免连点叠两次 View Transition */
+let themeTransitioning = false
+
+type ViewTransitionDoc = Document & {
+  startViewTransition?: (update: () => void) => {
+    finished: Promise<void>
+  }
+}
+
 function resolveDark(mode: ThemeMode, prefersDark: boolean) {
   if (mode === 'dark') return true
   if (mode === 'light') return false
@@ -39,16 +48,53 @@ export function applyThemeDom(dark: boolean) {
     : PAGE_BG.light
 }
 
-export function setTheme(mode: ThemeMode | boolean) {
+function prefersReducedMotion() {
+  if (typeof window === 'undefined') return true
+  return window.matchMedia('(prefers-reduced-motion: reduce)').matches
+}
+
+/** 亮暗视觉变化时走 View Transition；启动 / 降级 / 减少动效则即时应用 */
+function runThemeUpdate(apply: () => void, animate: boolean) {
+  const doc =
+    typeof document !== 'undefined'
+      ? (document as ViewTransitionDoc)
+      : null
+  if (
+    !animate ||
+    !doc?.startViewTransition ||
+    prefersReducedMotion() ||
+    themeTransitioning
+  ) {
+    apply()
+    return
+  }
+
+  themeTransitioning = true
+  const transition = doc.startViewTransition(apply)
+  void transition.finished.finally(() => {
+    themeTransitioning = false
+  })
+}
+
+export function setTheme(
+  mode: ThemeMode | boolean,
+  options?: { animate?: boolean },
+) {
   const next: ThemeMode =
     typeof mode === 'boolean' ? (mode ? 'dark' : 'light') : mode
-  themeMode.value = next
-  try {
-    localStorage.setItem(STORAGE_KEY, next)
-  } catch {
-    // ignore
-  }
-  applyThemeDom(isDark.value)
+  const nextDark = resolveDark(next, systemDark.value)
+  const visualChange = nextDark !== isDark.value
+  const animate = options?.animate !== false && visualChange
+
+  runThemeUpdate(() => {
+    themeMode.value = next
+    try {
+      localStorage.setItem(STORAGE_KEY, next)
+    } catch {
+      // ignore
+    }
+    applyThemeDom(isDark.value)
+  }, animate)
 }
 
 export function toggleTheme() {

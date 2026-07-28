@@ -159,7 +159,6 @@ function onUserClick() {
 }
 
 onMounted(() => {
-  void user.get()
   document.addEventListener('pointerdown', onDocPointerDown)
 })
 

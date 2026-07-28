@@ -57,7 +57,6 @@ const helloName = computed(() =>
 
 onMounted(() => {
   appStore.setActive('mine')
-  void userStore.get()
 })
 
 function onDarkToggle() {
