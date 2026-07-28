@@ -3,6 +3,7 @@ import {
   bindEpsHotReload,
   configureClient,
   createEps,
+  fetchPackagedEpsJson,
   getService,
 } from '/@'
 import type { RequestOptions } from '/#/typings/comm/request'
@@ -177,7 +178,7 @@ export async function request<T>(
   failBiz(retryMsg)
 }
 
-configureClient({ request })
+configureClient({ request, loadStaticEps: fetchPackagedEpsJson })
 bindEpsHotReload('app')
 
 /** App 侧链式 service：service.user.xxx */
