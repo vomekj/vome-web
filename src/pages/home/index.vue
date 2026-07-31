@@ -75,11 +75,11 @@
           </div>
         </header>
         <div class="vm-home__shortcuts">
-          <RouterLink to="/mine" class="vm-home__shortcut">
+          <RouterLink to="/pages/mine/index" class="vm-home__shortcut">
             <i class="ri-user-3-line" />
             <span>我的</span>
           </RouterLink>
-          <RouterLink to="/login" class="vm-home__shortcut">
+          <RouterLink to="/pages/login/index" class="vm-home__shortcut">
             <i class="ri-login-box-line" />
             <span>登录</span>
           </RouterLink>
@@ -145,7 +145,7 @@ async function onLogout() {
   loggingOut.value = true
   try {
     await userStore.logout()
-    await router.replace('/login')
+    await openPage('/pages/login/index', { replace: true })
   } finally {
     loggingOut.value = false
   }

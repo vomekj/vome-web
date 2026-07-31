@@ -11,7 +11,7 @@ export const config = {
     desc: '高性能快速开发平台',
   },
   ignore: {
-    token: ['/login'],
+    token: ['/pages/login/index'],
   },
   host: env.host,
   baseUrl: env.baseUrl,

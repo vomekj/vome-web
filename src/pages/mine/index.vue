@@ -47,7 +47,6 @@
 <script setup lang="ts">
 import { getAccessToken } from '@/api/client'
 
-const router = useRouter()
 const loading = ref(false)
 
 const authed = computed(() => Boolean(getAccessToken()))
@@ -64,7 +63,7 @@ function onDarkToggle() {
 }
 
 function goLogin() {
-  void router.push('/login')
+  void openPage('/pages/login/index')
 }
 
 async function onLogout() {
@@ -72,7 +71,7 @@ async function onLogout() {
   loading.value = true
   try {
     await userStore.logout()
-    await router.replace('/login')
+    await openPage('/pages/login/index', { replace: true })
   } finally {
     loading.value = false
   }

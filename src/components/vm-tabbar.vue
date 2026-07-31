@@ -1,22 +1,22 @@
 <template>
-  <nav class="vm-app-tabbar" aria-label="主导航">
+  <nav class="vm-tabbar" aria-label="主导航">
     <button
       v-for="item in TAB_LIST"
       :key="item.name"
       type="button"
-      class="vm-app-tabbar__item"
+      class="vm-tabbar__item"
       :class="{ 'is-active': active === item.name }"
       @click="onSelect(item.name)"
     >
-      <vm-ri-icon class="vm-app-tabbar__icon" :name="item.icon" />
-      <span class="vm-app-tabbar__label">{{ item.text }}</span>
+      <vm-ri-icon class="vm-tabbar__icon" :name="item.icon" />
+      <span class="vm-tabbar__label">{{ item.text }}</span>
     </button>
   </nav>
 </template>
 
 <script setup lang="ts">
 /**
- * 移动端底栏（对齐 uni vm-app-tabbar；真路由 push）
+ * 移动端底栏（零代码原生；路径对齐 uni `components/vm-tabbar.vue`；走 openPage）
  */
 import VmRiIcon from '@/components/vm-ri-icon.vue'
 
@@ -32,7 +32,6 @@ const emit = defineEmits<{
   change: [name: ShellTab]
 }>()
 
-const router = useRouter()
 const active = computed(() => props.modelValue || appStore.active)
 
 function onSelect(name: ShellTab) {
@@ -41,12 +40,12 @@ function onSelect(name: ShellTab) {
   emit('change', name)
   appStore.setActive(name)
   const item = TAB_LIST.find((t) => t.name === name)
-  if (item) void router.push(item.path)
+  if (item) void openPage(item.path)
 }
 </script>
 
 <style lang="scss" scoped>
-.vm-app-tabbar {
+.vm-tabbar {
   position: fixed;
   left: 0;
   right: 0;
@@ -62,7 +61,7 @@ function onSelect(name: ShellTab) {
   box-sizing: border-box;
 }
 
-.vm-app-tabbar__item {
+.vm-tabbar__item {
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -77,22 +76,22 @@ function onSelect(name: ShellTab) {
   transition: color 0.15s ease;
 }
 
-.vm-app-tabbar__item.is-active {
+.vm-tabbar__item.is-active {
   color: #4e5dff;
 }
 
-.vm-app-tabbar__icon {
+.vm-tabbar__icon {
   font-size: 22px;
   line-height: 1;
 }
 
-.vm-app-tabbar__label {
+.vm-tabbar__label {
   font-size: 11px;
   font-weight: 500;
   line-height: 15px;
 }
 
-.vm-app-tabbar__item.is-active .vm-app-tabbar__label {
+.vm-tabbar__item.is-active .vm-tabbar__label {
   font-weight: 650;
 }
 </style>

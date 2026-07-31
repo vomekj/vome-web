@@ -115,8 +115,8 @@ vome-web/
 │   │   └── login/             # → /login（免登录）
 │   ├── components/
 │   │   ├── ui/                # shadcn-vue
-│   │   ├── vm-app-header.vue
-│   │   ├── vm-app-tabbar.vue
+│   │   ├── vm-header.vue
+│   │   ├── vm-tabbar.vue
 │   │   └── vm-ri-icon.vue
 │   ├── api/client.ts          # request、Token、bootEps、service
 │   ├── lib/

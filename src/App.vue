@@ -7,11 +7,11 @@
       'has-tabbar': showShell && appStore.isMobile,
     }"
   >
-    <VmAppHeader v-if="showShell && !appStore.isMobile" />
+    <VmHeader v-if="showShell && !appStore.isMobile" />
     <main class="vm-app__main">
       <RouterView />
     </main>
-    <VmAppTabbar
+    <VmTabbar
       v-if="showShell && appStore.isMobile"
       :model-value="appStore.active"
     />
@@ -19,15 +19,15 @@
 </template>
 
 <script setup lang="ts">
-import VmAppHeader from '@/components/vm-app-header.vue'
-import VmAppTabbar from '@/components/vm-app-tabbar.vue'
+import VmHeader from '@/components/vm-header.vue'
+import VmTabbar from '@/components/vm-tabbar.vue'
 import { ensureFreshToken, getAccessToken } from '@/api/client'
 
 const route = useRoute()
 
 const showShell = computed(() => {
   const path = route.path.replace(/\/$/, '') || '/'
-  return path !== '/login'
+  return path !== '/pages/login/index'
 })
 
 onMounted(() => {

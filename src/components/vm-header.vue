@@ -86,9 +86,8 @@ import logoLight from '@/static/image/logo-light.png'
 import logoDark from '@/static/image/logo-dark.png'
 
 /**
- * 桌面顶栏：左品牌 / 中导航 / 右主题+语言+头像（对齐 uni header，Vue3 挂载）
+ * 桌面顶栏（零代码原生；路径对齐 uni `components/vm-header.vue`）
  */
-const router = useRouter()
 const locale = useLocaleStore()
 const user = useUserStore()
 const tabList = TAB_LIST
@@ -118,14 +117,14 @@ const logoSrc = computed(() => (isDark.value ? logoLight : logoDark))
 
 function goHome() {
   appStore.goHome()
-  void router.push('/home')
+  void openPage('/pages/home/index')
 }
 
 function switchTab(index: number) {
   const item = tabList[index]
   if (!item) return
   appStore.setActive(item.name)
-  void router.push(item.path)
+  void openPage(item.path)
 }
 
 function onToggleTheme() {
@@ -151,11 +150,11 @@ function onDocPointerDown(e: PointerEvent) {
 
 function onUserClick() {
   if (!authed.value) {
-    void router.push('/login')
+    void openPage('/pages/login/index')
     return
   }
   appStore.setActive('mine')
-  void router.push('/mine')
+  void openPage('/pages/mine/index')
 }
 
 onMounted(() => {

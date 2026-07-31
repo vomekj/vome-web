@@ -1,0 +1,2 @@
+# 与 uniapp 对齐的分包路径目录（Web 无真实分包，仅路径/落盘同构）
+# src/pages-sub/<path>/index.vue → 路由 /pages-sub/<path>/index

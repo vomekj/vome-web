@@ -1,6 +1,108 @@
 {
+  "eps": true,
   "admin": {},
   "app": {
+    "agent": [
+      {
+        "module": "agent",
+        "side": "app",
+        "prefix": "/app/agent/auth",
+        "info": {
+          "type": {
+            "name": "auth",
+            "description": "Agent 授权"
+          }
+        },
+        "api": [
+          {
+            "method": "post",
+            "path": "/heartbeat",
+            "summary": "刷新 Token TTL",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/agent/auth",
+            "ignoreToken": false,
+            "ignorePerms": false,
+            "perms": []
+          },
+          {
+            "method": "post",
+            "path": "/closeSession",
+            "summary": "吊销当前 Token",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/agent/auth",
+            "ignoreToken": false,
+            "ignorePerms": false,
+            "perms": []
+          },
+          {
+            "method": "post",
+            "path": "/me",
+            "summary": "当前会话上下文",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/agent/auth",
+            "ignoreToken": false,
+            "ignorePerms": false,
+            "perms": []
+          }
+        ],
+        "columns": [],
+        "pageQueryOp": {
+          "keyWordLikeFields": [],
+          "fieldEq": [],
+          "fieldLike": [],
+          "fieldArray": [],
+          "fieldRange": []
+        },
+        "pageColumns": []
+      },
+      {
+        "module": "agent",
+        "side": "app",
+        "prefix": "/app/agent/kb",
+        "info": {
+          "type": {
+            "name": "kb",
+            "description": "Agent 知识库"
+          }
+        },
+        "api": [
+          {
+            "method": "post",
+            "path": "/search",
+            "summary": "检索知识库",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/agent/kb",
+            "ignoreToken": false,
+            "ignorePerms": false,
+            "perms": []
+          },
+          {
+            "method": "post",
+            "path": "/adoptionWriteback",
+            "summary": "采纳结果写回知识库",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/agent/kb",
+            "ignoreToken": false,
+            "ignorePerms": false,
+            "perms": []
+          }
+        ],
+        "columns": [],
+        "pageQueryOp": {
+          "keyWordLikeFields": [],
+          "fieldEq": [],
+          "fieldLike": [],
+          "fieldArray": [],
+          "fieldRange": []
+        },
+        "pageColumns": []
+      }
+    ],
     "base": [
       {
         "module": "base",
@@ -148,7 +250,7 @@
           {
             "method": "get",
             "path": "/eps",
-            "summary": "实体信息与路径",
+            "summary": "实体信息与路径（含完整字典）",
             "dts": {},
             "tag": "",
             "prefix": "/app/base/open",
@@ -166,6 +268,679 @@
           "fieldRange": []
         },
         "pageColumns": []
+      }
+    ],
+    "faq": [
+      {
+        "module": "faq",
+        "side": "app",
+        "prefix": "/app/faq/faqPost",
+        "name": "FaqPostEntity",
+        "info": {
+          "type": {
+            "name": "faqPost",
+            "description": "faqPost"
+          }
+        },
+        "api": [
+          {
+            "method": "post",
+            "path": "/page",
+            "summary": "问答分页",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/faq/faqPost",
+            "ignoreToken": true,
+            "ignorePerms": false,
+            "perms": []
+          },
+          {
+            "method": "post",
+            "path": "/info",
+            "summary": "问答详情",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/faq/faqPost",
+            "ignoreToken": true,
+            "ignorePerms": false,
+            "perms": []
+          },
+          {
+            "method": "post",
+            "path": "/add",
+            "summary": "新增",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/faq/faqPost",
+            "ignoreToken": false,
+            "ignorePerms": false,
+            "perms": []
+          },
+          {
+            "method": "get",
+            "path": "/importTemplate",
+            "summary": "下载导入模板",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/faq/faqPost",
+            "ignoreToken": false,
+            "ignorePerms": false,
+            "perms": []
+          },
+          {
+            "method": "post",
+            "path": "/import",
+            "summary": "导入",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/faq/faqPost",
+            "ignoreToken": false,
+            "ignorePerms": false,
+            "perms": []
+          }
+        ],
+        "columns": [
+          {
+            "propertyName": "id",
+            "type": "number",
+            "nullable": false,
+            "source": "a.id",
+            "comment": "ID",
+            "table": "faq_post"
+          },
+          {
+            "propertyName": "typeId",
+            "type": "number",
+            "nullable": false,
+            "source": "a.typeId",
+            "comment": "类型",
+            "table": "faq_post"
+          },
+          {
+            "propertyName": "userId",
+            "type": "string",
+            "nullable": false,
+            "source": "a.userId",
+            "comment": "作者",
+            "table": "faq_post"
+          },
+          {
+            "propertyName": "title",
+            "type": "string",
+            "length": "200",
+            "nullable": false,
+            "source": "a.title",
+            "comment": "标题",
+            "table": "faq_post"
+          },
+          {
+            "propertyName": "content",
+            "type": "string",
+            "nullable": false,
+            "source": "a.content",
+            "comment": "内容",
+            "table": "faq_post"
+          },
+          {
+            "propertyName": "viewCount",
+            "type": "number",
+            "nullable": false,
+            "source": "a.viewCount",
+            "comment": "浏览",
+            "table": "faq_post"
+          },
+          {
+            "propertyName": "replyCount",
+            "type": "number",
+            "nullable": false,
+            "source": "a.replyCount",
+            "comment": "回复数",
+            "table": "faq_post"
+          },
+          {
+            "propertyName": "isTop",
+            "type": "number",
+            "nullable": false,
+            "source": "a.isTop",
+            "comment": "置顶",
+            "table": "faq_post"
+          },
+          {
+            "propertyName": "isSolved",
+            "type": "number",
+            "nullable": false,
+            "source": "a.isSolved",
+            "comment": "已解决",
+            "table": "faq_post"
+          },
+          {
+            "propertyName": "status",
+            "type": "number",
+            "nullable": false,
+            "source": "a.status",
+            "comment": "状态",
+            "table": "faq_post"
+          },
+          {
+            "propertyName": "createTime",
+            "type": "date",
+            "nullable": false,
+            "source": "a.createTime",
+            "comment": "创建时间",
+            "table": "faq_post"
+          },
+          {
+            "propertyName": "updateTime",
+            "type": "date",
+            "nullable": false,
+            "source": "a.updateTime",
+            "comment": "更新时间",
+            "table": "faq_post"
+          },
+          {
+            "propertyName": "deletedAt",
+            "type": "date",
+            "nullable": true,
+            "source": "a.deletedAt",
+            "comment": "删除时间",
+            "table": "faq_post"
+          }
+        ],
+        "pageQueryOp": {
+          "keyWordLikeFields": [],
+          "fieldEq": [],
+          "fieldLike": [],
+          "fieldArray": [],
+          "fieldRange": []
+        },
+        "pageColumns": [
+          {
+            "propertyName": "id",
+            "type": "number",
+            "nullable": false,
+            "source": "a.id",
+            "comment": "ID",
+            "table": "faq_post"
+          },
+          {
+            "propertyName": "typeId",
+            "type": "number",
+            "nullable": false,
+            "source": "a.typeId",
+            "comment": "类型",
+            "table": "faq_post"
+          },
+          {
+            "propertyName": "userId",
+            "type": "string",
+            "nullable": false,
+            "source": "a.userId",
+            "comment": "作者",
+            "table": "faq_post"
+          },
+          {
+            "propertyName": "title",
+            "type": "string",
+            "length": "200",
+            "nullable": false,
+            "source": "a.title",
+            "comment": "标题",
+            "table": "faq_post"
+          },
+          {
+            "propertyName": "content",
+            "type": "string",
+            "nullable": false,
+            "source": "a.content",
+            "comment": "内容",
+            "table": "faq_post"
+          },
+          {
+            "propertyName": "viewCount",
+            "type": "number",
+            "nullable": false,
+            "source": "a.viewCount",
+            "comment": "浏览",
+            "table": "faq_post"
+          },
+          {
+            "propertyName": "replyCount",
+            "type": "number",
+            "nullable": false,
+            "source": "a.replyCount",
+            "comment": "回复数",
+            "table": "faq_post"
+          },
+          {
+            "propertyName": "isTop",
+            "type": "number",
+            "nullable": false,
+            "source": "a.isTop",
+            "comment": "置顶",
+            "table": "faq_post"
+          },
+          {
+            "propertyName": "isSolved",
+            "type": "number",
+            "nullable": false,
+            "source": "a.isSolved",
+            "comment": "已解决",
+            "table": "faq_post"
+          },
+          {
+            "propertyName": "status",
+            "type": "number",
+            "nullable": false,
+            "source": "a.status",
+            "comment": "状态",
+            "table": "faq_post"
+          },
+          {
+            "propertyName": "createTime",
+            "type": "date",
+            "nullable": false,
+            "source": "a.createTime",
+            "comment": "创建时间",
+            "table": "faq_post"
+          },
+          {
+            "propertyName": "updateTime",
+            "type": "date",
+            "nullable": false,
+            "source": "a.updateTime",
+            "comment": "更新时间",
+            "table": "faq_post"
+          },
+          {
+            "propertyName": "deletedAt",
+            "type": "date",
+            "nullable": true,
+            "source": "a.deletedAt",
+            "comment": "删除时间",
+            "table": "faq_post"
+          }
+        ]
+      },
+      {
+        "module": "faq",
+        "side": "app",
+        "prefix": "/app/faq/faqReply",
+        "name": "FaqReplyEntity",
+        "info": {
+          "type": {
+            "name": "faqReply",
+            "description": "faqReply"
+          }
+        },
+        "api": [
+          {
+            "method": "post",
+            "path": "/page",
+            "summary": "回复分页",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/faq/faqReply",
+            "ignoreToken": true,
+            "ignorePerms": false,
+            "perms": []
+          },
+          {
+            "method": "post",
+            "path": "/add",
+            "summary": "新增",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/faq/faqReply",
+            "ignoreToken": false,
+            "ignorePerms": false,
+            "perms": []
+          },
+          {
+            "method": "get",
+            "path": "/importTemplate",
+            "summary": "下载导入模板",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/faq/faqReply",
+            "ignoreToken": false,
+            "ignorePerms": false,
+            "perms": []
+          },
+          {
+            "method": "post",
+            "path": "/import",
+            "summary": "导入",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/faq/faqReply",
+            "ignoreToken": false,
+            "ignorePerms": false,
+            "perms": []
+          }
+        ],
+        "columns": [
+          {
+            "propertyName": "id",
+            "type": "number",
+            "nullable": false,
+            "source": "a.id",
+            "comment": "ID",
+            "table": "faq_reply"
+          },
+          {
+            "propertyName": "postId",
+            "type": "number",
+            "nullable": false,
+            "source": "a.postId",
+            "comment": "帖子",
+            "table": "faq_reply"
+          },
+          {
+            "propertyName": "userId",
+            "type": "string",
+            "nullable": false,
+            "source": "a.userId",
+            "comment": "用户",
+            "table": "faq_reply"
+          },
+          {
+            "propertyName": "content",
+            "type": "string",
+            "nullable": false,
+            "source": "a.content",
+            "comment": "内容",
+            "table": "faq_reply"
+          },
+          {
+            "propertyName": "images",
+            "type": "json",
+            "nullable": false,
+            "source": "a.images",
+            "comment": "图片",
+            "table": "faq_reply"
+          },
+          {
+            "propertyName": "status",
+            "type": "number",
+            "nullable": false,
+            "source": "a.status",
+            "comment": "状态",
+            "table": "faq_reply"
+          },
+          {
+            "propertyName": "createTime",
+            "type": "date",
+            "nullable": false,
+            "source": "a.createTime",
+            "comment": "创建时间",
+            "table": "faq_reply"
+          },
+          {
+            "propertyName": "updateTime",
+            "type": "date",
+            "nullable": false,
+            "source": "a.updateTime",
+            "comment": "更新时间",
+            "table": "faq_reply"
+          },
+          {
+            "propertyName": "deletedAt",
+            "type": "date",
+            "nullable": true,
+            "source": "a.deletedAt",
+            "comment": "删除时间",
+            "table": "faq_reply"
+          }
+        ],
+        "pageQueryOp": {
+          "keyWordLikeFields": [],
+          "fieldEq": [],
+          "fieldLike": [],
+          "fieldArray": [],
+          "fieldRange": []
+        },
+        "pageColumns": [
+          {
+            "propertyName": "id",
+            "type": "number",
+            "nullable": false,
+            "source": "a.id",
+            "comment": "ID",
+            "table": "faq_reply"
+          },
+          {
+            "propertyName": "postId",
+            "type": "number",
+            "nullable": false,
+            "source": "a.postId",
+            "comment": "帖子",
+            "table": "faq_reply"
+          },
+          {
+            "propertyName": "userId",
+            "type": "string",
+            "nullable": false,
+            "source": "a.userId",
+            "comment": "用户",
+            "table": "faq_reply"
+          },
+          {
+            "propertyName": "content",
+            "type": "string",
+            "nullable": false,
+            "source": "a.content",
+            "comment": "内容",
+            "table": "faq_reply"
+          },
+          {
+            "propertyName": "images",
+            "type": "json",
+            "nullable": false,
+            "source": "a.images",
+            "comment": "图片",
+            "table": "faq_reply"
+          },
+          {
+            "propertyName": "status",
+            "type": "number",
+            "nullable": false,
+            "source": "a.status",
+            "comment": "状态",
+            "table": "faq_reply"
+          },
+          {
+            "propertyName": "createTime",
+            "type": "date",
+            "nullable": false,
+            "source": "a.createTime",
+            "comment": "创建时间",
+            "table": "faq_reply"
+          },
+          {
+            "propertyName": "updateTime",
+            "type": "date",
+            "nullable": false,
+            "source": "a.updateTime",
+            "comment": "更新时间",
+            "table": "faq_reply"
+          },
+          {
+            "propertyName": "deletedAt",
+            "type": "date",
+            "nullable": true,
+            "source": "a.deletedAt",
+            "comment": "删除时间",
+            "table": "faq_reply"
+          }
+        ]
+      },
+      {
+        "module": "faq",
+        "side": "app",
+        "prefix": "/app/faq/faqType",
+        "name": "FaqTypeEntity",
+        "info": {
+          "type": {
+            "name": "faqType",
+            "description": "faqType"
+          }
+        },
+        "api": [
+          {
+            "method": "post",
+            "path": "/list",
+            "summary": "类型列表",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/faq/faqType",
+            "ignoreToken": true,
+            "ignorePerms": false,
+            "perms": []
+          }
+        ],
+        "columns": [
+          {
+            "propertyName": "id",
+            "type": "number",
+            "nullable": false,
+            "source": "a.id",
+            "comment": "ID",
+            "table": "faq_type"
+          },
+          {
+            "propertyName": "name",
+            "type": "string",
+            "length": "100",
+            "nullable": false,
+            "source": "a.name",
+            "comment": "名称",
+            "table": "faq_type"
+          },
+          {
+            "propertyName": "remark",
+            "type": "string",
+            "length": "500",
+            "nullable": true,
+            "source": "a.remark",
+            "comment": "备注",
+            "table": "faq_type"
+          },
+          {
+            "propertyName": "orderNum",
+            "type": "number",
+            "nullable": false,
+            "source": "a.orderNum",
+            "comment": "排序",
+            "table": "faq_type"
+          },
+          {
+            "propertyName": "status",
+            "type": "number",
+            "nullable": false,
+            "source": "a.status",
+            "comment": "状态",
+            "table": "faq_type"
+          },
+          {
+            "propertyName": "createTime",
+            "type": "date",
+            "nullable": false,
+            "source": "a.createTime",
+            "comment": "创建时间",
+            "table": "faq_type"
+          },
+          {
+            "propertyName": "updateTime",
+            "type": "date",
+            "nullable": false,
+            "source": "a.updateTime",
+            "comment": "更新时间",
+            "table": "faq_type"
+          },
+          {
+            "propertyName": "deletedAt",
+            "type": "date",
+            "nullable": true,
+            "source": "a.deletedAt",
+            "comment": "删除时间",
+            "table": "faq_type"
+          }
+        ],
+        "pageQueryOp": {
+          "keyWordLikeFields": [],
+          "fieldEq": [],
+          "fieldLike": [],
+          "fieldArray": [],
+          "fieldRange": []
+        },
+        "pageColumns": [
+          {
+            "propertyName": "id",
+            "type": "number",
+            "nullable": false,
+            "source": "a.id",
+            "comment": "ID",
+            "table": "faq_type"
+          },
+          {
+            "propertyName": "name",
+            "type": "string",
+            "length": "100",
+            "nullable": false,
+            "source": "a.name",
+            "comment": "名称",
+            "table": "faq_type"
+          },
+          {
+            "propertyName": "remark",
+            "type": "string",
+            "length": "500",
+            "nullable": true,
+            "source": "a.remark",
+            "comment": "备注",
+            "table": "faq_type"
+          },
+          {
+            "propertyName": "orderNum",
+            "type": "number",
+            "nullable": false,
+            "source": "a.orderNum",
+            "comment": "排序",
+            "table": "faq_type"
+          },
+          {
+            "propertyName": "status",
+            "type": "number",
+            "nullable": false,
+            "source": "a.status",
+            "comment": "状态",
+            "table": "faq_type"
+          },
+          {
+            "propertyName": "createTime",
+            "type": "date",
+            "nullable": false,
+            "source": "a.createTime",
+            "comment": "创建时间",
+            "table": "faq_type"
+          },
+          {
+            "propertyName": "updateTime",
+            "type": "date",
+            "nullable": false,
+            "source": "a.updateTime",
+            "comment": "更新时间",
+            "table": "faq_type"
+          },
+          {
+            "propertyName": "deletedAt",
+            "type": "date",
+            "nullable": true,
+            "source": "a.deletedAt",
+            "comment": "删除时间",
+            "table": "faq_type"
+          }
+        ]
       }
     ],
     "i18n": [
@@ -199,6 +974,1347 @@
             "tag": "",
             "prefix": "/app/i18n/pack",
             "ignoreToken": true,
+            "ignorePerms": false,
+            "perms": []
+          }
+        ],
+        "columns": [],
+        "pageQueryOp": {
+          "keyWordLikeFields": [],
+          "fieldEq": [],
+          "fieldLike": [],
+          "fieldArray": [],
+          "fieldRange": []
+        },
+        "pageColumns": []
+      }
+    ],
+    "pluginStore": [
+      {
+        "module": "pluginStore",
+        "side": "app",
+        "prefix": "/app/pluginStore/pluginList",
+        "name": "PluginListEntity",
+        "info": {
+          "type": {
+            "name": "pluginList",
+            "description": "pluginList"
+          }
+        },
+        "api": [
+          {
+            "method": "post",
+            "path": "/page",
+            "summary": "市场分页",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/pluginStore/pluginList",
+            "ignoreToken": true,
+            "ignorePerms": false,
+            "perms": []
+          },
+          {
+            "method": "post",
+            "path": "/list",
+            "summary": "市场列表",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/pluginStore/pluginList",
+            "ignoreToken": true,
+            "ignorePerms": false,
+            "perms": []
+          },
+          {
+            "method": "post",
+            "path": "/info",
+            "summary": "市场详情",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/pluginStore/pluginList",
+            "ignoreToken": true,
+            "ignorePerms": false,
+            "perms": []
+          },
+          {
+            "method": "post",
+            "path": "/add",
+            "summary": "新增",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/pluginStore/pluginList",
+            "ignoreToken": false,
+            "ignorePerms": false,
+            "perms": []
+          },
+          {
+            "method": "get",
+            "path": "/importTemplate",
+            "summary": "下载导入模板",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/pluginStore/pluginList",
+            "ignoreToken": false,
+            "ignorePerms": false,
+            "perms": []
+          },
+          {
+            "method": "post",
+            "path": "/import",
+            "summary": "导入",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/pluginStore/pluginList",
+            "ignoreToken": false,
+            "ignorePerms": false,
+            "perms": []
+          }
+        ],
+        "columns": [
+          {
+            "propertyName": "id",
+            "type": "number",
+            "nullable": false,
+            "source": "a.id",
+            "comment": "ID",
+            "table": "plugin_list"
+          },
+          {
+            "propertyName": "typeId",
+            "type": "number",
+            "nullable": false,
+            "source": "a.typeId",
+            "comment": "类型",
+            "table": "plugin_list"
+          },
+          {
+            "propertyName": "tagIds",
+            "type": "array",
+            "nullable": false,
+            "source": "a.tagIds",
+            "comment": "标签",
+            "table": "plugin_list"
+          },
+          {
+            "propertyName": "userId",
+            "type": "string",
+            "nullable": false,
+            "source": "a.userId",
+            "comment": "作者",
+            "table": "plugin_list"
+          },
+          {
+            "propertyName": "pluginName",
+            "type": "string",
+            "length": "100",
+            "nullable": false,
+            "source": "a.pluginName",
+            "comment": "名称",
+            "table": "plugin_list"
+          },
+          {
+            "propertyName": "price",
+            "type": "number",
+            "nullable": false,
+            "source": "a.price",
+            "comment": "价格",
+            "table": "plugin_list"
+          },
+          {
+            "propertyName": "extraSeatPrice",
+            "type": "number",
+            "nullable": false,
+            "source": "a.extraSeatPrice",
+            "comment": "加席单价",
+            "table": "plugin_list"
+          },
+          {
+            "propertyName": "title",
+            "type": "string",
+            "length": "200",
+            "nullable": false,
+            "source": "a.title",
+            "comment": "标题",
+            "table": "plugin_list"
+          },
+          {
+            "propertyName": "version",
+            "type": "string",
+            "length": "50",
+            "nullable": false,
+            "source": "a.version",
+            "comment": "版本号",
+            "table": "plugin_list"
+          },
+          {
+            "propertyName": "cover",
+            "type": "string",
+            "length": "500",
+            "nullable": true,
+            "source": "a.cover",
+            "comment": "封面",
+            "table": "plugin_list"
+          },
+          {
+            "propertyName": "avatar",
+            "type": "string",
+            "length": "500",
+            "nullable": true,
+            "source": "a.avatar",
+            "comment": "头像",
+            "table": "plugin_list"
+          },
+          {
+            "propertyName": "fileUrl",
+            "type": "string",
+            "length": "500",
+            "nullable": true,
+            "source": "a.fileUrl",
+            "comment": "插件包",
+            "table": "plugin_list"
+          },
+          {
+            "propertyName": "marketId",
+            "type": "string",
+            "length": "64",
+            "nullable": true,
+            "source": "a.marketId",
+            "comment": "市场ID",
+            "table": "plugin_list"
+          },
+          {
+            "propertyName": "examples",
+            "type": "json",
+            "nullable": false,
+            "source": "a.examples",
+            "comment": "示例图",
+            "table": "plugin_list"
+          },
+          {
+            "propertyName": "contact",
+            "type": "string",
+            "length": "200",
+            "nullable": true,
+            "source": "a.contact",
+            "comment": "联系方式",
+            "table": "plugin_list"
+          },
+          {
+            "propertyName": "description",
+            "type": "string",
+            "nullable": true,
+            "source": "a.description",
+            "comment": "描述",
+            "table": "plugin_list"
+          },
+          {
+            "propertyName": "auditStatus",
+            "type": "number",
+            "nullable": false,
+            "source": "a.auditStatus",
+            "comment": "审核状态",
+            "table": "plugin_list"
+          },
+          {
+            "propertyName": "auditDescription",
+            "type": "string",
+            "length": "500",
+            "nullable": true,
+            "source": "a.auditDescription",
+            "comment": "审核描述",
+            "table": "plugin_list"
+          },
+          {
+            "propertyName": "createTime",
+            "type": "date",
+            "nullable": false,
+            "source": "a.createTime",
+            "comment": "创建时间",
+            "table": "plugin_list"
+          },
+          {
+            "propertyName": "updateTime",
+            "type": "date",
+            "nullable": false,
+            "source": "a.updateTime",
+            "comment": "更新时间",
+            "table": "plugin_list"
+          },
+          {
+            "propertyName": "deletedAt",
+            "type": "date",
+            "nullable": true,
+            "source": "a.deletedAt",
+            "comment": "删除时间",
+            "table": "plugin_list"
+          }
+        ],
+        "pageQueryOp": {
+          "keyWordLikeFields": [
+            "a.pluginName",
+            "a.title",
+            "a.version"
+          ],
+          "fieldEq": [
+            {
+              "column": "a.typeId"
+            }
+          ],
+          "fieldLike": [],
+          "fieldArray": [
+            "a.tagIds"
+          ],
+          "fieldRange": []
+        },
+        "pageColumns": [
+          {
+            "propertyName": "id",
+            "type": "number",
+            "nullable": false,
+            "source": "a.id",
+            "comment": "ID",
+            "table": "plugin_list"
+          },
+          {
+            "propertyName": "typeId",
+            "type": "number",
+            "nullable": false,
+            "source": "a.typeId",
+            "comment": "类型",
+            "table": "plugin_list"
+          },
+          {
+            "propertyName": "tagIds",
+            "type": "array",
+            "nullable": false,
+            "source": "a.tagIds",
+            "comment": "标签",
+            "table": "plugin_list"
+          },
+          {
+            "propertyName": "userId",
+            "type": "string",
+            "nullable": false,
+            "source": "a.userId",
+            "comment": "作者",
+            "table": "plugin_list"
+          },
+          {
+            "propertyName": "pluginName",
+            "type": "string",
+            "length": "100",
+            "nullable": false,
+            "source": "a.pluginName",
+            "comment": "名称",
+            "table": "plugin_list"
+          },
+          {
+            "propertyName": "price",
+            "type": "number",
+            "nullable": false,
+            "source": "a.price",
+            "comment": "价格",
+            "table": "plugin_list"
+          },
+          {
+            "propertyName": "extraSeatPrice",
+            "type": "number",
+            "nullable": false,
+            "source": "a.extraSeatPrice",
+            "comment": "加席单价",
+            "table": "plugin_list"
+          },
+          {
+            "propertyName": "title",
+            "type": "string",
+            "length": "200",
+            "nullable": false,
+            "source": "a.title",
+            "comment": "标题",
+            "table": "plugin_list"
+          },
+          {
+            "propertyName": "version",
+            "type": "string",
+            "length": "50",
+            "nullable": false,
+            "source": "a.version",
+            "comment": "版本号",
+            "table": "plugin_list"
+          },
+          {
+            "propertyName": "cover",
+            "type": "string",
+            "length": "500",
+            "nullable": true,
+            "source": "a.cover",
+            "comment": "封面",
+            "table": "plugin_list"
+          },
+          {
+            "propertyName": "avatar",
+            "type": "string",
+            "length": "500",
+            "nullable": true,
+            "source": "a.avatar",
+            "comment": "头像",
+            "table": "plugin_list"
+          },
+          {
+            "propertyName": "fileUrl",
+            "type": "string",
+            "length": "500",
+            "nullable": true,
+            "source": "a.fileUrl",
+            "comment": "插件包",
+            "table": "plugin_list"
+          },
+          {
+            "propertyName": "marketId",
+            "type": "string",
+            "length": "64",
+            "nullable": true,
+            "source": "a.marketId",
+            "comment": "市场ID",
+            "table": "plugin_list"
+          },
+          {
+            "propertyName": "examples",
+            "type": "json",
+            "nullable": false,
+            "source": "a.examples",
+            "comment": "示例图",
+            "table": "plugin_list"
+          },
+          {
+            "propertyName": "contact",
+            "type": "string",
+            "length": "200",
+            "nullable": true,
+            "source": "a.contact",
+            "comment": "联系方式",
+            "table": "plugin_list"
+          },
+          {
+            "propertyName": "description",
+            "type": "string",
+            "nullable": true,
+            "source": "a.description",
+            "comment": "描述",
+            "table": "plugin_list"
+          },
+          {
+            "propertyName": "auditStatus",
+            "type": "number",
+            "nullable": false,
+            "source": "a.auditStatus",
+            "comment": "审核状态",
+            "table": "plugin_list"
+          },
+          {
+            "propertyName": "auditDescription",
+            "type": "string",
+            "length": "500",
+            "nullable": true,
+            "source": "a.auditDescription",
+            "comment": "审核描述",
+            "table": "plugin_list"
+          },
+          {
+            "propertyName": "createTime",
+            "type": "date",
+            "nullable": false,
+            "source": "a.createTime",
+            "comment": "创建时间",
+            "table": "plugin_list"
+          },
+          {
+            "propertyName": "updateTime",
+            "type": "date",
+            "nullable": false,
+            "source": "a.updateTime",
+            "comment": "更新时间",
+            "table": "plugin_list"
+          },
+          {
+            "propertyName": "deletedAt",
+            "type": "date",
+            "nullable": true,
+            "source": "a.deletedAt",
+            "comment": "删除时间",
+            "table": "plugin_list"
+          }
+        ]
+      },
+      {
+        "module": "pluginStore",
+        "side": "app",
+        "prefix": "/app/pluginStore/pluginReply",
+        "name": "PluginReplyEntity",
+        "info": {
+          "type": {
+            "name": "pluginReply",
+            "description": "pluginReply"
+          }
+        },
+        "api": [
+          {
+            "method": "post",
+            "path": "/page",
+            "summary": "讨论分页",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/pluginStore/pluginReply",
+            "ignoreToken": true,
+            "ignorePerms": false,
+            "perms": []
+          },
+          {
+            "method": "post",
+            "path": "/add",
+            "summary": "新增",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/pluginStore/pluginReply",
+            "ignoreToken": false,
+            "ignorePerms": false,
+            "perms": []
+          },
+          {
+            "method": "get",
+            "path": "/importTemplate",
+            "summary": "下载导入模板",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/pluginStore/pluginReply",
+            "ignoreToken": false,
+            "ignorePerms": false,
+            "perms": []
+          },
+          {
+            "method": "post",
+            "path": "/import",
+            "summary": "导入",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/pluginStore/pluginReply",
+            "ignoreToken": false,
+            "ignorePerms": false,
+            "perms": []
+          }
+        ],
+        "columns": [
+          {
+            "propertyName": "id",
+            "type": "number",
+            "nullable": false,
+            "source": "a.id",
+            "comment": "ID",
+            "table": "plugin_reply"
+          },
+          {
+            "propertyName": "pluginId",
+            "type": "number",
+            "nullable": false,
+            "source": "a.pluginId",
+            "comment": "插件",
+            "table": "plugin_reply"
+          },
+          {
+            "propertyName": "userId",
+            "type": "string",
+            "nullable": false,
+            "source": "a.userId",
+            "comment": "用户",
+            "table": "plugin_reply"
+          },
+          {
+            "propertyName": "content",
+            "type": "string",
+            "nullable": false,
+            "source": "a.content",
+            "comment": "内容",
+            "table": "plugin_reply"
+          },
+          {
+            "propertyName": "images",
+            "type": "json",
+            "nullable": false,
+            "source": "a.images",
+            "comment": "图片",
+            "table": "plugin_reply"
+          },
+          {
+            "propertyName": "status",
+            "type": "number",
+            "nullable": false,
+            "source": "a.status",
+            "comment": "状态",
+            "table": "plugin_reply"
+          },
+          {
+            "propertyName": "createTime",
+            "type": "date",
+            "nullable": false,
+            "source": "a.createTime",
+            "comment": "创建时间",
+            "table": "plugin_reply"
+          },
+          {
+            "propertyName": "updateTime",
+            "type": "date",
+            "nullable": false,
+            "source": "a.updateTime",
+            "comment": "更新时间",
+            "table": "plugin_reply"
+          },
+          {
+            "propertyName": "deletedAt",
+            "type": "date",
+            "nullable": true,
+            "source": "a.deletedAt",
+            "comment": "删除时间",
+            "table": "plugin_reply"
+          }
+        ],
+        "pageQueryOp": {
+          "keyWordLikeFields": [],
+          "fieldEq": [],
+          "fieldLike": [],
+          "fieldArray": [],
+          "fieldRange": []
+        },
+        "pageColumns": [
+          {
+            "propertyName": "id",
+            "type": "number",
+            "nullable": false,
+            "source": "a.id",
+            "comment": "ID",
+            "table": "plugin_reply"
+          },
+          {
+            "propertyName": "pluginId",
+            "type": "number",
+            "nullable": false,
+            "source": "a.pluginId",
+            "comment": "插件",
+            "table": "plugin_reply"
+          },
+          {
+            "propertyName": "userId",
+            "type": "string",
+            "nullable": false,
+            "source": "a.userId",
+            "comment": "用户",
+            "table": "plugin_reply"
+          },
+          {
+            "propertyName": "content",
+            "type": "string",
+            "nullable": false,
+            "source": "a.content",
+            "comment": "内容",
+            "table": "plugin_reply"
+          },
+          {
+            "propertyName": "images",
+            "type": "json",
+            "nullable": false,
+            "source": "a.images",
+            "comment": "图片",
+            "table": "plugin_reply"
+          },
+          {
+            "propertyName": "status",
+            "type": "number",
+            "nullable": false,
+            "source": "a.status",
+            "comment": "状态",
+            "table": "plugin_reply"
+          },
+          {
+            "propertyName": "createTime",
+            "type": "date",
+            "nullable": false,
+            "source": "a.createTime",
+            "comment": "创建时间",
+            "table": "plugin_reply"
+          },
+          {
+            "propertyName": "updateTime",
+            "type": "date",
+            "nullable": false,
+            "source": "a.updateTime",
+            "comment": "更新时间",
+            "table": "plugin_reply"
+          },
+          {
+            "propertyName": "deletedAt",
+            "type": "date",
+            "nullable": true,
+            "source": "a.deletedAt",
+            "comment": "删除时间",
+            "table": "plugin_reply"
+          }
+        ]
+      },
+      {
+        "module": "pluginStore",
+        "side": "app",
+        "prefix": "/app/pluginStore/pluginTag",
+        "name": "PluginTagEntity",
+        "info": {
+          "type": {
+            "name": "pluginTag",
+            "description": "pluginTag"
+          }
+        },
+        "api": [
+          {
+            "method": "post",
+            "path": "/list",
+            "summary": "标签列表",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/pluginStore/pluginTag",
+            "ignoreToken": true,
+            "ignorePerms": false,
+            "perms": []
+          },
+          {
+            "method": "post",
+            "path": "/page",
+            "summary": "标签分页",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/pluginStore/pluginTag",
+            "ignoreToken": true,
+            "ignorePerms": false,
+            "perms": []
+          }
+        ],
+        "columns": [
+          {
+            "propertyName": "id",
+            "type": "number",
+            "nullable": false,
+            "source": "a.id",
+            "comment": "ID",
+            "table": "plugin_tag"
+          },
+          {
+            "propertyName": "name",
+            "type": "string",
+            "length": "100",
+            "nullable": false,
+            "source": "a.name",
+            "comment": "名称",
+            "table": "plugin_tag"
+          },
+          {
+            "propertyName": "remark",
+            "type": "string",
+            "length": "500",
+            "nullable": true,
+            "source": "a.remark",
+            "comment": "备注",
+            "table": "plugin_tag"
+          },
+          {
+            "propertyName": "status",
+            "type": "number",
+            "nullable": false,
+            "source": "a.status",
+            "comment": "状态",
+            "table": "plugin_tag"
+          },
+          {
+            "propertyName": "createTime",
+            "type": "date",
+            "nullable": false,
+            "source": "a.createTime",
+            "comment": "创建时间",
+            "table": "plugin_tag"
+          },
+          {
+            "propertyName": "updateTime",
+            "type": "date",
+            "nullable": false,
+            "source": "a.updateTime",
+            "comment": "更新时间",
+            "table": "plugin_tag"
+          },
+          {
+            "propertyName": "deletedAt",
+            "type": "date",
+            "nullable": true,
+            "source": "a.deletedAt",
+            "comment": "删除时间",
+            "table": "plugin_tag"
+          }
+        ],
+        "pageQueryOp": {
+          "keyWordLikeFields": [],
+          "fieldEq": [],
+          "fieldLike": [],
+          "fieldArray": [],
+          "fieldRange": []
+        },
+        "pageColumns": [
+          {
+            "propertyName": "id",
+            "type": "number",
+            "nullable": false,
+            "source": "a.id",
+            "comment": "ID",
+            "table": "plugin_tag"
+          },
+          {
+            "propertyName": "name",
+            "type": "string",
+            "length": "100",
+            "nullable": false,
+            "source": "a.name",
+            "comment": "名称",
+            "table": "plugin_tag"
+          },
+          {
+            "propertyName": "remark",
+            "type": "string",
+            "length": "500",
+            "nullable": true,
+            "source": "a.remark",
+            "comment": "备注",
+            "table": "plugin_tag"
+          },
+          {
+            "propertyName": "status",
+            "type": "number",
+            "nullable": false,
+            "source": "a.status",
+            "comment": "状态",
+            "table": "plugin_tag"
+          },
+          {
+            "propertyName": "createTime",
+            "type": "date",
+            "nullable": false,
+            "source": "a.createTime",
+            "comment": "创建时间",
+            "table": "plugin_tag"
+          },
+          {
+            "propertyName": "updateTime",
+            "type": "date",
+            "nullable": false,
+            "source": "a.updateTime",
+            "comment": "更新时间",
+            "table": "plugin_tag"
+          },
+          {
+            "propertyName": "deletedAt",
+            "type": "date",
+            "nullable": true,
+            "source": "a.deletedAt",
+            "comment": "删除时间",
+            "table": "plugin_tag"
+          }
+        ]
+      },
+      {
+        "module": "pluginStore",
+        "side": "app",
+        "prefix": "/app/pluginStore/seat",
+        "info": {
+          "type": {
+            "name": "seat",
+            "description": "插件席位"
+          }
+        },
+        "api": [
+          {
+            "method": "post",
+            "path": "/info",
+            "summary": "我的席位概览",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/pluginStore/seat",
+            "ignoreToken": false,
+            "ignorePerms": false,
+            "perms": []
+          },
+          {
+            "method": "post",
+            "path": "/upgrade",
+            "summary": "加购席位（单价 0 则免费）",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/pluginStore/seat",
+            "ignoreToken": false,
+            "ignorePerms": false,
+            "perms": []
+          },
+          {
+            "method": "post",
+            "path": "/occupies",
+            "summary": "席位占用与已卸载列表",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/pluginStore/seat",
+            "ignoreToken": false,
+            "ignorePerms": false,
+            "perms": []
+          },
+          {
+            "method": "post",
+            "path": "/forceRelease",
+            "summary": "市场端卸载席位（吊销，禁止自动占回）",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/pluginStore/seat",
+            "ignoreToken": false,
+            "ignorePerms": false,
+            "perms": []
+          },
+          {
+            "method": "post",
+            "path": "/allowReoccupy",
+            "summary": "允许站点重新占用席位",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/pluginStore/seat",
+            "ignoreToken": false,
+            "ignorePerms": false,
+            "perms": []
+          },
+          {
+            "method": "post",
+            "path": "/occupy",
+            "summary": "占用席位（签发 ticket）",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/pluginStore/seat",
+            "ignoreToken": true,
+            "ignorePerms": false,
+            "perms": []
+          },
+          {
+            "method": "post",
+            "path": "/heartbeat",
+            "summary": "席位心跳（签发 ticket）",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/pluginStore/seat",
+            "ignoreToken": true,
+            "ignorePerms": false,
+            "perms": []
+          },
+          {
+            "method": "post",
+            "path": "/release",
+            "summary": "释放席位（签发 ticket）",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/pluginStore/seat",
+            "ignoreToken": true,
+            "ignorePerms": false,
+            "perms": []
+          }
+        ],
+        "columns": [],
+        "pageQueryOp": {
+          "keyWordLikeFields": [],
+          "fieldEq": [],
+          "fieldLike": [],
+          "fieldArray": [],
+          "fieldRange": []
+        },
+        "pageColumns": []
+      },
+      {
+        "module": "pluginStore",
+        "side": "app",
+        "prefix": "/app/pluginStore/wallet",
+        "info": {
+          "type": {
+            "name": "wallet",
+            "description": "插件钱包"
+          }
+        },
+        "api": [
+          {
+            "method": "post",
+            "path": "/info",
+            "summary": "钱包余额",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/pluginStore/wallet",
+            "ignoreToken": false,
+            "ignorePerms": false,
+            "perms": []
+          },
+          {
+            "method": "post",
+            "path": "/recharge/create",
+            "summary": "创建充值订单",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/pluginStore/wallet",
+            "ignoreToken": false,
+            "ignorePerms": false,
+            "perms": []
+          },
+          {
+            "method": "post",
+            "path": "/recharge/mockPay",
+            "summary": "模拟充值到账",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/pluginStore/wallet",
+            "ignoreToken": false,
+            "ignorePerms": false,
+            "perms": []
+          },
+          {
+            "method": "post",
+            "path": "/purchase",
+            "summary": "购买插件",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/pluginStore/wallet",
+            "ignoreToken": false,
+            "ignorePerms": false,
+            "perms": []
+          },
+          {
+            "method": "post",
+            "path": "/package/access",
+            "summary": "是否已拥有插件包",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/pluginStore/wallet",
+            "ignoreToken": false,
+            "ignorePerms": false,
+            "perms": []
+          },
+          {
+            "method": "post",
+            "path": "/package/download",
+            "summary": "下载插件包",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/pluginStore/wallet",
+            "ignoreToken": false,
+            "ignorePerms": false,
+            "perms": []
+          },
+          {
+            "method": "post",
+            "path": "/package/license",
+            "summary": "下载离线 license（签名文件）",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/pluginStore/wallet",
+            "ignoreToken": false,
+            "ignorePerms": false,
+            "perms": []
+          },
+          {
+            "method": "post",
+            "path": "/license/issue",
+            "summary": "联网安装签发签名 license（非 boolean）",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/pluginStore/wallet",
+            "ignoreToken": true,
+            "ignorePerms": false,
+            "perms": []
+          },
+          {
+            "method": "get",
+            "path": "/package/ticket",
+            "summary": "核销下载码",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/pluginStore/wallet",
+            "ignoreToken": true,
+            "ignorePerms": false,
+            "perms": []
+          },
+          {
+            "method": "post",
+            "path": "/sales/page",
+            "summary": "我的销售订单",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/pluginStore/wallet",
+            "ignoreToken": false,
+            "ignorePerms": false,
+            "perms": []
+          },
+          {
+            "method": "post",
+            "path": "/myPlugins/page",
+            "summary": "我购买的插件与席位",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/pluginStore/wallet",
+            "ignoreToken": false,
+            "ignorePerms": false,
+            "perms": []
+          },
+          {
+            "method": "post",
+            "path": "/withdraw/apply",
+            "summary": "申请提现",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/pluginStore/wallet",
+            "ignoreToken": false,
+            "ignorePerms": false,
+            "perms": []
+          },
+          {
+            "method": "post",
+            "path": "/withdraw/page",
+            "summary": "我的提现记录",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/pluginStore/wallet",
+            "ignoreToken": false,
+            "ignorePerms": false,
+            "perms": []
+          }
+        ],
+        "columns": [],
+        "pageQueryOp": {
+          "keyWordLikeFields": [],
+          "fieldEq": [],
+          "fieldLike": [],
+          "fieldArray": [],
+          "fieldRange": []
+        },
+        "pageColumns": []
+      }
+    ],
+    "project": [
+      {
+        "module": "project",
+        "side": "app",
+        "prefix": "/app/project/page",
+        "info": {
+          "type": {
+            "name": "page",
+            "description": "App 页面图谱"
+          }
+        },
+        "api": [
+          {
+            "method": "post",
+            "path": "/list",
+            "summary": "页面图谱（pages + links）",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/project/page",
+            "ignoreToken": false,
+            "ignorePerms": false,
+            "perms": []
+          },
+          {
+            "method": "post",
+            "path": "/create",
+            "summary": "新增页面节点",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/project/page",
+            "ignoreToken": false,
+            "ignorePerms": false,
+            "perms": []
+          },
+          {
+            "method": "post",
+            "path": "/update",
+            "summary": "更新页面（改名/路径/坐标/schema）",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/project/page",
+            "ignoreToken": false,
+            "ignorePerms": false,
+            "perms": []
+          },
+          {
+            "method": "post",
+            "path": "/delete",
+            "summary": "删除页面（并清理连线）",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/project/page",
+            "ignoreToken": false,
+            "ignorePerms": false,
+            "perms": []
+          },
+          {
+            "method": "post",
+            "path": "/trash",
+            "summary": "回收站图谱（已删页面 + 相关连线）",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/project/page",
+            "ignoreToken": false,
+            "ignorePerms": false,
+            "perms": []
+          },
+          {
+            "method": "post",
+            "path": "/restore",
+            "summary": "从回收站恢复页面",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/project/page",
+            "ignoreToken": false,
+            "ignorePerms": false,
+            "perms": []
+          },
+          {
+            "method": "post",
+            "path": "/forceDelete",
+            "summary": "回收站彻底删除页面",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/project/page",
+            "ignoreToken": false,
+            "ignorePerms": false,
+            "perms": []
+          },
+          {
+            "method": "post",
+            "path": "/layout",
+            "summary": "批量保存画布坐标",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/project/page",
+            "ignoreToken": false,
+            "ignorePerms": false,
+            "perms": []
+          },
+          {
+            "method": "post",
+            "path": "/linkUpsert",
+            "summary": "新增或更新跳转边",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/project/page",
+            "ignoreToken": false,
+            "ignorePerms": false,
+            "perms": []
+          },
+          {
+            "method": "post",
+            "path": "/linkDelete",
+            "summary": "删除跳转边",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/project/page",
+            "ignoreToken": false,
+            "ignorePerms": false,
+            "perms": []
+          }
+        ],
+        "columns": [],
+        "pageQueryOp": {
+          "keyWordLikeFields": [],
+          "fieldEq": [],
+          "fieldLike": [],
+          "fieldArray": [],
+          "fieldRange": []
+        },
+        "pageColumns": []
+      },
+      {
+        "module": "project",
+        "side": "app",
+        "prefix": "/app/project/project",
+        "info": {
+          "type": {
+            "name": "project",
+            "description": "App 项目"
+          }
+        },
+        "api": [
+          {
+            "method": "post",
+            "path": "/create",
+            "summary": "创建官方项目（零代码保存）",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/project/project",
+            "ignoreToken": false,
+            "ignorePerms": false,
+            "perms": []
+          },
+          {
+            "method": "post",
+            "path": "/filter",
+            "summary": "项目筛选（scope）",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/project/project",
+            "ignoreToken": false,
+            "ignorePerms": false,
+            "perms": []
+          },
+          {
+            "method": "post",
+            "path": "/update",
+            "summary": "更新项目（名称/简介/封面/路径）",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/project/project",
+            "ignoreToken": false,
+            "ignorePerms": false,
+            "perms": []
+          },
+          {
+            "method": "post",
+            "path": "/touch",
+            "summary": "保存后刷新最近编辑标记（打开勿调；update 已内含）",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/project/project",
+            "ignoreToken": false,
+            "ignorePerms": false,
+            "perms": []
+          },
+          {
+            "method": "post",
+            "path": "/delete",
+            "summary": "删除项目（仅拥有者）",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/project/project",
+            "ignoreToken": false,
+            "ignorePerms": false,
+            "perms": []
+          },
+          {
+            "method": "post",
+            "path": "/transferCode",
+            "summary": "转移项目：向对方手机发送验证码（须图片验证码）",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/project/project",
+            "ignoreToken": false,
+            "ignorePerms": false,
+            "perms": []
+          },
+          {
+            "method": "post",
+            "path": "/transfer",
+            "summary": "转让项目（对方手机号 + 短信验证码）",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/project/project",
+            "ignoreToken": false,
             "ignorePerms": false,
             "perms": []
           }
@@ -307,6 +2423,17 @@
             "method": "post",
             "path": "/logout",
             "summary": "退出登录",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/user/info",
+            "ignoreToken": false,
+            "ignorePerms": false,
+            "perms": []
+          },
+          {
+            "method": "post",
+            "path": "/bindWx",
+            "summary": "绑定微信（提现）",
             "dts": {},
             "tag": "",
             "prefix": "/app/user/info",
@@ -471,7 +2598,7 @@
           {
             "method": "post",
             "path": "/register",
-            "summary": "密码注册（手机号或邮箱）",
+            "summary": "密码注册（须短信/邮箱验证码；手机/邮箱自动分流）",
             "dts": {},
             "tag": "",
             "prefix": "/app/user/login",
@@ -544,6 +2671,17 @@
             "ignoreToken": true,
             "ignorePerms": false,
             "perms": []
+          },
+          {
+            "method": "post",
+            "path": "/exchange",
+            "summary": "桥接票换可吊销会话（Docs SSO）",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/user/login",
+            "ignoreToken": true,
+            "ignorePerms": false,
+            "perms": []
           }
         ],
         "columns": [],
@@ -588,6 +2726,1958 @@
           "fieldRange": []
         },
         "pageColumns": []
+      }
+    ]
+  },
+  "dict": {
+    "base_menu_type": [
+      {
+        "id": 1,
+        "name": "菜单",
+        "label": "菜单",
+        "typeId": 1,
+        "parentId": null,
+        "orderNum": 0,
+        "value": 0
+      },
+      {
+        "id": 190,
+        "name": "color",
+        "label": "color",
+        "typeId": 1,
+        "parentId": 2,
+        "orderNum": 0,
+        "value": "#16A34A"
+      },
+      {
+        "id": 191,
+        "name": "color",
+        "label": "color",
+        "typeId": 1,
+        "parentId": 3,
+        "orderNum": 0,
+        "value": "#EA580C"
+      },
+      {
+        "id": 239,
+        "name": "color",
+        "label": "color",
+        "typeId": 1,
+        "parentId": 1,
+        "orderNum": 0,
+        "value": "#4E5DFF"
+      },
+      {
+        "id": 2,
+        "name": "页面",
+        "label": "页面",
+        "typeId": 1,
+        "parentId": null,
+        "orderNum": 1,
+        "value": 1
+      },
+      {
+        "id": 3,
+        "name": "权限",
+        "label": "权限",
+        "typeId": 1,
+        "parentId": null,
+        "orderNum": 2,
+        "value": 2
+      }
+    ],
+    "status": [
+      {
+        "id": 4,
+        "name": "禁用",
+        "label": "禁用",
+        "typeId": 2,
+        "parentId": null,
+        "orderNum": 0,
+        "value": 0
+      },
+      {
+        "id": 211,
+        "name": "color",
+        "label": "color",
+        "typeId": 2,
+        "parentId": 4,
+        "orderNum": 0,
+        "value": "#DC2626"
+      },
+      {
+        "id": 212,
+        "name": "color",
+        "label": "color",
+        "typeId": 2,
+        "parentId": 5,
+        "orderNum": 0,
+        "value": "#4E5DFF"
+      },
+      {
+        "id": 5,
+        "name": "启用",
+        "label": "启用",
+        "typeId": 2,
+        "parentId": null,
+        "orderNum": 1,
+        "value": 1
+      }
+    ],
+    "base_data_scope": [
+      {
+        "id": 6,
+        "name": "全部数据",
+        "label": "全部数据",
+        "typeId": 3,
+        "parentId": null,
+        "orderNum": 0,
+        "value": 0
+      },
+      {
+        "id": 182,
+        "name": "color",
+        "label": "color",
+        "typeId": 3,
+        "parentId": 6,
+        "orderNum": 0,
+        "value": "#4E5DFF"
+      },
+      {
+        "id": 183,
+        "name": "color",
+        "label": "color",
+        "typeId": 3,
+        "parentId": 7,
+        "orderNum": 0,
+        "value": "#EA580C"
+      },
+      {
+        "id": 7,
+        "name": "自定义部门",
+        "label": "自定义部门",
+        "typeId": 3,
+        "parentId": null,
+        "orderNum": 1,
+        "value": 1
+      }
+    ],
+    "yes_no": [
+      {
+        "id": 8,
+        "name": "否",
+        "label": "否",
+        "typeId": 4,
+        "parentId": null,
+        "orderNum": 0,
+        "value": false
+      },
+      {
+        "id": 213,
+        "name": "color",
+        "label": "color",
+        "typeId": 4,
+        "parentId": 8,
+        "orderNum": 0,
+        "value": "#DC2626"
+      },
+      {
+        "id": 214,
+        "name": "color",
+        "label": "color",
+        "typeId": 4,
+        "parentId": 9,
+        "orderNum": 0,
+        "value": "#4E5DFF"
+      },
+      {
+        "id": 9,
+        "name": "是",
+        "label": "是",
+        "typeId": 4,
+        "parentId": null,
+        "orderNum": 1,
+        "value": true
+      }
+    ],
+    "base_http_method": [
+      {
+        "id": 10,
+        "name": "GET",
+        "label": "GET",
+        "typeId": 5,
+        "parentId": null,
+        "orderNum": 0,
+        "value": "GET"
+      },
+      {
+        "id": 184,
+        "name": "color",
+        "label": "color",
+        "typeId": 5,
+        "parentId": 10,
+        "orderNum": 0,
+        "value": "#16A34A"
+      },
+      {
+        "id": 185,
+        "name": "color",
+        "label": "color",
+        "typeId": 5,
+        "parentId": 11,
+        "orderNum": 0,
+        "value": "#4E5DFF"
+      },
+      {
+        "id": 186,
+        "name": "color",
+        "label": "color",
+        "typeId": 5,
+        "parentId": 12,
+        "orderNum": 0,
+        "value": "#EA580C"
+      },
+      {
+        "id": 187,
+        "name": "color",
+        "label": "color",
+        "typeId": 5,
+        "parentId": 13,
+        "orderNum": 0,
+        "value": "#7C3AED"
+      },
+      {
+        "id": 188,
+        "name": "color",
+        "label": "color",
+        "typeId": 5,
+        "parentId": 14,
+        "orderNum": 0,
+        "value": "#DC2626"
+      },
+      {
+        "id": 11,
+        "name": "POST",
+        "label": "POST",
+        "typeId": 5,
+        "parentId": null,
+        "orderNum": 1,
+        "value": "POST"
+      },
+      {
+        "id": 12,
+        "name": "PUT",
+        "label": "PUT",
+        "typeId": 5,
+        "parentId": null,
+        "orderNum": 2,
+        "value": "PUT"
+      },
+      {
+        "id": 13,
+        "name": "PATCH",
+        "label": "PATCH",
+        "typeId": 5,
+        "parentId": null,
+        "orderNum": 3,
+        "value": "PATCH"
+      },
+      {
+        "id": 14,
+        "name": "DELETE",
+        "label": "DELETE",
+        "typeId": 5,
+        "parentId": null,
+        "orderNum": 4,
+        "value": "DELETE"
+      }
+    ],
+    "base_ai_protocol": [
+      {
+        "id": 15,
+        "name": "OpenAI 兼容",
+        "label": "OpenAI 兼容",
+        "typeId": 6,
+        "parentId": null,
+        "orderNum": 0,
+        "value": "openai_compatible"
+      },
+      {
+        "id": 176,
+        "name": "color",
+        "label": "color",
+        "typeId": 6,
+        "parentId": 15,
+        "orderNum": 0,
+        "value": "#16A34A"
+      },
+      {
+        "id": 177,
+        "name": "color",
+        "label": "color",
+        "typeId": 6,
+        "parentId": 16,
+        "orderNum": 0,
+        "value": "#EA580C"
+      },
+      {
+        "id": 178,
+        "name": "color",
+        "label": "color",
+        "typeId": 6,
+        "parentId": 17,
+        "orderNum": 0,
+        "value": "#4E5DFF"
+      },
+      {
+        "id": 16,
+        "name": "Anthropic",
+        "label": "Anthropic",
+        "typeId": 6,
+        "parentId": null,
+        "orderNum": 1,
+        "value": "anthropic"
+      },
+      {
+        "id": 17,
+        "name": "Google Gemini",
+        "label": "Google Gemini",
+        "typeId": 6,
+        "parentId": null,
+        "orderNum": 2,
+        "value": "gemini"
+      }
+    ],
+    "base_ai_capability": [
+      {
+        "id": 18,
+        "name": "对话",
+        "label": "对话",
+        "typeId": 7,
+        "parentId": null,
+        "orderNum": 0,
+        "value": "chat"
+      },
+      {
+        "id": 162,
+        "name": "color",
+        "label": "color",
+        "typeId": 7,
+        "parentId": 18,
+        "orderNum": 0,
+        "value": "#4E5DFF"
+      },
+      {
+        "id": 163,
+        "name": "color",
+        "label": "color",
+        "typeId": 7,
+        "parentId": 19,
+        "orderNum": 0,
+        "value": "#DB2777"
+      },
+      {
+        "id": 164,
+        "name": "color",
+        "label": "color",
+        "typeId": 7,
+        "parentId": 20,
+        "orderNum": 0,
+        "value": "#7C3AED"
+      },
+      {
+        "id": 165,
+        "name": "color",
+        "label": "color",
+        "typeId": 7,
+        "parentId": 21,
+        "orderNum": 0,
+        "value": "#0891B2"
+      },
+      {
+        "id": 166,
+        "name": "color",
+        "label": "color",
+        "typeId": 7,
+        "parentId": 22,
+        "orderNum": 0,
+        "value": "#CA8A04"
+      },
+      {
+        "id": 167,
+        "name": "color",
+        "label": "color",
+        "typeId": 7,
+        "parentId": 23,
+        "orderNum": 0,
+        "value": "#A16207"
+      },
+      {
+        "id": 19,
+        "name": "生图",
+        "label": "生图",
+        "typeId": 7,
+        "parentId": null,
+        "orderNum": 1,
+        "value": "image"
+      },
+      {
+        "id": 20,
+        "name": "生视频",
+        "label": "生视频",
+        "typeId": 7,
+        "parentId": null,
+        "orderNum": 2,
+        "value": "video"
+      },
+      {
+        "id": 21,
+        "name": "语音合成",
+        "label": "语音合成",
+        "typeId": 7,
+        "parentId": null,
+        "orderNum": 3,
+        "value": "audio_tts"
+      },
+      {
+        "id": 22,
+        "name": "语音识别",
+        "label": "语音识别",
+        "typeId": 7,
+        "parentId": null,
+        "orderNum": 4,
+        "value": "audio_stt"
+      },
+      {
+        "id": 23,
+        "name": "向量嵌入",
+        "label": "向量嵌入",
+        "typeId": 7,
+        "parentId": null,
+        "orderNum": 5,
+        "value": "embed"
+      }
+    ],
+    "base_ai_result_mode": [
+      {
+        "id": 24,
+        "name": "同步",
+        "label": "同步",
+        "typeId": 8,
+        "parentId": null,
+        "orderNum": 0,
+        "value": "sync"
+      },
+      {
+        "id": 179,
+        "name": "color",
+        "label": "color",
+        "typeId": 8,
+        "parentId": 24,
+        "orderNum": 0,
+        "value": "#16A34A"
+      },
+      {
+        "id": 180,
+        "name": "color",
+        "label": "color",
+        "typeId": 8,
+        "parentId": 25,
+        "orderNum": 0,
+        "value": "#4E5DFF"
+      },
+      {
+        "id": 181,
+        "name": "color",
+        "label": "color",
+        "typeId": 8,
+        "parentId": 26,
+        "orderNum": 0,
+        "value": "#EA580C"
+      },
+      {
+        "id": 25,
+        "name": "流式",
+        "label": "流式",
+        "typeId": 8,
+        "parentId": null,
+        "orderNum": 1,
+        "value": "stream"
+      },
+      {
+        "id": 26,
+        "name": "异步",
+        "label": "异步",
+        "typeId": 8,
+        "parentId": null,
+        "orderNum": 2,
+        "value": "async"
+      }
+    ],
+    "base_ai_content_type": [
+      {
+        "id": 27,
+        "name": "JSON",
+        "label": "JSON",
+        "typeId": 9,
+        "parentId": null,
+        "orderNum": 0,
+        "value": "json"
+      },
+      {
+        "id": 168,
+        "name": "color",
+        "label": "color",
+        "typeId": 9,
+        "parentId": 27,
+        "orderNum": 0,
+        "value": "#4E5DFF"
+      },
+      {
+        "id": 169,
+        "name": "color",
+        "label": "color",
+        "typeId": 9,
+        "parentId": 28,
+        "orderNum": 0,
+        "value": "#EA580C"
+      },
+      {
+        "id": 28,
+        "name": "Multipart",
+        "label": "Multipart",
+        "typeId": 9,
+        "parentId": null,
+        "orderNum": 1,
+        "value": "multipart"
+      }
+    ],
+    "base_ai_media_format": [
+      {
+        "id": 29,
+        "name": "URL",
+        "label": "URL",
+        "typeId": 10,
+        "parentId": null,
+        "orderNum": 0,
+        "value": "url"
+      },
+      {
+        "id": 173,
+        "name": "color",
+        "label": "color",
+        "typeId": 10,
+        "parentId": 29,
+        "orderNum": 0,
+        "value": "#4E5DFF"
+      },
+      {
+        "id": 174,
+        "name": "color",
+        "label": "color",
+        "typeId": 10,
+        "parentId": 30,
+        "orderNum": 0,
+        "value": "#7C3AED"
+      },
+      {
+        "id": 175,
+        "name": "color",
+        "label": "color",
+        "typeId": 10,
+        "parentId": 31,
+        "orderNum": 0,
+        "value": "#475569"
+      },
+      {
+        "id": 30,
+        "name": "Base64",
+        "label": "Base64",
+        "typeId": 10,
+        "parentId": null,
+        "orderNum": 1,
+        "value": "b64"
+      },
+      {
+        "id": 31,
+        "name": "二进制",
+        "label": "二进制",
+        "typeId": 10,
+        "parentId": null,
+        "orderNum": 2,
+        "value": "binary"
+      }
+    ],
+    "base_ai_async_status": [
+      {
+        "id": 32,
+        "name": "等待中",
+        "label": "等待中",
+        "typeId": 11,
+        "parentId": null,
+        "orderNum": 0,
+        "value": "pending"
+      },
+      {
+        "id": 158,
+        "name": "color",
+        "label": "color",
+        "typeId": 11,
+        "parentId": 32,
+        "orderNum": 0,
+        "value": "#EA580C"
+      },
+      {
+        "id": 159,
+        "name": "color",
+        "label": "color",
+        "typeId": 11,
+        "parentId": 33,
+        "orderNum": 0,
+        "value": "#4E5DFF"
+      },
+      {
+        "id": 160,
+        "name": "color",
+        "label": "color",
+        "typeId": 11,
+        "parentId": 34,
+        "orderNum": 0,
+        "value": "#16A34A"
+      },
+      {
+        "id": 161,
+        "name": "color",
+        "label": "color",
+        "typeId": 11,
+        "parentId": 35,
+        "orderNum": 0,
+        "value": "#DC2626"
+      },
+      {
+        "id": 33,
+        "name": "执行中",
+        "label": "执行中",
+        "typeId": 11,
+        "parentId": null,
+        "orderNum": 1,
+        "value": "running"
+      },
+      {
+        "id": 34,
+        "name": "已成功",
+        "label": "已成功",
+        "typeId": 11,
+        "parentId": null,
+        "orderNum": 2,
+        "value": "succeeded"
+      },
+      {
+        "id": 35,
+        "name": "已失败",
+        "label": "已失败",
+        "typeId": 11,
+        "parentId": null,
+        "orderNum": 3,
+        "value": "failed"
+      }
+    ],
+    "base_ai_invoke_source": [
+      {
+        "id": 36,
+        "name": "网关",
+        "label": "网关",
+        "typeId": 12,
+        "parentId": null,
+        "orderNum": 0,
+        "value": "gateway"
+      },
+      {
+        "id": 170,
+        "name": "color",
+        "label": "color",
+        "typeId": 12,
+        "parentId": 36,
+        "orderNum": 0,
+        "value": "#4E5DFF"
+      },
+      {
+        "id": 171,
+        "name": "color",
+        "label": "color",
+        "typeId": 12,
+        "parentId": 37,
+        "orderNum": 0,
+        "value": "#7C3AED"
+      },
+      {
+        "id": 172,
+        "name": "color",
+        "label": "color",
+        "typeId": 12,
+        "parentId": 38,
+        "orderNum": 0,
+        "value": "#0891B2"
+      },
+      {
+        "id": 37,
+        "name": "反向代理",
+        "label": "反向代理",
+        "typeId": 12,
+        "parentId": null,
+        "orderNum": 1,
+        "value": "proxy"
+      },
+      {
+        "id": 38,
+        "name": "连通探测",
+        "label": "连通探测",
+        "typeId": 12,
+        "parentId": null,
+        "orderNum": 2,
+        "value": "test"
+      }
+    ],
+    "agent_scope": [
+      {
+        "id": 39,
+        "name": "平台",
+        "label": "平台",
+        "typeId": 13,
+        "parentId": null,
+        "orderNum": 0,
+        "value": "platform"
+      },
+      {
+        "id": 143,
+        "name": "color",
+        "label": "color",
+        "typeId": 13,
+        "parentId": 39,
+        "orderNum": 0,
+        "value": "#4E5DFF"
+      },
+      {
+        "id": 144,
+        "name": "color",
+        "label": "color",
+        "typeId": 13,
+        "parentId": 40,
+        "orderNum": 0,
+        "value": "#EA580C"
+      },
+      {
+        "id": 40,
+        "name": "项目",
+        "label": "项目",
+        "typeId": 13,
+        "parentId": null,
+        "orderNum": 1,
+        "value": "project"
+      }
+    ],
+    "agent_kb_kind": [
+      {
+        "id": 41,
+        "name": "规则",
+        "label": "规则",
+        "typeId": 14,
+        "parentId": null,
+        "orderNum": 0,
+        "value": "rule"
+      },
+      {
+        "id": 123,
+        "name": "color",
+        "label": "color",
+        "typeId": 14,
+        "parentId": 41,
+        "orderNum": 0,
+        "value": "#4E5DFF"
+      },
+      {
+        "id": 124,
+        "name": "color",
+        "label": "color",
+        "typeId": 14,
+        "parentId": 42,
+        "orderNum": 0,
+        "value": "#EA580C"
+      },
+      {
+        "id": 125,
+        "name": "color",
+        "label": "color",
+        "typeId": 14,
+        "parentId": 43,
+        "orderNum": 0,
+        "value": "#16A34A"
+      },
+      {
+        "id": 126,
+        "name": "color",
+        "label": "color",
+        "typeId": 14,
+        "parentId": 44,
+        "orderNum": 0,
+        "value": "#CA8A04"
+      },
+      {
+        "id": 42,
+        "name": "上下文",
+        "label": "上下文",
+        "typeId": 14,
+        "parentId": null,
+        "orderNum": 1,
+        "value": "context"
+      },
+      {
+        "id": 43,
+        "name": "采纳经验",
+        "label": "采纳经验",
+        "typeId": 14,
+        "parentId": null,
+        "orderNum": 2,
+        "value": "adoption"
+      },
+      {
+        "id": 44,
+        "name": "设计资产",
+        "label": "设计资产",
+        "typeId": 14,
+        "parentId": null,
+        "orderNum": 3,
+        "value": "design"
+      }
+    ],
+    "agent_target_side": [
+      {
+        "id": 45,
+        "name": "后台",
+        "label": "后台",
+        "typeId": 15,
+        "parentId": null,
+        "orderNum": 0,
+        "value": "admin"
+      },
+      {
+        "id": 148,
+        "name": "color",
+        "label": "color",
+        "typeId": 15,
+        "parentId": 45,
+        "orderNum": 0,
+        "value": "#4E5DFF"
+      },
+      {
+        "id": 149,
+        "name": "color",
+        "label": "color",
+        "typeId": 15,
+        "parentId": 46,
+        "orderNum": 0,
+        "value": "#16A34A"
+      },
+      {
+        "id": 150,
+        "name": "color",
+        "label": "color",
+        "typeId": 15,
+        "parentId": 47,
+        "orderNum": 0,
+        "value": "#EA580C"
+      },
+      {
+        "id": 151,
+        "name": "color",
+        "label": "color",
+        "typeId": 15,
+        "parentId": 48,
+        "orderNum": 0,
+        "value": "#7C3AED"
+      },
+      {
+        "id": 152,
+        "name": "color",
+        "label": "color",
+        "typeId": 15,
+        "parentId": 49,
+        "orderNum": 0,
+        "value": "#475569"
+      },
+      {
+        "id": 46,
+        "name": "Web",
+        "label": "Web",
+        "typeId": 15,
+        "parentId": null,
+        "orderNum": 1,
+        "value": "web"
+      },
+      {
+        "id": 47,
+        "name": "Uniapp",
+        "label": "Uniapp",
+        "typeId": 15,
+        "parentId": null,
+        "orderNum": 2,
+        "value": "uniapp"
+      },
+      {
+        "id": 48,
+        "name": "服务端",
+        "label": "服务端",
+        "typeId": 15,
+        "parentId": null,
+        "orderNum": 3,
+        "value": "service"
+      },
+      {
+        "id": 49,
+        "name": "通用",
+        "label": "通用",
+        "typeId": 15,
+        "parentId": null,
+        "orderNum": 4,
+        "value": "common"
+      }
+    ],
+    "agent_scene_type": [
+      {
+        "id": 50,
+        "name": "页面",
+        "label": "页面",
+        "typeId": 16,
+        "parentId": null,
+        "orderNum": 0,
+        "value": "page"
+      },
+      {
+        "id": 137,
+        "name": "color",
+        "label": "color",
+        "typeId": 16,
+        "parentId": 50,
+        "orderNum": 0,
+        "value": "#4E5DFF"
+      },
+      {
+        "id": 138,
+        "name": "color",
+        "label": "color",
+        "typeId": 16,
+        "parentId": 51,
+        "orderNum": 0,
+        "value": "#16A34A"
+      },
+      {
+        "id": 139,
+        "name": "color",
+        "label": "color",
+        "typeId": 16,
+        "parentId": 52,
+        "orderNum": 0,
+        "value": "#7C3AED"
+      },
+      {
+        "id": 140,
+        "name": "color",
+        "label": "color",
+        "typeId": 16,
+        "parentId": 53,
+        "orderNum": 0,
+        "value": "#DB2777"
+      },
+      {
+        "id": 141,
+        "name": "color",
+        "label": "color",
+        "typeId": 16,
+        "parentId": 54,
+        "orderNum": 0,
+        "value": "#0891B2"
+      },
+      {
+        "id": 142,
+        "name": "color",
+        "label": "color",
+        "typeId": 16,
+        "parentId": 55,
+        "orderNum": 0,
+        "value": "#EA580C"
+      },
+      {
+        "id": 51,
+        "name": "CRUD",
+        "label": "CRUD",
+        "typeId": 16,
+        "parentId": null,
+        "orderNum": 1,
+        "value": "crud"
+      },
+      {
+        "id": 52,
+        "name": "Schema",
+        "label": "Schema",
+        "typeId": 16,
+        "parentId": null,
+        "orderNum": 2,
+        "value": "schema"
+      },
+      {
+        "id": 53,
+        "name": "样式",
+        "label": "样式",
+        "typeId": 16,
+        "parentId": null,
+        "orderNum": 3,
+        "value": "style"
+      },
+      {
+        "id": 54,
+        "name": "组件",
+        "label": "组件",
+        "typeId": 16,
+        "parentId": null,
+        "orderNum": 4,
+        "value": "component"
+      },
+      {
+        "id": 55,
+        "name": "后端",
+        "label": "后端",
+        "typeId": 16,
+        "parentId": null,
+        "orderNum": 5,
+        "value": "backend"
+      }
+    ],
+    "agent_billing_mode": [
+      {
+        "id": 56,
+        "name": "Token",
+        "label": "Token",
+        "typeId": 17,
+        "parentId": null,
+        "orderNum": 0,
+        "value": "token"
+      },
+      {
+        "id": 114,
+        "name": "color",
+        "label": "color",
+        "typeId": 17,
+        "parentId": 56,
+        "orderNum": 0,
+        "value": "#4E5DFF"
+      },
+      {
+        "id": 115,
+        "name": "color",
+        "label": "color",
+        "typeId": 17,
+        "parentId": 57,
+        "orderNum": 0,
+        "value": "#16A34A"
+      },
+      {
+        "id": 116,
+        "name": "color",
+        "label": "color",
+        "typeId": 17,
+        "parentId": 58,
+        "orderNum": 0,
+        "value": "#DB2777"
+      },
+      {
+        "id": 117,
+        "name": "color",
+        "label": "color",
+        "typeId": 17,
+        "parentId": 59,
+        "orderNum": 0,
+        "value": "#CA8A04"
+      },
+      {
+        "id": 118,
+        "name": "color",
+        "label": "color",
+        "typeId": 17,
+        "parentId": 60,
+        "orderNum": 0,
+        "value": "#EA580C"
+      },
+      {
+        "id": 57,
+        "name": "请求次数",
+        "label": "请求次数",
+        "typeId": 17,
+        "parentId": null,
+        "orderNum": 1,
+        "value": "request"
+      },
+      {
+        "id": 58,
+        "name": "生图单次",
+        "label": "生图单次",
+        "typeId": 17,
+        "parentId": null,
+        "orderNum": 2,
+        "value": "image"
+      },
+      {
+        "id": 59,
+        "name": "向量嵌入",
+        "label": "向量嵌入",
+        "typeId": 17,
+        "parentId": null,
+        "orderNum": 3,
+        "value": "embed"
+      },
+      {
+        "id": 60,
+        "name": "混合",
+        "label": "混合",
+        "typeId": 17,
+        "parentId": null,
+        "orderNum": 4,
+        "value": "mixed"
+      }
+    ],
+    "agent_task_status": [
+      {
+        "id": 61,
+        "name": "等待中",
+        "label": "等待中",
+        "typeId": 18,
+        "parentId": null,
+        "orderNum": 0,
+        "value": "pending"
+      },
+      {
+        "id": 153,
+        "name": "color",
+        "label": "color",
+        "typeId": 18,
+        "parentId": 61,
+        "orderNum": 0,
+        "value": "#EA580C"
+      },
+      {
+        "id": 154,
+        "name": "color",
+        "label": "color",
+        "typeId": 18,
+        "parentId": 62,
+        "orderNum": 0,
+        "value": "#4E5DFF"
+      },
+      {
+        "id": 155,
+        "name": "color",
+        "label": "color",
+        "typeId": 18,
+        "parentId": 63,
+        "orderNum": 0,
+        "value": "#16A34A"
+      },
+      {
+        "id": 156,
+        "name": "color",
+        "label": "color",
+        "typeId": 18,
+        "parentId": 64,
+        "orderNum": 0,
+        "value": "#DC2626"
+      },
+      {
+        "id": 157,
+        "name": "color",
+        "label": "color",
+        "typeId": 18,
+        "parentId": 65,
+        "orderNum": 0,
+        "value": "#475569"
+      },
+      {
+        "id": 62,
+        "name": "执行中",
+        "label": "执行中",
+        "typeId": 18,
+        "parentId": null,
+        "orderNum": 1,
+        "value": "running"
+      },
+      {
+        "id": 63,
+        "name": "成功",
+        "label": "成功",
+        "typeId": 18,
+        "parentId": null,
+        "orderNum": 2,
+        "value": "succeeded"
+      },
+      {
+        "id": 64,
+        "name": "失败",
+        "label": "失败",
+        "typeId": 18,
+        "parentId": null,
+        "orderNum": 3,
+        "value": "failed"
+      },
+      {
+        "id": 65,
+        "name": "取消",
+        "label": "取消",
+        "typeId": 18,
+        "parentId": null,
+        "orderNum": 4,
+        "value": "cancelled"
+      }
+    ],
+    "agent_kb_source_type": [
+      {
+        "id": 66,
+        "name": "手动录入",
+        "label": "手动录入",
+        "typeId": 20,
+        "parentId": null,
+        "orderNum": 0,
+        "value": "manual"
+      },
+      {
+        "id": 127,
+        "name": "color",
+        "label": "color",
+        "typeId": 20,
+        "parentId": 66,
+        "orderNum": 0,
+        "value": "#4E5DFF"
+      },
+      {
+        "id": 128,
+        "name": "color",
+        "label": "color",
+        "typeId": 20,
+        "parentId": 67,
+        "orderNum": 0,
+        "value": "#16A34A"
+      },
+      {
+        "id": 67,
+        "name": "采纳回写",
+        "label": "采纳回写",
+        "typeId": 20,
+        "parentId": null,
+        "orderNum": 1,
+        "value": "adoption"
+      }
+    ],
+    "agent_member_role": [
+      {
+        "id": 68,
+        "name": "拥有者",
+        "label": "拥有者",
+        "typeId": 21,
+        "parentId": null,
+        "orderNum": 0,
+        "value": "owner"
+      },
+      {
+        "id": 129,
+        "name": "color",
+        "label": "color",
+        "typeId": 21,
+        "parentId": 68,
+        "orderNum": 0,
+        "value": "#CA8A04"
+      },
+      {
+        "id": 130,
+        "name": "color",
+        "label": "color",
+        "typeId": 21,
+        "parentId": 69,
+        "orderNum": 0,
+        "value": "#7C3AED"
+      },
+      {
+        "id": 131,
+        "name": "color",
+        "label": "color",
+        "typeId": 21,
+        "parentId": 70,
+        "orderNum": 0,
+        "value": "#4E5DFF"
+      },
+      {
+        "id": 132,
+        "name": "color",
+        "label": "color",
+        "typeId": 21,
+        "parentId": 71,
+        "orderNum": 0,
+        "value": "#475569"
+      },
+      {
+        "id": 69,
+        "name": "管理员",
+        "label": "管理员",
+        "typeId": 21,
+        "parentId": null,
+        "orderNum": 1,
+        "value": "admin"
+      },
+      {
+        "id": 70,
+        "name": "编辑",
+        "label": "编辑",
+        "typeId": 21,
+        "parentId": null,
+        "orderNum": 2,
+        "value": "editor"
+      },
+      {
+        "id": 71,
+        "name": "只读",
+        "label": "只读",
+        "typeId": 21,
+        "parentId": null,
+        "orderNum": 3,
+        "value": "viewer"
+      }
+    ],
+    "agent_session_status": [
+      {
+        "id": 72,
+        "name": "关闭",
+        "label": "关闭",
+        "typeId": 22,
+        "parentId": null,
+        "orderNum": 0,
+        "value": 0
+      },
+      {
+        "id": 145,
+        "name": "color",
+        "label": "color",
+        "typeId": 22,
+        "parentId": 72,
+        "orderNum": 0,
+        "value": "#475569"
+      },
+      {
+        "id": 146,
+        "name": "color",
+        "label": "color",
+        "typeId": 22,
+        "parentId": 73,
+        "orderNum": 0,
+        "value": "#16A34A"
+      },
+      {
+        "id": 147,
+        "name": "color",
+        "label": "color",
+        "typeId": 22,
+        "parentId": 74,
+        "orderNum": 0,
+        "value": "#DC2626"
+      },
+      {
+        "id": 73,
+        "name": "在线",
+        "label": "在线",
+        "typeId": 22,
+        "parentId": null,
+        "orderNum": 1,
+        "value": 1
+      },
+      {
+        "id": 74,
+        "name": "异常断开",
+        "label": "异常断开",
+        "typeId": 22,
+        "parentId": null,
+        "orderNum": 2,
+        "value": 2
+      }
+    ],
+    "agent_auth_token_status": [
+      {
+        "id": 75,
+        "name": "失效",
+        "label": "失效",
+        "typeId": 23,
+        "parentId": null,
+        "orderNum": 0,
+        "value": 0
+      },
+      {
+        "id": 111,
+        "name": "color",
+        "label": "color",
+        "typeId": 23,
+        "parentId": 75,
+        "orderNum": 0,
+        "value": "#DC2626"
+      },
+      {
+        "id": 112,
+        "name": "color",
+        "label": "color",
+        "typeId": 23,
+        "parentId": 76,
+        "orderNum": 0,
+        "value": "#16A34A"
+      },
+      {
+        "id": 113,
+        "name": "color",
+        "label": "color",
+        "typeId": 23,
+        "parentId": 77,
+        "orderNum": 0,
+        "value": "#475569"
+      },
+      {
+        "id": 76,
+        "name": "正常",
+        "label": "正常",
+        "typeId": 23,
+        "parentId": null,
+        "orderNum": 1,
+        "value": 1
+      },
+      {
+        "id": 77,
+        "name": "吊销",
+        "label": "吊销",
+        "typeId": 23,
+        "parentId": null,
+        "orderNum": 2,
+        "value": 2
+      }
+    ],
+    "agent_gen_result_status": [
+      {
+        "id": 78,
+        "name": "已生成",
+        "label": "已生成",
+        "typeId": 24,
+        "parentId": null,
+        "orderNum": 0,
+        "value": "generated"
+      },
+      {
+        "id": 119,
+        "name": "color",
+        "label": "color",
+        "typeId": 24,
+        "parentId": 78,
+        "orderNum": 0,
+        "value": "#4E5DFF"
+      },
+      {
+        "id": 120,
+        "name": "color",
+        "label": "color",
+        "typeId": 24,
+        "parentId": 79,
+        "orderNum": 0,
+        "value": "#16A34A"
+      },
+      {
+        "id": 121,
+        "name": "color",
+        "label": "color",
+        "typeId": 24,
+        "parentId": 80,
+        "orderNum": 0,
+        "value": "#EA580C"
+      },
+      {
+        "id": 122,
+        "name": "color",
+        "label": "color",
+        "typeId": 24,
+        "parentId": 81,
+        "orderNum": 0,
+        "value": "#DC2626"
+      },
+      {
+        "id": 79,
+        "name": "已采纳",
+        "label": "已采纳",
+        "typeId": 24,
+        "parentId": null,
+        "orderNum": 1,
+        "value": "adopted"
+      },
+      {
+        "id": 80,
+        "name": "已拒绝",
+        "label": "已拒绝",
+        "typeId": 24,
+        "parentId": null,
+        "orderNum": 2,
+        "value": "rejected"
+      },
+      {
+        "id": 81,
+        "name": "失败",
+        "label": "失败",
+        "typeId": 24,
+        "parentId": null,
+        "orderNum": 3,
+        "value": "failed"
+      }
+    ],
+    "agent_apply_mode": [
+      {
+        "id": 82,
+        "name": "补丁",
+        "label": "补丁",
+        "typeId": 25,
+        "parentId": null,
+        "orderNum": 0,
+        "value": "patch"
+      },
+      {
+        "id": 108,
+        "name": "color",
+        "label": "color",
+        "typeId": 25,
+        "parentId": 82,
+        "orderNum": 0,
+        "value": "#4E5DFF"
+      },
+      {
+        "id": 109,
+        "name": "color",
+        "label": "color",
+        "typeId": 25,
+        "parentId": 83,
+        "orderNum": 0,
+        "value": "#16A34A"
+      },
+      {
+        "id": 110,
+        "name": "color",
+        "label": "color",
+        "typeId": 25,
+        "parentId": 84,
+        "orderNum": 0,
+        "value": "#EA580C"
+      },
+      {
+        "id": 83,
+        "name": "文件",
+        "label": "文件",
+        "typeId": 25,
+        "parentId": null,
+        "orderNum": 1,
+        "value": "file"
+      },
+      {
+        "id": 84,
+        "name": "手动",
+        "label": "手动",
+        "typeId": 25,
+        "parentId": null,
+        "orderNum": 2,
+        "value": "manual"
+      }
+    ],
+    "project_member_role": [
+      {
+        "id": 85,
+        "name": "拥有者",
+        "label": "拥有者",
+        "typeId": 26,
+        "parentId": null,
+        "orderNum": 0,
+        "value": "owner"
+      },
+      {
+        "id": 207,
+        "name": "color",
+        "label": "color",
+        "typeId": 26,
+        "parentId": 85,
+        "orderNum": 0,
+        "value": "#CA8A04"
+      },
+      {
+        "id": 208,
+        "name": "color",
+        "label": "color",
+        "typeId": 26,
+        "parentId": 86,
+        "orderNum": 0,
+        "value": "#7C3AED"
+      },
+      {
+        "id": 209,
+        "name": "color",
+        "label": "color",
+        "typeId": 26,
+        "parentId": 87,
+        "orderNum": 0,
+        "value": "#4E5DFF"
+      },
+      {
+        "id": 210,
+        "name": "color",
+        "label": "color",
+        "typeId": 26,
+        "parentId": 88,
+        "orderNum": 0,
+        "value": "#475569"
+      },
+      {
+        "id": 86,
+        "name": "管理员",
+        "label": "管理员",
+        "typeId": 26,
+        "parentId": null,
+        "orderNum": 1,
+        "value": "admin"
+      },
+      {
+        "id": 87,
+        "name": "编辑",
+        "label": "编辑",
+        "typeId": 26,
+        "parentId": null,
+        "orderNum": 2,
+        "value": "editor"
+      },
+      {
+        "id": 88,
+        "name": "只读",
+        "label": "只读",
+        "typeId": 26,
+        "parentId": null,
+        "orderNum": 3,
+        "value": "viewer"
+      }
+    ],
+    "order_coin_ledger_type": [
+      {
+        "id": 89,
+        "name": "充值",
+        "label": "充值",
+        "typeId": 27,
+        "parentId": null,
+        "orderNum": 0,
+        "value": "recharge"
+      },
+      {
+        "id": 197,
+        "name": "color",
+        "label": "color",
+        "typeId": 27,
+        "parentId": 89,
+        "orderNum": 0,
+        "value": "#CA8A04"
+      },
+      {
+        "id": 198,
+        "name": "color",
+        "label": "color",
+        "typeId": 27,
+        "parentId": 90,
+        "orderNum": 0,
+        "value": "#EA580C"
+      },
+      {
+        "id": 199,
+        "name": "color",
+        "label": "color",
+        "typeId": 27,
+        "parentId": 91,
+        "orderNum": 0,
+        "value": "#16A34A"
+      },
+      {
+        "id": 200,
+        "name": "color",
+        "label": "color",
+        "typeId": 27,
+        "parentId": 92,
+        "orderNum": 0,
+        "value": "#7C3AED"
+      },
+      {
+        "id": 90,
+        "name": "消费",
+        "label": "消费",
+        "typeId": 27,
+        "parentId": null,
+        "orderNum": 1,
+        "value": "consume"
+      },
+      {
+        "id": 91,
+        "name": "退款",
+        "label": "退款",
+        "typeId": 27,
+        "parentId": null,
+        "orderNum": 2,
+        "value": "refund"
+      },
+      {
+        "id": 92,
+        "name": "调整",
+        "label": "调整",
+        "typeId": 27,
+        "parentId": null,
+        "orderNum": 3,
+        "value": "adjust"
+      }
+    ],
+    "order_recharge_pay_status": [
+      {
+        "id": 98,
+        "name": "待支付",
+        "label": "待支付",
+        "typeId": 29,
+        "parentId": null,
+        "orderNum": 0,
+        "value": 0
+      },
+      {
+        "id": 201,
+        "name": "color",
+        "label": "color",
+        "typeId": 29,
+        "parentId": 98,
+        "orderNum": 0,
+        "value": "#EA580C"
+      },
+      {
+        "id": 202,
+        "name": "color",
+        "label": "color",
+        "typeId": 29,
+        "parentId": 99,
+        "orderNum": 0,
+        "value": "#16A34A"
+      },
+      {
+        "id": 203,
+        "name": "color",
+        "label": "color",
+        "typeId": 29,
+        "parentId": 100,
+        "orderNum": 0,
+        "value": "#475569"
+      },
+      {
+        "id": 99,
+        "name": "已支付",
+        "label": "已支付",
+        "typeId": 29,
+        "parentId": null,
+        "orderNum": 1,
+        "value": 1
+      },
+      {
+        "id": 100,
+        "name": "已关闭",
+        "label": "已关闭",
+        "typeId": 29,
+        "parentId": null,
+        "orderNum": 2,
+        "value": 2
+      }
+    ],
+    "agent_result_status": [
+      {
+        "id": 101,
+        "name": "已生成",
+        "label": "已生成",
+        "typeId": 30,
+        "parentId": null,
+        "orderNum": 0,
+        "value": "generated"
+      },
+      {
+        "id": 133,
+        "name": "color",
+        "label": "color",
+        "typeId": 30,
+        "parentId": 101,
+        "orderNum": 0,
+        "value": "#4E5DFF"
+      },
+      {
+        "id": 134,
+        "name": "color",
+        "label": "color",
+        "typeId": 30,
+        "parentId": 102,
+        "orderNum": 0,
+        "value": "#16A34A"
+      },
+      {
+        "id": 135,
+        "name": "color",
+        "label": "color",
+        "typeId": 30,
+        "parentId": 103,
+        "orderNum": 0,
+        "value": "#EA580C"
+      },
+      {
+        "id": 136,
+        "name": "color",
+        "label": "color",
+        "typeId": 30,
+        "parentId": 104,
+        "orderNum": 0,
+        "value": "#DC2626"
+      },
+      {
+        "id": 102,
+        "name": "已采纳",
+        "label": "已采纳",
+        "typeId": 30,
+        "parentId": null,
+        "orderNum": 1,
+        "value": "adopted"
+      },
+      {
+        "id": 103,
+        "name": "已拒绝",
+        "label": "已拒绝",
+        "typeId": 30,
+        "parentId": null,
+        "orderNum": 2,
+        "value": "rejected"
+      },
+      {
+        "id": 104,
+        "name": "失败",
+        "label": "失败",
+        "typeId": 30,
+        "parentId": null,
+        "orderNum": 3,
+        "value": "failed"
+      }
+    ],
+    "plugin_type": [
+      {
+        "id": 105,
+        "name": "全栈",
+        "label": "全栈",
+        "typeId": 31,
+        "parentId": null,
+        "orderNum": 0,
+        "value": 1
+      },
+      {
+        "id": 204,
+        "name": "color",
+        "label": "color",
+        "typeId": 31,
+        "parentId": 105,
+        "orderNum": 0,
+        "value": "#CA8A04"
+      },
+      {
+        "id": 205,
+        "name": "color",
+        "label": "color",
+        "typeId": 31,
+        "parentId": 106,
+        "orderNum": 0,
+        "value": "#7C3AED"
+      },
+      {
+        "id": 206,
+        "name": "color",
+        "label": "color",
+        "typeId": 31,
+        "parentId": 107,
+        "orderNum": 0,
+        "value": "#4E5DFF"
+      },
+      {
+        "id": 106,
+        "name": "后端",
+        "label": "后端",
+        "typeId": 31,
+        "parentId": null,
+        "orderNum": 1,
+        "value": 2
+      },
+      {
+        "id": 107,
+        "name": "前端",
+        "label": "前端",
+        "typeId": 31,
+        "parentId": null,
+        "orderNum": 2,
+        "value": 3
+      }
+    ],
+    "user_status": [
+      {
+        "id": 240,
+        "name": "正常",
+        "label": "正常",
+        "typeId": 32,
+        "parentId": null,
+        "orderNum": 0,
+        "value": 1
+      },
+      {
+        "id": 241,
+        "name": "color",
+        "label": "color",
+        "typeId": 32,
+        "parentId": 240,
+        "orderNum": 0,
+        "value": "#4E5DFF"
+      },
+      {
+        "id": 243,
+        "name": "color",
+        "label": "color",
+        "typeId": 32,
+        "parentId": 242,
+        "orderNum": 0,
+        "value": "#6B7280"
+      },
+      {
+        "id": 245,
+        "name": "color",
+        "label": "color",
+        "typeId": 32,
+        "parentId": 244,
+        "orderNum": 0,
+        "value": "#DC2626"
+      },
+      {
+        "id": 242,
+        "name": "已注销",
+        "label": "已注销",
+        "typeId": 32,
+        "parentId": null,
+        "orderNum": 1,
+        "value": 2
+      },
+      {
+        "id": 244,
+        "name": "禁用",
+        "label": "禁用",
+        "typeId": 32,
+        "parentId": null,
+        "orderNum": 2,
+        "value": 3
       }
     ]
   }

@@ -40,8 +40,8 @@ export function getRefreshToken() {
 
 function redirectLogin() {
   if (typeof window === 'undefined') return
-  if (location.pathname.startsWith('/login')) return
-  location.href = `/login?redirect=${encodeURIComponent(location.pathname + location.search)}`
+  if (location.pathname.startsWith('/pages/login')) return
+  location.href = `/pages/login/index?redirect=${encodeURIComponent(location.pathname + location.search)}`
 }
 
 let refreshPromise: Promise<string> | null = null

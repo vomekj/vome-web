@@ -67,7 +67,11 @@ function switchMode(mode: AuthMode) {
   if (busy.value) return
   authMode.value = mode
   error.value = ''
-  if (mode === 'register') authMethod.value = 'password'
+  otpCode.value = ''
+  if (mode === 'register') {
+    authMethod.value = 'password'
+    if (!captchaId.value) void refreshCaptcha()
+  }
 }
 
 function switchMethod(method: AuthMethod) {
@@ -164,8 +168,10 @@ async function finishLogin(access: string, refresh: string, msg = '登录成功'
   successOpen.value = true
   await new Promise((r) => setTimeout(r, 900))
   const redirect =
-    typeof route.query.redirect === 'string' ? route.query.redirect : '/home'
-  await router.replace(redirect || '/home')
+    typeof route.query.redirect === 'string'
+      ? route.query.redirect
+      : '/pages/home/index'
+  await openPage(redirect || '/pages/home/index', { replace: true })
 }
 
 async function trySsoSession() {
@@ -189,28 +195,41 @@ async function submit() {
 
   loading.value = true
   try {
-    if (authMode.value === 'register' || authMethod.value === 'password') {
+    if (authMode.value === 'register') {
+      if (!otpCode.value.trim()) {
+        error.value = '请输入验证码'
+        return
+      }
       if (!password.value) {
         error.value = '请输入密码'
         return
       }
-      if (authMode.value === 'register') {
-        if (password.value.length < 6) {
-          error.value = '密码至少 6 位'
-          return
-        }
-        if (password.value !== password2.value) {
-          error.value = '两次密码不一致'
-          return
-        }
-        const data = await request<{
-          token: string
-          refreshToken: string
-        }>('/app/user/login/register', {
-          method: 'POST',
-          body: JSON.stringify({ account: acc, password: password.value }),
-        })
-        await finishLogin(data.token, data.refreshToken, '登录成功')
+      if (password.value.length < 6) {
+        error.value = '密码至少 6 位'
+        return
+      }
+      if (password.value !== password2.value) {
+        error.value = '两次密码不一致'
+        return
+      }
+      const data = await request<{
+        token: string
+        refreshToken: string
+      }>('/app/user/login/register', {
+        method: 'POST',
+        body: JSON.stringify({
+          account: acc,
+          password: password.value,
+          code: otpCode.value.trim(),
+        }),
+      })
+      await finishLogin(data.token, data.refreshToken, '注册成功')
+      return
+    }
+
+    if (authMethod.value === 'password') {
+      if (!password.value) {
+        error.value = '请输入密码'
         return
       }
       const data = await request<{
@@ -238,7 +257,9 @@ async function submit() {
     await finishLogin(data.token, data.refreshToken)
   } catch (e) {
     error.value = e instanceof Error ? e.message : '操作失败'
-    if (authMethod.value === 'code') await refreshCaptcha()
+    if (authMethod.value === 'code' || authMode.value === 'register') {
+      await refreshCaptcha()
+    }
   } finally {
     loading.value = false
   }
@@ -251,8 +272,10 @@ async function socialLogin(provider: string) {
   error.value = ''
   try {
     const redirect =
-      typeof route.query.redirect === 'string' ? route.query.redirect : '/home'
-    const callbackURL = `${window.location.origin}/login?sso=1&redirect=${encodeURIComponent(redirect || '/home')}`
+      typeof route.query.redirect === 'string'
+        ? route.query.redirect
+        : '/pages/home/index'
+    const callbackURL = `${window.location.origin}/pages/login/index?sso=1&redirect=${encodeURIComponent(redirect || '/pages/home/index')}`
     await authClient.signIn.social({
       provider: provider as never,
       callbackURL,
@@ -325,7 +348,66 @@ onUnmounted(() => {
           />
         </div>
 
-        <template v-if="authMode === 'register' || authMethod === 'password'">
+        <!-- 注册：图片验证码 + 短信/邮箱验证码 + 密码 -->
+        <template v-if="authMode === 'register'">
+          <div class="vm-login__field">
+            <label for="captchaInput">图片验证码</label>
+            <div class="vm-login__captcha-row">
+              <input
+                id="captchaInput"
+                v-model="captchaInput"
+                type="text"
+                maxlength="4"
+                inputmode="numeric"
+                autocomplete="off"
+                placeholder="计算结果"
+                :disabled="busy"
+              />
+              <button
+                type="button"
+                class="vm-login__captcha"
+                title="点击刷新"
+                :disabled="captchaLoading || busy"
+                @click="refreshCaptcha"
+              >
+                <img v-if="captchaSrc" :src="captchaSrc" alt="验证码" />
+                <span v-else class="vm-login__captcha-loading">…</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="vm-login__field">
+            <label for="otpCode">验证码</label>
+            <div class="vm-login__code-row">
+              <input
+                id="otpCode"
+                v-model="otpCode"
+                type="text"
+                maxlength="6"
+                inputmode="numeric"
+                autocomplete="one-time-code"
+                placeholder="短信/邮箱验证码"
+                :disabled="busy"
+              />
+              <button
+                type="button"
+                class="vm-login__code-btn"
+                :disabled="
+                  codeSending || codeCountdown > 0 || busy || captchaLoading
+                "
+                @click="sendOtp"
+              >
+                {{
+                  codeSending
+                    ? '发送中…'
+                    : codeCountdown > 0
+                      ? `${codeCountdown}s`
+                      : '获取验证码'
+                }}
+              </button>
+            </div>
+          </div>
+
           <div class="vm-login__field">
             <label for="password">密码</label>
             <div class="vm-login__password-wrap">
@@ -334,10 +416,8 @@ onUnmounted(() => {
                 v-model="password"
                 :type="showPassword ? 'text' : 'password'"
                 maxlength="32"
-                :autocomplete="
-                  authMode === 'register' ? 'new-password' : 'current-password'
-                "
-                :placeholder="authMode === 'register' ? '至少 6 位密码' : '请输入密码'"
+                autocomplete="new-password"
+                placeholder="至少 6 位密码"
                 :disabled="busy"
               />
               <button
@@ -353,7 +433,7 @@ onUnmounted(() => {
               </button>
             </div>
           </div>
-          <div v-if="authMode === 'register'" class="vm-login__field">
+          <div class="vm-login__field">
             <label for="password2">确认密码</label>
             <div class="vm-login__password-wrap">
               <input
@@ -380,6 +460,36 @@ onUnmounted(() => {
           </div>
         </template>
 
+        <!-- 登录 · 密码 -->
+        <template v-else-if="authMethod === 'password'">
+          <div class="vm-login__field">
+            <label for="password">密码</label>
+            <div class="vm-login__password-wrap">
+              <input
+                id="password"
+                v-model="password"
+                :type="showPassword ? 'text' : 'password'"
+                maxlength="32"
+                autocomplete="current-password"
+                placeholder="请输入密码"
+                :disabled="busy"
+              />
+              <button
+                type="button"
+                class="vm-login__password-toggle"
+                tabindex="-1"
+                :title="showPassword ? '隐藏密码' : '显示密码'"
+                :aria-label="showPassword ? '隐藏密码' : '显示密码'"
+                :disabled="busy"
+                @click="showPassword = !showPassword"
+              >
+                <i :class="showPassword ? 'ri-eye-line' : 'ri-eye-off-line'" />
+              </button>
+            </div>
+          </div>
+        </template>
+
+        <!-- 登录 · 验证码 -->
         <template v-else>
           <div class="vm-login__field">
             <label for="captchaInput">图片验证码</label>
@@ -537,8 +647,11 @@ onUnmounted(() => {
         </div>
       </div>
 
-      <div v-if="successOpen" class="vm-login__toast-mask" aria-live="polite">
-        <div class="vm-login__toast">{{ successMsg }}</div>
+      <div v-if="successOpen" class="vm-toaster-mask" aria-live="polite">
+        <div class="vm-toaster is-success">
+          <i class="vm-toaster__icon ri-checkbox-circle-fill" aria-hidden="true" />
+          <span class="vm-toaster__text">{{ successMsg }}</span>
+        </div>
       </div>
     </Teleport>
   </div>
@@ -1025,23 +1138,46 @@ onUnmounted(() => {
   gap: 10px;
 }
 
-.vm-login__toast-mask {
+.vm-toaster-mask {
   position: fixed;
   inset: 0;
   z-index: 1100;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
+  padding-top: min(120px, 18vh);
   pointer-events: none;
 }
 
-.vm-login__toast {
-  padding: 14px 22px;
-  border-radius: 12px;
-  background: rgba(44, 49, 66, 0.92);
-  color: #fff;
-  font-size: 15px;
-  letter-spacing: 0.04em;
-  box-shadow: 0 12px 32px rgba(20, 24, 40, 0.28);
+.vm-toaster {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  max-width: min(400px, calc(100vw - 32px));
+  min-height: 40px;
+  padding: 10px 14px;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.4;
+  box-shadow: 0 4px 12px rgb(0 0 0 / 8%);
+
+  &.is-success {
+    background: #e8f7ef;
+    border-color: color-mix(in srgb, #3d9a6a 22%, transparent);
+    color: #3d9a6a;
+  }
+}
+
+.vm-toaster__icon {
+  flex-shrink: 0;
+  font-size: 18px;
+  line-height: 1;
+}
+
+.vm-toaster__text {
+  min-width: 0;
+  word-break: break-word;
 }
 </style>

@@ -4,26 +4,37 @@ export type TabName = 'home' | 'discover' | 'message' | 'mine'
 
 const MOBILE_MAX = 767
 
+/** 与 uniapp 对齐：完整页面 path `/pages/.../index` */
 export const TAB_LIST: Array<{
   name: TabName
   text: string
   icon: string
   path: string
 }> = [
-  { name: 'home', text: '首页', icon: 'ri-home-5-line', path: '/home' },
+  {
+    name: 'home',
+    text: '首页',
+    icon: 'ri-home-5-line',
+    path: '/pages/home/index',
+  },
   {
     name: 'discover',
     text: '发现',
     icon: 'ri-compass-3-line',
-    path: '/discover',
+    path: '/pages/discover/index',
   },
   {
     name: 'message',
     text: '消息',
     icon: 'ri-notification-3-line',
-    path: '/message',
+    path: '/pages/message/index',
   },
-  { name: 'mine', text: '我的', icon: 'ri-user-3-line', path: '/mine' },
+  {
+    name: 'mine',
+    text: '我的',
+    icon: 'ri-user-3-line',
+    path: '/pages/mine/index',
+  },
 ]
 
 /** 应用壳：断点 / Tab 激活（对齐 uniapp / vome-ai） */
@@ -58,21 +69,15 @@ export const useAppStore = defineStore('app', {
       window.addEventListener('resize', () => {
         this.windowWidth = window.innerWidth
       })
-      try {
-        const cached = localStorage.getItem('vome_web_active') as TabName | null
-        if (cached && TAB_LIST.some((t) => t.name === cached)) {
-          this.active = cached
-        }
-      } catch {
-        // ignore
-      }
     },
   },
 })
 
-/** 全局代理（auto-import）；等价 useAppStore() */
+/**
+ * 全局代理（auto-import）；等价 useAppStore()
+ */
 export const appStore = new Proxy({} as ReturnType<typeof useAppStore>, {
-  get(_t, prop) {
+  get(_t, prop, receiver) {
     const store = useAppStore()
     const value = Reflect.get(store, prop, store)
     return typeof value === 'function' ? value.bind(store) : value
