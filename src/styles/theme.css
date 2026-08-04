@@ -47,21 +47,37 @@
     --radius-xl: calc(var(--radius) + 4px);
 }
 
-/* ——— 与 uniapp 对齐的壳层 token ——— */
+/* ——— 壳层必要色（与 Vome Code 主题面板 `--vm-*` 对齐；其余语义色用户自行加） ——— */
 :root,
 [data-theme='light'] {
-    --vm-page-bg: #f4f6fc;
-    --vm-header-bg: #ffffff;
-    --vm-header-border: #eef0f5;
-    --vm-brand-text: #3b4456;
-    --vm-muted-text: #9aa0b0;
-    --vm-soft-bg: #f4f6fc;
-    --vm-soft-active: rgba(78, 93, 255, 0.12);
+    /* 主题 */
     --vm-brand: #4e5dff;
+    /* 页面底色 */
+    --vm-page-bg: #f4f6fc;
+    /* 顶栏底色 */
+    --vm-header-bg: #ffffff;
+    /* 顶栏边框 */
+    --vm-header-border: #eef0f5;
+    /* 文本1 */
+    --vm-brand-text: #3b4456;
+    /* 文本2 */
+    --vm-muted-text: #9aa0b0;
+    /* 柔和底 */
+    --vm-soft-bg: #f4f6fc;
+    /* 柔和激活 */
+    --vm-soft-active: rgba(78, 93, 255, 0.12);
+    /* 卡片底色 */
     --vm-card: #ffffff;
+    /* 卡片边框 */
     --vm-card-border: #e8ebf5;
+    /* 卡片阴影 */
     --vm-card-shadow: 0 10px 30px rgba(40, 50, 120, 0.06);
+    /* 内嵌底色 */
     --vm-inset: #f4f6fc;
+    /* 主题上文字 */
+    --vm-on-brand: #ffffff;
+    /* 危险色 */
+    --vm-danger: #e5484d;
 }
 
 html[data-theme='dark'],
@@ -70,31 +86,47 @@ html.dark,
 [data-theme='dark'],
 .theme-dark,
 .dark {
-    --vm-page-bg: #141625;
-    --vm-header-bg: #141625;
-    --vm-header-border: #252836;
-    --vm-brand-text: #f0f2fa;
-    --vm-muted-text: #9aa0b0;
-    --vm-soft-bg: #1c1f33;
-    --vm-soft-active: rgba(78, 93, 255, 0.22);
+    /* 主题 */
     --vm-brand: #4e5dff;
+    /* 页面底色 */
+    --vm-page-bg: #141625;
+    /* 顶栏底色 */
+    --vm-header-bg: #141625;
+    /* 顶栏边框 */
+    --vm-header-border: #252836;
+    /* 文本1 */
+    --vm-brand-text: #f0f2fa;
+    /* 文本2 */
+    --vm-muted-text: #9aa0b0;
+    /* 柔和底 */
+    --vm-soft-bg: #1c1f33;
+    /* 柔和激活 */
+    --vm-soft-active: rgba(78, 93, 255, 0.22);
+    /* 卡片底色 */
     --vm-card: #1c1f33;
+    /* 卡片边框 */
     --vm-card-border: rgba(255, 255, 255, 0.08);
+    /* 卡片阴影 */
     --vm-card-shadow: 0 10px 28px rgba(0, 0, 0, 0.35);
+    /* 内嵌底色 */
     --vm-inset: #12141f;
+    /* 主题上文字 */
+    --vm-on-brand: #ffffff;
+    /* 危险色 */
+    --vm-danger: #f07178;
 }
 
 :root {
-    --brand: #4e5dff;
-    --brand-soft: #eef0ff;
-    --shadow-soft: 0 10px 30px rgba(40, 50, 120, 0.06);
+    --brand: var(--vm-brand, #4e5dff);
+    --brand-soft: color-mix(in srgb, var(--vm-brand, #4e5dff) 12%, #fff);
+    --shadow-soft: var(--vm-card-shadow);
     --background: oklch(1 0 0);
     --foreground: oklch(0.145 0 0);
     --card: oklch(1 0 0);
     --card-foreground: oklch(0.145 0 0);
     --popover: oklch(1 0 0);
     --popover-foreground: oklch(0.145 0 0);
-    --primary: #4e5dff;
+    --primary: var(--vm-brand, #4e5dff);
     --primary-foreground: #ffffff;
     --secondary: oklch(0.97 0 0);
     --secondary-foreground: oklch(0.205 0 0);
@@ -105,7 +137,7 @@ html.dark,
     --destructive: oklch(0.577 0.245 27.325);
     --border: oklch(0.922 0 0);
     --input: oklch(0.922 0 0);
-    --ring: #4e5dff;
+    --ring: var(--vm-brand, #4e5dff);
     --chart-1: oklch(0.87 0 0);
     --chart-2: oklch(0.556 0 0);
     --chart-3: oklch(0.439 0 0);
@@ -114,7 +146,7 @@ html.dark,
     --radius: 0.625rem;
     --sidebar: oklch(0.985 0 0);
     --sidebar-foreground: oklch(0.145 0 0);
-    --sidebar-primary: #4e5dff;
+    --sidebar-primary: var(--vm-brand, #4e5dff);
     --sidebar-primary-foreground: #ffffff;
     --sidebar-accent: oklch(0.97 0 0);
     --sidebar-accent-foreground: oklch(0.205 0 0);

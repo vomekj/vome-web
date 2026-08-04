@@ -8,6 +8,7 @@ import { config } from '@/config'
 import logoDark from '@/static/image/logo-dark.png'
 import { setSquareFavicon, syncDocumentTitle } from '@/utils/favicon'
 import '@/styles/theme.css'
+import '@/styles/project-theme.css'
 
 setSquareFavicon(logoDark)
 syncDocumentTitle(config.app.name)
@@ -33,7 +34,7 @@ async function main() {
 
   app.mount('#app')
 
-  const { connectWs } = await import('@/lib/socket')
+  const { connectWs } = await import('@/utils/socket')
   connectWs()
 }
 

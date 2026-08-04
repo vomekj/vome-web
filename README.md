@@ -88,10 +88,7 @@ bun run dev
 | 命令 | 说明 |
 | --- | --- |
 | `bun run dev` | 开发（端口 **9900**） |
-| `bun run build` | 类型检查 + 生产构建 |
-| `bun run preview` | 预览 `dist` |
-| `bun run type-check` | 仅 `vue-tsc` |
-| `bun run format` | 格式化 `src/` |
+| `bun run build` | 生产构建 |
 
 ## 端口对照
 
@@ -107,26 +104,27 @@ bun run dev
 ```text
 vome-web/
 ├── src/
-│   ├── pages/                 # 页面（glob 生成路由）
-│   │   ├── home/              # → /home
+│   ├── pages/                 # 页面（glob 生成路由，与 uni 同构）
+│   │   ├── home/              # → /pages/home/index
 │   │   ├── discover/
 │   │   ├── message/
 │   │   ├── mine/
-│   │   └── login/             # → /login（免登录）
+│   │   └── login/             # → /pages/login/index（免登录）
 │   ├── components/
 │   │   ├── ui/                # shadcn-vue
 │   │   ├── vm-header.vue
+│   │   ├── vm-aside.vue       # 侧栏占位（App 内注释）
 │   │   ├── vm-tabbar.vue
 │   │   └── vm-ri-icon.vue
 │   ├── api/client.ts          # request、Token、bootEps、service
 │   ├── lib/
-│   │   ├── auth-client.ts     # Better Auth + syncBetterAuthJwt
-│   │   └── socket.ts
+│   │   ├── auth-client.ts     # Better Auth（与 uni 同路径）
+│   │   └── utils.ts           # cn()（shadcn）
 │   ├── stores/                # app / user / theme
 │   ├── router/
 │   ├── config/                # index / dev / prod / proxy
 │   ├── styles/theme.css
-│   └── utils/
+│   └── utils/                 # socket、favicon、login-bubble、navigation、page-path（与 uni 对齐）
 ├── typings/
 ├── vite.config.ts
 └── package.json
@@ -139,7 +137,7 @@ vome-web/
 3. 有 token 时 `connectWs()`  
 4. 主题与用户信息按需拉取  
 
-`/` 重定向到 `/home`。底部 Tab：`home` / `discover` / `message` / `mine`。
+`/` 重定向到 `/pages/home/index`。底部 Tab：`home` / `discover` / `message` / `mine`。
 
 ## 新增页面
 

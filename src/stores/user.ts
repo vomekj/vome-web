@@ -98,7 +98,7 @@ export const useUserStore = defineStore('user', () => {
     info.value = undefined
     loaded.value = false
     getFlight = null
-    void import('@/lib/socket').then(({ disconnectWs }) => disconnectWs())
+    void import('@/utils/socket').then(({ disconnectWs }) => disconnectWs())
   }
 
   async function logout() {

@@ -4,8 +4,7 @@ import { request, setTokens, getAccessToken } from '@/api/client'
 import {
   authClient,
   syncBetterAuthJwt,
-  SOCIAL_ICONS,
-  SOCIAL_LABELS,
+  type SocialProviderPublic,
 } from '@/lib/auth-client'
 import logoDark from '@/static/image/logo-dark.png'
 import { startBubble, stopBubble } from '@/utils/login-bubble'
@@ -38,7 +37,7 @@ const codeCountdown = ref(0)
 const error = ref('')
 const loading = ref(false)
 const ssoLoading = ref('')
-const providers = ref<string[]>([])
+const providers = ref<SocialProviderPublic[]>([])
 const ssoMoreOpen = ref(false)
 const successOpen = ref(false)
 const successMsg = ref('登录成功')
@@ -83,9 +82,12 @@ function switchMethod(method: AuthMethod) {
 
 async function loadProviders() {
   try {
-    providers.value = await request<string[]>('/app/user/login/socialProviders', {
-      toast: false,
-    })
+    providers.value = await request<SocialProviderPublic[]>(
+      '/app/user/login/socialProviders',
+      {
+        toast: false,
+      },
+    )
   } catch {
     providers.value = []
   }
@@ -162,7 +164,7 @@ async function sendOtp() {
 
 async function finishLogin(access: string, refresh: string, msg = '登录成功') {
   setTokens(access, refresh)
-  void import('@/lib/socket').then(({ reconnectWs }) => reconnectWs())
+  void import('@/utils/socket').then(({ reconnectWs }) => reconnectWs())
   await userStore.get()
   successMsg.value = msg
   successOpen.value = true
@@ -583,16 +585,19 @@ onUnmounted(() => {
           <div class="vm-login__sso-row">
             <button
               v-for="p in primaryProviders"
-              :key="p"
+              :key="p.key"
               type="button"
               class="vm-login__sso-chip"
-              :class="`is-${p}`"
+              :class="`is-${p.key}`"
               :disabled="busy"
-              @click="socialLogin(p)"
+              @click="socialLogin(p.key)"
             >
-              <i :class="SOCIAL_ICONS[p] || 'ri-login-circle-line'" />
+              <i
+                :class="p.icon || 'ri-login-circle-line'"
+                :style="{ color: p.color || '#4e5dff' }"
+              />
               <span>{{
-                ssoLoading === p ? '…' : SOCIAL_LABELS[p] || p
+                ssoLoading === p.key ? '…' : p.label || p.key
               }}</span>
             </button>
             <button
@@ -631,16 +636,19 @@ onUnmounted(() => {
           <div class="vm-login__sso-sheet-list">
             <button
               v-for="p in moreProviders"
-              :key="p"
+              :key="p.key"
               type="button"
               class="vm-login__sso-chip"
-              :class="`is-${p}`"
+              :class="`is-${p.key}`"
               :disabled="busy"
-              @click="socialLogin(p)"
+              @click="socialLogin(p.key)"
             >
-              <i :class="SOCIAL_ICONS[p] || 'ri-login-circle-line'" />
+              <i
+                :class="p.icon || 'ri-login-circle-line'"
+                :style="{ color: p.color || '#4e5dff' }"
+              />
               <span>{{
-                ssoLoading === p ? '跳转中…' : SOCIAL_LABELS[p] || p
+                ssoLoading === p.key ? '跳转中…' : p.label || p.key
               }}</span>
             </button>
           </div>

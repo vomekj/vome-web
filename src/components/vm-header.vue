@@ -22,19 +22,6 @@
     </nav>
 
     <div class="actions">
-      <button
-        type="button"
-        class="actions__icon"
-        :title="
-          isDark
-            ? locale.t('header.themeLight', '浅色')
-            : locale.t('header.themeDark', '深色')
-        "
-        @click="onToggleTheme"
-      >
-        <vm-ri-icon :name="isDark ? 'ri-sun-line' : 'ri-moon-line'" />
-      </button>
-
       <div ref="localeWrapRef" class="actions__locale">
         <button
           type="button"
@@ -125,10 +112,6 @@ function switchTab(index: number) {
   if (!item) return
   appStore.setActive(item.name)
   void openPage(item.path)
-}
-
-function onToggleTheme() {
-  toggleTheme()
 }
 
 async function switchLocale(code: string) {

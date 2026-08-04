@@ -1,0 +1,27 @@
+/* Project theme tokens + customCss — overwritten by Vome Code「写入代码」 */
+:root,
+[data-theme='light'] {
+  --radius: 16px;
+  --vome-radius: 16px;
+  /* 主题 */
+  --vm-brand: #4e5dff;
+  --brand: #4e5dff;
+  --primary: #4e5dff;
+  /* 页面底色 */
+  --vm-page-bg: #f4f6fc;
+  --vome-page-bg: #f4f6fc;
+}
+
+[data-theme='dark'],
+.theme-dark,
+.dark {
+  --radius: 16px;
+  --vome-radius: 16px;
+  /* 主题 */
+  --vm-brand: #4e5dff;
+  --brand: #4e5dff;
+  --primary: #4e5dff;
+  /* 页面底色 */
+  --vm-page-bg: #141625;
+  --vome-page-bg: #141625;
+}

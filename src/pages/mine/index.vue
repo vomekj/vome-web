@@ -30,15 +30,7 @@
     <div class="section">
       <div class="cell">
         <span>深色模式</span>
-        <button
-          type="button"
-          class="switch"
-          :class="{ on: isDark }"
-          :aria-pressed="isDark"
-          @click="onDarkToggle"
-        >
-          <span class="switch__knob" />
-        </button>
+        <vm-theme-toggle />
       </div>
     </div>
   </div>
@@ -153,37 +145,5 @@ async function onLogout() {
   justify-content: space-between;
   padding: 14px 16px;
   font-size: 14px;
-}
-
-.switch {
-  position: relative;
-  width: 44px;
-  height: 26px;
-  padding: 0;
-  border: none;
-  border-radius: 999px;
-  background: #d4d7e3;
-  cursor: pointer;
-  transition: background 0.15s ease;
-}
-
-.switch.on {
-  background: #4e5dff;
-}
-
-.switch__knob {
-  position: absolute;
-  top: 3px;
-  left: 3px;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  background: #fff;
-  transition: transform 0.15s ease;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
-}
-
-.switch.on .switch__knob {
-  transform: translateX(18px);
 }
 </style>

@@ -88,10 +88,7 @@ Configure OAuth secrets in Service `src/config` for social login.
 | Command | Description |
 | --- | --- |
 | `bun run dev` | Dev server on port **9900** |
-| `bun run build` | Type-check + production build |
-| `bun run preview` | Preview `dist` |
-| `bun run type-check` | `vue-tsc` only |
-| `bun run format` | Format `src/` |
+| `bun run build` | Production build |
 
 ## Port map
 
@@ -107,26 +104,27 @@ Configure OAuth secrets in Service `src/config` for social login.
 ```text
 vome-web/
 ├── src/
-│   ├── pages/                 # Pages (glob → routes)
-│   │   ├── home/              # → /home
+│   ├── pages/                 # Pages (glob → routes, same as uni)
+│   │   ├── home/              # → /pages/home/index
 │   │   ├── discover/
 │   │   ├── message/
 │   │   ├── mine/
-│   │   └── login/             # → /login (public)
+│   │   └── login/             # → /pages/login/index (public)
 │   ├── components/
 │   │   ├── ui/                # shadcn-vue
 │   │   ├── vm-header.vue
+│   │   ├── vm-aside.vue       # sidebar placeholder (commented in App)
 │   │   ├── vm-tabbar.vue
 │   │   └── vm-ri-icon.vue
 │   ├── api/client.ts          # request, tokens, bootEps, service
 │   ├── lib/
-│   │   ├── auth-client.ts     # Better Auth + syncBetterAuthJwt
-│   │   └── socket.ts
+│   │   ├── auth-client.ts     # Better Auth (same path as uni)
+│   │   └── utils.ts           # cn() (shadcn)
 │   ├── stores/                # app / user / theme
 │   ├── router/
 │   ├── config/                # index / dev / prod / proxy
 │   ├── styles/theme.css
-│   └── utils/
+│   └── utils/                 # socket, favicon, login-bubble, navigation, page-path (aligned with uni)
 ├── typings/
 ├── vite.config.ts
 └── package.json
@@ -139,7 +137,7 @@ vome-web/
 3. `connectWs()` when a token exists  
 4. Theme + user info as needed  
 
-`/` redirects to `/home`. Tabs: `home` / `discover` / `message` / `mine`.
+`/` redirects to `/pages/home/index`. Tabs: `home` / `discover` / `message` / `mine`.
 
 ## Adding a page
 

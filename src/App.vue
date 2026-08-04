@@ -8,6 +8,9 @@
     }"
   >
     <VmHeader v-if="showShell && !appStore.isMobile" />
+    <!-- 侧栏占位：与 uni `vm-aside` / leftWindow 对齐，默认关闭
+    <VmAside v-if="showShell && !appStore.isMobile" />
+    -->
     <main class="vm-app__main">
       <RouterView />
     </main>
@@ -20,6 +23,7 @@
 
 <script setup lang="ts">
 import VmHeader from '@/components/vm-header.vue'
+// import VmAside from '@/components/vm-aside.vue'
 import VmTabbar from '@/components/vm-tabbar.vue'
 import { ensureFreshToken, getAccessToken } from '@/api/client'
 
@@ -61,10 +65,6 @@ body,
   min-height: 0;
   width: 100%;
   box-sizing: border-box;
-}
-
-.vm-app.has-header .vm-app__main {
-  /* 顶栏占位已由文档流完成，无需额外 padding */
 }
 
 .vm-app.has-tabbar .vm-app__main {

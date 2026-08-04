@@ -5,11 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "run-p type-check \"build-only {@}\" --",
-    "preview": "vite preview",
-    "build-only": "vite build",
-    "type-check": "vue-tsc --build",
-    "format": "oxfmt src/"
+    "build": "vite build"
   },
   "dependencies": {
     "@lucide/vue": "^1.24.0",
@@ -35,8 +31,6 @@
     "@vitejs/plugin-vue": "^6.0.7",
     "@vitejs/plugin-vue-jsx": "^5.1.5",
     "@vue/tsconfig": "^0.9.1",
-    "npm-run-all2": "^9.0.2",
-    "oxfmt": "^0.54.0",
     "sass-embedded": "^1.100.0",
     "typescript": "~6.0.0",
     "unplugin-auto-import": "^21.0.0",
