@@ -4,22 +4,19 @@ import path from 'node:path'
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
-import vueDevTools from 'vite-plugin-vue-devtools'
 import tailwindcss from '@tailwindcss/vite'
 import AutoImport from 'unplugin-auto-import/vite'
 import { createEpsVitePlugin } from 'vome-core/client/vite-plugin-eps'
+import { coreAlias, ensureMicroAppProxy } from 'vome-core/client/vite-micro-proxy'
 import { proxy } from './src/config/proxy'
 import { exposeSrcLocales } from './lib/expose-src-locales'
 
 const root = fileURLToPath(new URL('.', import.meta.url))
-const coreClient = path.resolve(root, 'node_modules/vome-core/dist/client')
-const corePkg = path.resolve(root, 'node_modules/vome-core')
 
 export default defineConfig({
   plugins: [
     vue(),
     vueJsx(),
-    // vueDevTools(),
     tailwindcss(),
     exposeSrcLocales(),
     AutoImport({
@@ -43,17 +40,13 @@ export default defineConfig({
   resolve: {
     alias: [
       { find: '@', replacement: fileURLToPath(new URL('./src', import.meta.url)) },
-      { find: /^\/@\/(.*)$/, replacement: `${coreClient}/$1` },
-      { find: '/@', replacement: coreClient },
-      { find: /^\/#\/typings\/(.*)$/, replacement: `${corePkg}/typings/admin/$1` },
-      { find: /^\/#\/(.*)$/, replacement: `${corePkg}/dist/$1` },
-      { find: '/#', replacement: path.join(corePkg, 'dist/index.js') },
+      ...coreAlias(root),
     ],
   },
   server: {
     host: '127.0.0.1',
     port: 9900,
     strictPort: true,
-    proxy: { ...proxy },
+    proxy: ensureMicroAppProxy(proxy),
   },
 })

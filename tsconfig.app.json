@@ -10,11 +10,11 @@
     // Path mapping for cleaner imports.
     "paths": {
       "@/*": ["./src/*"],
-      "/@": ["./node_modules/vome-core/dist/client/index.d.ts"],
-      "/@/*": ["./node_modules/vome-core/dist/client/*"],
-      "/#": ["./node_modules/vome-core/dist/index.d.ts"],
-      "/#/typings/*": ["./node_modules/vome-core/typings/admin/*"],
-      "/#/*": ["./node_modules/vome-core/dist/*"]
+      "@core": ["./node_modules/vome-core"],
+      "@core/*": ["./node_modules/vome-core/*"],
+      "@core/client": ["./node_modules/vome-core/dist/client/index.d.ts"],
+      "@core/client/*": ["./node_modules/vome-core/dist/client/*"],
+      "@core/typings/*": ["./node_modules/vome-core/typings/admin/*"]
     },
 
     // `vue-tsc --build` produces a .tsbuildinfo file for incremental type-checking.

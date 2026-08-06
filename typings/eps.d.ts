@@ -21,6 +21,12 @@ declare namespace Eps {
 		[key: string]: any;
 	}
 
+	interface Ai_chatEntity {
+		id?: number;
+
+		[key: string]: any;
+	}
+
 	interface Base_commEntity {
 		id?: number;
 
@@ -142,6 +148,12 @@ declare namespace Eps {
 	}
 
 	interface I18n_packEntity {
+		id?: number;
+
+		[key: string]: any;
+	}
+
+	interface Order_subscribeEntity {
 		id?: number;
 
 		[key: string]: any;
@@ -282,6 +294,36 @@ declare namespace Eps {
 		[key: string]: any;
 	}
 
+	interface Project_assetEntity {
+		id?: number;
+
+		[key: string]: any;
+	}
+
+	interface Project_auditEntity {
+		id?: number;
+
+		[key: string]: any;
+	}
+
+	interface Project_chainEntity {
+		id?: number;
+
+		[key: string]: any;
+	}
+
+	interface Project_componentEntity {
+		id?: number;
+
+		[key: string]: any;
+	}
+
+	interface Project_memberEntity {
+		id?: number;
+
+		[key: string]: any;
+	}
+
 	interface Project_pageEntity {
 		id?: number;
 
@@ -352,6 +394,9 @@ declare namespace Eps {
 		/** 检索知识库 */
 		search(data?: any): Promise<any>;
 
+		/** 写入/更新知识文档（真知识库） */
+		upsert(data?: any): Promise<any>;
+
 		/** 采纳结果写回知识库 */
 		adoptionWriteback(data?: any): Promise<any>;
 
@@ -370,13 +415,43 @@ declare namespace Eps {
 		restore(data?: any): Promise<any>;
 
 		namespace: string;
-		permission: { search: string; adoptionWriteback: string; page: string; list: string; info: string; add: string; update: string; delete: string; restore: string };
-		_permission: { search: boolean; adoptionWriteback: boolean; page: boolean; list: boolean; info: boolean; add: boolean; update: boolean; delete: boolean; restore: boolean };
+		permission: { search: string; upsert: string; adoptionWriteback: string; page: string; list: string; info: string; add: string; update: string; delete: string; restore: string };
+		_permission: { search: boolean; upsert: boolean; adoptionWriteback: boolean; page: boolean; list: boolean; info: boolean; add: boolean; update: boolean; delete: boolean; restore: boolean };
+		request: Eps.Request;
+	}
+
+	interface Ai_chat {
+		/** 可用 chat+stream 模型列表 */
+		models(data?: any): Promise<any>;
+
+		/** 官网 embed（agent 写用户侧向量） */
+		embed(data?: any): Promise<any>;
+
+		/** 流式对话（扣项目拥有者金币；经 agent 转发） */
+		chat(data?: any): Promise<any>;
+
+		page(data?: any): Promise<{ list: Ai_chatEntity[]; pagination: { page: number; size: number; total: number } }>;
+
+		list(data?: any): Promise<Ai_chatEntity[]>;
+
+		info(data?: { id: number | string }): Promise<Ai_chatEntity>;
+
+		add(data?: any): Promise<any>;
+
+		update(data?: any): Promise<any>;
+
+		delete(data?: any): Promise<any>;
+
+		restore(data?: any): Promise<any>;
+
+		namespace: string;
+		permission: { models: string; embed: string; chat: string; page: string; list: string; info: string; add: string; update: string; delete: string; restore: string };
+		_permission: { models: boolean; embed: boolean; chat: boolean; page: boolean; list: boolean; info: boolean; add: boolean; update: boolean; delete: boolean; restore: boolean };
 		request: Eps.Request;
 	}
 
 	interface Base_comm {
-		/** 获取云端上传签名 */
+		/** 获取云端上传签名（仅 app/public/vomecode/） */
 		upload(data?: any): Promise<any>;
 
 		page(data?: any): Promise<{ list: Base_commEntity[]; pagination: { page: number; size: number; total: number } }>;
@@ -442,7 +517,7 @@ declare namespace Eps {
 	}
 
 	interface Base_open {
-		/** 实体信息与路径（含完整字典） */
+		/** 平台 EPS（白名单子集，非业务后端） */
 		eps(data?: any): Promise<any>;
 
 		page(data?: any): Promise<{ list: Base_openEntity[]; pagination: { page: number; size: number; total: number } }>;
@@ -570,6 +645,48 @@ declare namespace Eps {
 		namespace: string;
 		permission: { locales: string; active: string; page: string; list: string; info: string; add: string; update: string; delete: string; restore: string };
 		_permission: { locales: boolean; active: boolean; page: boolean; list: boolean; info: boolean; add: boolean; update: boolean; delete: boolean; restore: boolean };
+		request: Eps.Request;
+	}
+
+	interface Order_subscribe {
+		/** 可购套餐列表 */
+		plans(data?: any): Promise<any>;
+
+		/** 我的个人订阅与限额 */
+		mine(data?: any): Promise<any>;
+
+		/** 我的账号级团队订阅与限额 */
+		teamMine(data?: any): Promise<any>;
+
+		/** 项目团队订阅与限额（无项目级则回退账号级） */
+		team(data?: any): Promise<any>;
+
+		/** 订阅报价（升级抵扣/续费顺延） */
+		orderquote(data?: any): Promise<any>;
+
+		/** 创建订阅订购单 */
+		ordercreate(data?: any): Promise<any>;
+
+		/** 模拟支付到账（开发） */
+		ordermockPay(data?: any): Promise<any>;
+
+		page(data?: any): Promise<{ list: Order_subscribeEntity[]; pagination: { page: number; size: number; total: number } }>;
+
+		list(data?: any): Promise<Order_subscribeEntity[]>;
+
+		info(data?: { id: number | string }): Promise<Order_subscribeEntity>;
+
+		add(data?: any): Promise<any>;
+
+		update(data?: any): Promise<any>;
+
+		delete(data?: any): Promise<any>;
+
+		restore(data?: any): Promise<any>;
+
+		namespace: string;
+		permission: { plans: string; mine: string; teamMine: string; team: string; orderquote: string; ordercreate: string; ordermockPay: string; page: string; list: string; info: string; add: string; update: string; delete: string; restore: string };
+		_permission: { plans: boolean; mine: boolean; teamMine: boolean; team: boolean; orderquote: boolean; ordercreate: boolean; ordermockPay: boolean; page: boolean; list: boolean; info: boolean; add: boolean; update: boolean; delete: boolean; restore: boolean };
 		request: Eps.Request;
 	}
 
@@ -757,6 +874,199 @@ declare namespace Eps {
 		request: Eps.Request;
 	}
 
+	interface Project_asset {
+		/** 素材列表（当前文件夹） */
+		list(data?: any): Promise<Project_assetEntity[]>;
+
+		/** 素材详情 */
+		info(data?: { id: number | string }): Promise<Project_assetEntity>;
+
+		/** 新建文件夹 */
+		createFolder(data?: any): Promise<any>;
+
+		/** 登记已上传文件 */
+		createFile(data?: any): Promise<any>;
+
+		/** 组件复制进素材库 */
+		createFromComponent(data?: any): Promise<any>;
+
+		/** 粘贴组件快照进素材库 */
+		createFromSnapshot(data?: any): Promise<any>;
+
+		/** 重命名 */
+		rename(data?: any): Promise<any>;
+
+		/** 移动到文件夹 */
+		move(data?: any): Promise<any>;
+
+		/** 删除到回收站（文件夹级联） */
+		delete(data?: any): Promise<any>;
+
+		/** 素材回收站列表 */
+		trash(data?: any): Promise<any>;
+
+		/** 从回收站恢复 */
+		restore(data?: any): Promise<any>;
+
+		/** 回收站彻底删除 */
+		forceDelete(data?: any): Promise<any>;
+
+		/** 素材组件导入到当前项目 */
+		importComponent(data?: any): Promise<any>;
+
+		page(data?: any): Promise<{ list: Project_assetEntity[]; pagination: { page: number; size: number; total: number } }>;
+
+		add(data?: any): Promise<any>;
+
+		update(data?: any): Promise<any>;
+
+		namespace: string;
+		permission: { list: string; info: string; createFolder: string; createFile: string; createFromComponent: string; createFromSnapshot: string; rename: string; move: string; delete: string; trash: string; restore: string; forceDelete: string; importComponent: string; page: string; add: string; update: string };
+		_permission: { list: boolean; info: boolean; createFolder: boolean; createFile: boolean; createFromComponent: boolean; createFromSnapshot: boolean; rename: boolean; move: boolean; delete: boolean; trash: boolean; restore: boolean; forceDelete: boolean; importComponent: boolean; page: boolean; add: boolean; update: boolean };
+		request: Eps.Request;
+	}
+
+	interface Project_audit {
+		/** 审计日志列表（须团队旗舰档） */
+		list(data?: any): Promise<Project_auditEntity[]>;
+
+		page(data?: any): Promise<{ list: Project_auditEntity[]; pagination: { page: number; size: number; total: number } }>;
+
+		info(data?: { id: number | string }): Promise<Project_auditEntity>;
+
+		add(data?: any): Promise<any>;
+
+		update(data?: any): Promise<any>;
+
+		delete(data?: any): Promise<any>;
+
+		restore(data?: any): Promise<any>;
+
+		namespace: string;
+		permission: { list: string; page: string; info: string; add: string; update: string; delete: string; restore: string };
+		_permission: { list: boolean; page: boolean; info: boolean; add: boolean; update: boolean; delete: boolean; restore: boolean };
+		request: Eps.Request;
+	}
+
+	interface Project_chain {
+		/** 项目开发链列表 */
+		list(data?: any): Promise<Project_chainEntity[]>;
+
+		/** 合并开发链页面到目标链（默认主链） */
+		merge(data?: any): Promise<any>;
+
+		/** 登记链代码快照（OSS 已直传） */
+		snapshotupload(data?: any): Promise<any>;
+
+		/** 链代码快照列表 */
+		snapshotlist(data?: any): Promise<any>;
+
+		/** 取快照下载信息（供 agent 同步落盘） */
+		snapshotapply(data?: any): Promise<any>;
+
+		/** 代码路径归属列表（合并冲突判定） */
+		pathownerlist(data?: any): Promise<any>;
+
+		/** 合并成功后登记本链路径归属 */
+		pathownerclaim(data?: any): Promise<any>;
+
+		/** 开发链页面验收进度 */
+		pageteststatus(data?: any): Promise<any>;
+
+		/** 标记页面测试通过；链/主链全通后清理历史快照（留最新） */
+		pagetestpass(data?: any): Promise<any>;
+
+		page(data?: any): Promise<{ list: Project_chainEntity[]; pagination: { page: number; size: number; total: number } }>;
+
+		info(data?: { id: number | string }): Promise<Project_chainEntity>;
+
+		add(data?: any): Promise<any>;
+
+		update(data?: any): Promise<any>;
+
+		delete(data?: any): Promise<any>;
+
+		restore(data?: any): Promise<any>;
+
+		namespace: string;
+		permission: { list: string; merge: string; snapshotupload: string; snapshotlist: string; snapshotapply: string; pathownerlist: string; pathownerclaim: string; pageteststatus: string; pagetestpass: string; page: string; info: string; add: string; update: string; delete: string; restore: string };
+		_permission: { list: boolean; merge: boolean; snapshotupload: boolean; snapshotlist: boolean; snapshotapply: boolean; pathownerlist: boolean; pathownerclaim: boolean; pageteststatus: boolean; pagetestpass: boolean; page: boolean; info: boolean; add: boolean; update: boolean; delete: boolean; restore: boolean };
+		request: Eps.Request;
+	}
+
+	interface Project_component {
+		/** 项目组件列表 */
+		list(data?: any): Promise<Project_componentEntity[]>;
+
+		/** 组件详情 */
+		info(data?: { id: number | string }): Promise<Project_componentEntity>;
+
+		/** 新增组件 */
+		create(data?: any): Promise<any>;
+
+		/** 更新组件（名称/键/schema/快照） */
+		update(data?: any): Promise<any>;
+
+		/** 删除组件（进回收站） */
+		delete(data?: any): Promise<any>;
+
+		/** 组件回收站列表 */
+		trash(data?: any): Promise<any>;
+
+		/** 从回收站恢复组件 */
+		restore(data?: any): Promise<any>;
+
+		/** 回收站彻底删除组件 */
+		forceDelete(data?: any): Promise<any>;
+
+		page(data?: any): Promise<{ list: Project_componentEntity[]; pagination: { page: number; size: number; total: number } }>;
+
+		add(data?: any): Promise<any>;
+
+		namespace: string;
+		permission: { list: string; info: string; create: string; update: string; delete: string; trash: string; restore: string; forceDelete: string; page: string; add: string };
+		_permission: { list: boolean; info: boolean; create: boolean; update: boolean; delete: boolean; trash: boolean; restore: boolean; forceDelete: boolean; page: boolean; add: boolean };
+		request: Eps.Request;
+	}
+
+	interface Project_member {
+		/** 我所在的团队（加入或自有） */
+		myTeam(data?: any): Promise<any>;
+
+		/** 按手机号查用户（邀请预览） */
+		lookup(data?: any): Promise<any>;
+
+		/** 退出所在团队项目 */
+		leave(data?: any): Promise<any>;
+
+		/** 项目成员列表 */
+		list(data?: any): Promise<Project_memberEntity[]>;
+
+		/** 邀请成员（手机号，须已注册） */
+		invite(data?: any): Promise<any>;
+
+		/** 更新成员角色 */
+		update(data?: any): Promise<any>;
+
+		/** 移除成员 */
+		remove(data?: any): Promise<any>;
+
+		page(data?: any): Promise<{ list: Project_memberEntity[]; pagination: { page: number; size: number; total: number } }>;
+
+		info(data?: { id: number | string }): Promise<Project_memberEntity>;
+
+		add(data?: any): Promise<any>;
+
+		delete(data?: any): Promise<any>;
+
+		restore(data?: any): Promise<any>;
+
+		namespace: string;
+		permission: { myTeam: string; lookup: string; leave: string; list: string; invite: string; update: string; remove: string; page: string; info: string; add: string; delete: string; restore: string };
+		_permission: { myTeam: boolean; lookup: boolean; leave: boolean; list: boolean; invite: boolean; update: boolean; remove: boolean; page: boolean; info: boolean; add: boolean; delete: boolean; restore: boolean };
+		request: Eps.Request;
+	}
+
 	interface Project_page {
 		/** 页面图谱（pages + links） */
 		list(data?: any): Promise<Project_pageEntity[]>;
@@ -764,7 +1074,7 @@ declare namespace Eps {
 		/** 新增页面节点 */
 		create(data?: any): Promise<any>;
 
-		/** 更新页面（改名/路径/坐标/schema） */
+		/** 更新页面（改名/路径/坐标/schema/快照） */
 		update(data?: any): Promise<any>;
 
 		/** 删除页面（并清理连线） */
@@ -816,6 +1126,15 @@ declare namespace Eps {
 		/** 删除项目（仅拥有者） */
 		delete(data?: any): Promise<any>;
 
+		/** 项目回收站（我拥有的已删项目） */
+		trash(data?: any): Promise<any>;
+
+		/** 从回收站恢复项目 */
+		restore(data?: any): Promise<any>;
+
+		/** 回收站彻底删除项目 */
+		forceDelete(data?: any): Promise<any>;
+
 		/** 转移项目：向对方手机发送验证码（须图片验证码） */
 		transferCode(data?: any): Promise<any>;
 
@@ -830,11 +1149,9 @@ declare namespace Eps {
 
 		add(data?: any): Promise<any>;
 
-		restore(data?: any): Promise<any>;
-
 		namespace: string;
-		permission: { create: string; filter: string; update: string; touch: string; delete: string; transferCode: string; transfer: string; page: string; list: string; info: string; add: string; restore: string };
-		_permission: { create: boolean; filter: boolean; update: boolean; touch: boolean; delete: boolean; transferCode: boolean; transfer: boolean; page: boolean; list: boolean; info: boolean; add: boolean; restore: boolean };
+		permission: { create: string; filter: string; update: string; touch: string; delete: string; trash: string; restore: string; forceDelete: string; transferCode: string; transfer: string; page: string; list: string; info: string; add: string };
+		_permission: { create: boolean; filter: boolean; update: boolean; touch: boolean; delete: boolean; trash: boolean; restore: boolean; forceDelete: boolean; transferCode: boolean; transfer: boolean; page: boolean; list: boolean; info: boolean; add: boolean };
 		request: Eps.Request;
 	}
 
@@ -1012,6 +1329,9 @@ declare namespace Eps {
 			auth: Agent_auth;
 			kb: Agent_kb;
 		};
+		ai: {
+			chat: Ai_chat;
+		};
 		base: {
 			comm: Base_comm;
 			dict: Base_dict;
@@ -1025,6 +1345,9 @@ declare namespace Eps {
 		i18n: {
 			pack: I18n_pack;
 		};
+		order: {
+			subscribe: Order_subscribe;
+		};
 		pluginStore: {
 			pluginList: PluginStore_pluginList;
 			pluginReply: PluginStore_pluginReply;
@@ -1033,6 +1356,11 @@ declare namespace Eps {
 			wallet: PluginStore_wallet;
 		};
 		project: {
+			asset: Project_asset;
+			audit: Project_audit;
+			chain: Project_chain;
+			component: Project_component;
+			member: Project_member;
 			page: Project_page;
 			project: Project_project;
 		};

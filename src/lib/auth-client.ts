@@ -4,7 +4,7 @@ import { config } from '@/config'
 
 /**
  * Better Auth 要求绝对 baseURL。
- * 用当前页 origin + baseUrl（/dev|/prod），仍走同源代理 / Nginx 前缀。
+ * 用当前页 origin + baseUrl（/dev|/api），仍走同源代理 / Nginx 前缀。
  */
 function resolveAuthBaseURL() {
   const prefix = config.baseUrl.replace(/\/$/, '') || ''

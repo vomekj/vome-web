@@ -5,10 +5,10 @@ export const proxy = {
     xfwd: true,
     rewrite: (path: string) => path.replace(/^\/dev/, ''),
   },
-  '/prod/': {
+  '/api/': {
     target: 'http://127.0.0.1:3000',
     changeOrigin: true,
     xfwd: true,
-    rewrite: (path: string) => path.replace(/^\/prod/, ''),
+    rewrite: (path: string) => path.replace(/^\/api/, ''),
   },
 } as const

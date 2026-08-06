@@ -17,12 +17,14 @@ declare global {
   const bubbleRef: typeof import('./utils/login-bubble').bubbleRef
   const buildPagePath: typeof import('./utils/page-path').buildPagePath
   const computed: typeof import('vue').computed
+  const connectWs: typeof import('./utils/socket').connectWs
   const createApp: typeof import('vue').createApp
   const createPinia: typeof import('pinia').createPinia
   const customRef: typeof import('vue').customRef
   const defineAsyncComponent: typeof import('vue').defineAsyncComponent
   const defineComponent: typeof import('vue').defineComponent
   const defineStore: typeof import('pinia').defineStore
+  const disconnectWs: typeof import('./utils/socket').disconnectWs
   const effectScope: typeof import('vue').effectScope
   const getActivePinia: typeof import('pinia').getActivePinia
   const getCurrentInstance: typeof import('vue').getCurrentInstance
@@ -68,6 +70,7 @@ declare global {
   const provide: typeof import('vue').provide
   const reactive: typeof import('vue').reactive
   const readonly: typeof import('vue').readonly
+  const reconnectWs: typeof import('./utils/socket').reconnectWs
   const ref: typeof import('vue').ref
   const resolveComponent: typeof import('vue').resolveComponent
   const resolvedTheme: typeof import('./stores/theme').resolvedTheme
@@ -78,6 +81,7 @@ declare global {
   const shallowReactive: typeof import('vue').shallowReactive
   const shallowReadonly: typeof import('vue').shallowReadonly
   const shallowRef: typeof import('vue').shallowRef
+  const socket: typeof import('./utils/socket').socket
   const startBubble: typeof import('./utils/login-bubble').startBubble
   const stopBubble: typeof import('./utils/login-bubble').stopBubble
   const storeToRefs: typeof import('pinia').storeToRefs
@@ -143,12 +147,14 @@ declare module 'vue' {
     readonly bubbleRef: UnwrapRef<typeof import('./utils/login-bubble')['bubbleRef']>
     readonly buildPagePath: UnwrapRef<typeof import('./utils/page-path')['buildPagePath']>
     readonly computed: UnwrapRef<typeof import('vue')['computed']>
+    readonly connectWs: UnwrapRef<typeof import('./utils/socket')['connectWs']>
     readonly createApp: UnwrapRef<typeof import('vue')['createApp']>
     readonly createPinia: UnwrapRef<typeof import('pinia')['createPinia']>
     readonly customRef: UnwrapRef<typeof import('vue')['customRef']>
     readonly defineAsyncComponent: UnwrapRef<typeof import('vue')['defineAsyncComponent']>
     readonly defineComponent: UnwrapRef<typeof import('vue')['defineComponent']>
     readonly defineStore: UnwrapRef<typeof import('pinia')['defineStore']>
+    readonly disconnectWs: UnwrapRef<typeof import('./utils/socket')['disconnectWs']>
     readonly effectScope: UnwrapRef<typeof import('vue')['effectScope']>
     readonly getActivePinia: UnwrapRef<typeof import('pinia')['getActivePinia']>
     readonly getCurrentInstance: UnwrapRef<typeof import('vue')['getCurrentInstance']>
@@ -194,6 +200,7 @@ declare module 'vue' {
     readonly provide: UnwrapRef<typeof import('vue')['provide']>
     readonly reactive: UnwrapRef<typeof import('vue')['reactive']>
     readonly readonly: UnwrapRef<typeof import('vue')['readonly']>
+    readonly reconnectWs: UnwrapRef<typeof import('./utils/socket')['reconnectWs']>
     readonly ref: UnwrapRef<typeof import('vue')['ref']>
     readonly resolveComponent: UnwrapRef<typeof import('vue')['resolveComponent']>
     readonly resolvedTheme: UnwrapRef<typeof import('./stores/theme')['resolvedTheme']>
@@ -204,6 +211,7 @@ declare module 'vue' {
     readonly shallowReactive: UnwrapRef<typeof import('vue')['shallowReactive']>
     readonly shallowReadonly: UnwrapRef<typeof import('vue')['shallowReadonly']>
     readonly shallowRef: UnwrapRef<typeof import('vue')['shallowRef']>
+    readonly socket: UnwrapRef<typeof import('./utils/socket')['socket']>
     readonly startBubble: UnwrapRef<typeof import('./utils/login-bubble')['startBubble']>
     readonly stopBubble: UnwrapRef<typeof import('./utils/login-bubble')['stopBubble']>
     readonly storeToRefs: UnwrapRef<typeof import('pinia')['storeToRefs']>

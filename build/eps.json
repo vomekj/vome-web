@@ -82,11 +82,79 @@
           },
           {
             "method": "post",
+            "path": "/upsert",
+            "summary": "写入/更新知识文档（真知识库）",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/agent/kb",
+            "ignoreToken": false,
+            "ignorePerms": false,
+            "perms": []
+          },
+          {
+            "method": "post",
             "path": "/adoptionWriteback",
             "summary": "采纳结果写回知识库",
             "dts": {},
             "tag": "",
             "prefix": "/app/agent/kb",
+            "ignoreToken": false,
+            "ignorePerms": false,
+            "perms": []
+          }
+        ],
+        "columns": [],
+        "pageQueryOp": {
+          "keyWordLikeFields": [],
+          "fieldEq": [],
+          "fieldLike": [],
+          "fieldArray": [],
+          "fieldRange": []
+        },
+        "pageColumns": []
+      }
+    ],
+    "ai": [
+      {
+        "module": "ai",
+        "side": "app",
+        "prefix": "/app/ai/chat",
+        "info": {
+          "type": {
+            "name": "chat",
+            "description": "App 计费 AI 对话"
+          }
+        },
+        "api": [
+          {
+            "method": "post",
+            "path": "/models",
+            "summary": "可用 chat+stream 模型列表",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/ai/chat",
+            "ignoreToken": false,
+            "ignorePerms": false,
+            "perms": []
+          },
+          {
+            "method": "post",
+            "path": "/embed",
+            "summary": "官网 embed（agent 写用户侧向量）",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/ai/chat",
+            "ignoreToken": false,
+            "ignorePerms": false,
+            "perms": []
+          },
+          {
+            "method": "post",
+            "path": "/chat",
+            "summary": "流式对话（扣项目拥有者金币；经 agent 转发）",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/ai/chat",
             "ignoreToken": false,
             "ignorePerms": false,
             "perms": []
@@ -118,7 +186,7 @@
           {
             "method": "post",
             "path": "/upload",
-            "summary": "获取云端上传签名",
+            "summary": "获取云端上传签名（仅 app/public/vomecode/）",
             "dts": {},
             "tag": "",
             "prefix": "/app/base/comm",
@@ -250,7 +318,7 @@
           {
             "method": "get",
             "path": "/eps",
-            "summary": "实体信息与路径（含完整字典）",
+            "summary": "平台 EPS（白名单子集，非业务后端）",
             "dts": {},
             "tag": "",
             "prefix": "/app/base/open",
@@ -974,6 +1042,107 @@
             "tag": "",
             "prefix": "/app/i18n/pack",
             "ignoreToken": true,
+            "ignorePerms": false,
+            "perms": []
+          }
+        ],
+        "columns": [],
+        "pageQueryOp": {
+          "keyWordLikeFields": [],
+          "fieldEq": [],
+          "fieldLike": [],
+          "fieldArray": [],
+          "fieldRange": []
+        },
+        "pageColumns": []
+      }
+    ],
+    "order": [
+      {
+        "module": "order",
+        "side": "app",
+        "prefix": "/app/order/subscribe",
+        "info": {
+          "type": {
+            "name": "subscribe",
+            "description": "App 订阅"
+          }
+        },
+        "api": [
+          {
+            "method": "post",
+            "path": "/plans",
+            "summary": "可购套餐列表",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/order/subscribe",
+            "ignoreToken": false,
+            "ignorePerms": false,
+            "perms": []
+          },
+          {
+            "method": "post",
+            "path": "/mine",
+            "summary": "我的个人订阅与限额",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/order/subscribe",
+            "ignoreToken": false,
+            "ignorePerms": false,
+            "perms": []
+          },
+          {
+            "method": "post",
+            "path": "/teamMine",
+            "summary": "我的账号级团队订阅与限额",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/order/subscribe",
+            "ignoreToken": false,
+            "ignorePerms": false,
+            "perms": []
+          },
+          {
+            "method": "post",
+            "path": "/team",
+            "summary": "项目团队订阅与限额（无项目级则回退账号级）",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/order/subscribe",
+            "ignoreToken": false,
+            "ignorePerms": false,
+            "perms": []
+          },
+          {
+            "method": "post",
+            "path": "/order/quote",
+            "summary": "订阅报价（升级抵扣/续费顺延）",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/order/subscribe",
+            "ignoreToken": false,
+            "ignorePerms": false,
+            "perms": []
+          },
+          {
+            "method": "post",
+            "path": "/order/create",
+            "summary": "创建订阅订购单",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/order/subscribe",
+            "ignoreToken": false,
+            "ignorePerms": false,
+            "perms": []
+          },
+          {
+            "method": "post",
+            "path": "/order/mockPay",
+            "summary": "模拟支付到账（开发）",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/order/subscribe",
+            "ignoreToken": false,
             "ignorePerms": false,
             "perms": []
           }
@@ -2101,6 +2270,534 @@
       {
         "module": "project",
         "side": "app",
+        "prefix": "/app/project/asset",
+        "info": {
+          "type": {
+            "name": "asset",
+            "description": "App 素材库"
+          }
+        },
+        "api": [
+          {
+            "method": "post",
+            "path": "/list",
+            "summary": "素材列表（当前文件夹）",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/project/asset",
+            "ignoreToken": false,
+            "ignorePerms": false,
+            "perms": []
+          },
+          {
+            "method": "post",
+            "path": "/info",
+            "summary": "素材详情",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/project/asset",
+            "ignoreToken": false,
+            "ignorePerms": false,
+            "perms": []
+          },
+          {
+            "method": "post",
+            "path": "/createFolder",
+            "summary": "新建文件夹",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/project/asset",
+            "ignoreToken": false,
+            "ignorePerms": false,
+            "perms": []
+          },
+          {
+            "method": "post",
+            "path": "/createFile",
+            "summary": "登记已上传文件",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/project/asset",
+            "ignoreToken": false,
+            "ignorePerms": false,
+            "perms": []
+          },
+          {
+            "method": "post",
+            "path": "/createFromComponent",
+            "summary": "组件复制进素材库",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/project/asset",
+            "ignoreToken": false,
+            "ignorePerms": false,
+            "perms": []
+          },
+          {
+            "method": "post",
+            "path": "/createFromSnapshot",
+            "summary": "粘贴组件快照进素材库",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/project/asset",
+            "ignoreToken": false,
+            "ignorePerms": false,
+            "perms": []
+          },
+          {
+            "method": "post",
+            "path": "/rename",
+            "summary": "重命名",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/project/asset",
+            "ignoreToken": false,
+            "ignorePerms": false,
+            "perms": []
+          },
+          {
+            "method": "post",
+            "path": "/move",
+            "summary": "移动到文件夹",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/project/asset",
+            "ignoreToken": false,
+            "ignorePerms": false,
+            "perms": []
+          },
+          {
+            "method": "post",
+            "path": "/delete",
+            "summary": "删除到回收站（文件夹级联）",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/project/asset",
+            "ignoreToken": false,
+            "ignorePerms": false,
+            "perms": []
+          },
+          {
+            "method": "post",
+            "path": "/trash",
+            "summary": "素材回收站列表",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/project/asset",
+            "ignoreToken": false,
+            "ignorePerms": false,
+            "perms": []
+          },
+          {
+            "method": "post",
+            "path": "/restore",
+            "summary": "从回收站恢复",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/project/asset",
+            "ignoreToken": false,
+            "ignorePerms": false,
+            "perms": []
+          },
+          {
+            "method": "post",
+            "path": "/forceDelete",
+            "summary": "回收站彻底删除",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/project/asset",
+            "ignoreToken": false,
+            "ignorePerms": false,
+            "perms": []
+          },
+          {
+            "method": "post",
+            "path": "/importComponent",
+            "summary": "素材组件导入到当前项目",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/project/asset",
+            "ignoreToken": false,
+            "ignorePerms": false,
+            "perms": []
+          }
+        ],
+        "columns": [],
+        "pageQueryOp": {
+          "keyWordLikeFields": [],
+          "fieldEq": [],
+          "fieldLike": [],
+          "fieldArray": [],
+          "fieldRange": []
+        },
+        "pageColumns": []
+      },
+      {
+        "module": "project",
+        "side": "app",
+        "prefix": "/app/project/audit",
+        "info": {
+          "type": {
+            "name": "audit",
+            "description": "App 项目审计"
+          }
+        },
+        "api": [
+          {
+            "method": "post",
+            "path": "/list",
+            "summary": "审计日志列表（须团队旗舰档）",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/project/audit",
+            "ignoreToken": false,
+            "ignorePerms": false,
+            "perms": []
+          }
+        ],
+        "columns": [],
+        "pageQueryOp": {
+          "keyWordLikeFields": [],
+          "fieldEq": [],
+          "fieldLike": [],
+          "fieldArray": [],
+          "fieldRange": []
+        },
+        "pageColumns": []
+      },
+      {
+        "module": "project",
+        "side": "app",
+        "prefix": "/app/project/chain",
+        "info": {
+          "type": {
+            "name": "chain",
+            "description": "App 开发链"
+          }
+        },
+        "api": [
+          {
+            "method": "post",
+            "path": "/list",
+            "summary": "项目开发链列表",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/project/chain",
+            "ignoreToken": false,
+            "ignorePerms": false,
+            "perms": []
+          },
+          {
+            "method": "post",
+            "path": "/merge",
+            "summary": "合并开发链页面到目标链（默认主链）",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/project/chain",
+            "ignoreToken": false,
+            "ignorePerms": false,
+            "perms": []
+          },
+          {
+            "method": "post",
+            "path": "/snapshot/upload",
+            "summary": "登记链代码快照（OSS 已直传）",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/project/chain",
+            "ignoreToken": false,
+            "ignorePerms": false,
+            "perms": []
+          },
+          {
+            "method": "post",
+            "path": "/snapshot/list",
+            "summary": "链代码快照列表",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/project/chain",
+            "ignoreToken": false,
+            "ignorePerms": false,
+            "perms": []
+          },
+          {
+            "method": "post",
+            "path": "/snapshot/apply",
+            "summary": "取快照下载信息（供 agent 同步落盘）",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/project/chain",
+            "ignoreToken": false,
+            "ignorePerms": false,
+            "perms": []
+          },
+          {
+            "method": "post",
+            "path": "/path-owner/list",
+            "summary": "代码路径归属列表（合并冲突判定）",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/project/chain",
+            "ignoreToken": false,
+            "ignorePerms": false,
+            "perms": []
+          },
+          {
+            "method": "post",
+            "path": "/path-owner/claim",
+            "summary": "合并成功后登记本链路径归属",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/project/chain",
+            "ignoreToken": false,
+            "ignorePerms": false,
+            "perms": []
+          },
+          {
+            "method": "post",
+            "path": "/page-test/status",
+            "summary": "开发链页面验收进度",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/project/chain",
+            "ignoreToken": false,
+            "ignorePerms": false,
+            "perms": []
+          },
+          {
+            "method": "post",
+            "path": "/page-test/pass",
+            "summary": "标记页面测试通过；链/主链全通后清理历史快照（留最新）",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/project/chain",
+            "ignoreToken": false,
+            "ignorePerms": false,
+            "perms": []
+          }
+        ],
+        "columns": [],
+        "pageQueryOp": {
+          "keyWordLikeFields": [],
+          "fieldEq": [],
+          "fieldLike": [],
+          "fieldArray": [],
+          "fieldRange": []
+        },
+        "pageColumns": []
+      },
+      {
+        "module": "project",
+        "side": "app",
+        "prefix": "/app/project/component",
+        "info": {
+          "type": {
+            "name": "component",
+            "description": "App 项目组件库"
+          }
+        },
+        "api": [
+          {
+            "method": "post",
+            "path": "/list",
+            "summary": "项目组件列表",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/project/component",
+            "ignoreToken": false,
+            "ignorePerms": false,
+            "perms": []
+          },
+          {
+            "method": "post",
+            "path": "/info",
+            "summary": "组件详情",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/project/component",
+            "ignoreToken": false,
+            "ignorePerms": false,
+            "perms": []
+          },
+          {
+            "method": "post",
+            "path": "/create",
+            "summary": "新增组件",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/project/component",
+            "ignoreToken": false,
+            "ignorePerms": false,
+            "perms": []
+          },
+          {
+            "method": "post",
+            "path": "/update",
+            "summary": "更新组件（名称/键/schema/快照）",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/project/component",
+            "ignoreToken": false,
+            "ignorePerms": false,
+            "perms": []
+          },
+          {
+            "method": "post",
+            "path": "/delete",
+            "summary": "删除组件（进回收站）",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/project/component",
+            "ignoreToken": false,
+            "ignorePerms": false,
+            "perms": []
+          },
+          {
+            "method": "post",
+            "path": "/trash",
+            "summary": "组件回收站列表",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/project/component",
+            "ignoreToken": false,
+            "ignorePerms": false,
+            "perms": []
+          },
+          {
+            "method": "post",
+            "path": "/restore",
+            "summary": "从回收站恢复组件",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/project/component",
+            "ignoreToken": false,
+            "ignorePerms": false,
+            "perms": []
+          },
+          {
+            "method": "post",
+            "path": "/forceDelete",
+            "summary": "回收站彻底删除组件",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/project/component",
+            "ignoreToken": false,
+            "ignorePerms": false,
+            "perms": []
+          }
+        ],
+        "columns": [],
+        "pageQueryOp": {
+          "keyWordLikeFields": [],
+          "fieldEq": [],
+          "fieldLike": [],
+          "fieldArray": [],
+          "fieldRange": []
+        },
+        "pageColumns": []
+      },
+      {
+        "module": "project",
+        "side": "app",
+        "prefix": "/app/project/member",
+        "info": {
+          "type": {
+            "name": "member",
+            "description": "App 项目成员"
+          }
+        },
+        "api": [
+          {
+            "method": "post",
+            "path": "/myTeam",
+            "summary": "我所在的团队（加入或自有）",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/project/member",
+            "ignoreToken": false,
+            "ignorePerms": false,
+            "perms": []
+          },
+          {
+            "method": "post",
+            "path": "/lookup",
+            "summary": "按手机号查用户（邀请预览）",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/project/member",
+            "ignoreToken": false,
+            "ignorePerms": false,
+            "perms": []
+          },
+          {
+            "method": "post",
+            "path": "/leave",
+            "summary": "退出所在团队项目",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/project/member",
+            "ignoreToken": false,
+            "ignorePerms": false,
+            "perms": []
+          },
+          {
+            "method": "post",
+            "path": "/list",
+            "summary": "项目成员列表",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/project/member",
+            "ignoreToken": false,
+            "ignorePerms": false,
+            "perms": []
+          },
+          {
+            "method": "post",
+            "path": "/invite",
+            "summary": "邀请成员（手机号，须已注册）",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/project/member",
+            "ignoreToken": false,
+            "ignorePerms": false,
+            "perms": []
+          },
+          {
+            "method": "post",
+            "path": "/update",
+            "summary": "更新成员角色",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/project/member",
+            "ignoreToken": false,
+            "ignorePerms": false,
+            "perms": []
+          },
+          {
+            "method": "post",
+            "path": "/remove",
+            "summary": "移除成员",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/project/member",
+            "ignoreToken": false,
+            "ignorePerms": false,
+            "perms": []
+          }
+        ],
+        "columns": [],
+        "pageQueryOp": {
+          "keyWordLikeFields": [],
+          "fieldEq": [],
+          "fieldLike": [],
+          "fieldArray": [],
+          "fieldRange": []
+        },
+        "pageColumns": []
+      },
+      {
+        "module": "project",
+        "side": "app",
         "prefix": "/app/project/page",
         "info": {
           "type": {
@@ -2134,7 +2831,7 @@
           {
             "method": "post",
             "path": "/update",
-            "summary": "更新页面（改名/路径/坐标/schema）",
+            "summary": "更新页面（改名/路径/坐标/schema/快照）",
             "dts": {},
             "tag": "",
             "prefix": "/app/project/page",
@@ -2289,6 +2986,39 @@
             "method": "post",
             "path": "/delete",
             "summary": "删除项目（仅拥有者）",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/project/project",
+            "ignoreToken": false,
+            "ignorePerms": false,
+            "perms": []
+          },
+          {
+            "method": "post",
+            "path": "/trash",
+            "summary": "项目回收站（我拥有的已删项目）",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/project/project",
+            "ignoreToken": false,
+            "ignorePerms": false,
+            "perms": []
+          },
+          {
+            "method": "post",
+            "path": "/restore",
+            "summary": "从回收站恢复项目",
+            "dts": {},
+            "tag": "",
+            "prefix": "/app/project/project",
+            "ignoreToken": false,
+            "ignorePerms": false,
+            "perms": []
+          },
+          {
+            "method": "post",
+            "path": "/forceDelete",
+            "summary": "回收站彻底删除项目",
             "dts": {},
             "tag": "",
             "prefix": "/app/project/project",
@@ -4678,6 +5408,44 @@
         "parentId": null,
         "orderNum": 2,
         "value": 3
+      }
+    ],
+    "order_plan_scope": [
+      {
+        "id": 246,
+        "name": "个人",
+        "label": "个人",
+        "typeId": 33,
+        "parentId": null,
+        "orderNum": 0,
+        "value": "system"
+      },
+      {
+        "id": 247,
+        "name": "color",
+        "label": "color",
+        "typeId": 33,
+        "parentId": 246,
+        "orderNum": 0,
+        "value": "#4E5DFF"
+      },
+      {
+        "id": 249,
+        "name": "color",
+        "label": "color",
+        "typeId": 33,
+        "parentId": 248,
+        "orderNum": 0,
+        "value": "#7C3AED"
+      },
+      {
+        "id": 248,
+        "name": "团队",
+        "label": "团队",
+        "typeId": 33,
+        "parentId": null,
+        "orderNum": 1,
+        "value": "team"
       }
     ]
   }

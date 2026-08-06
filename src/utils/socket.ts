@@ -5,6 +5,7 @@ import { getAccessToken } from '@/api/client'
 /** Web Socket.IO 客户端（auth.token + data 事件） */
 export const socket: Socket = io(config.host, {
   autoConnect: false,
+  path: '/socket/',
   transports: ['websocket', 'polling'],
   auth: {
     token: getAccessToken() || '',
