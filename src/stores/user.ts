@@ -129,7 +129,17 @@ export const useUserStore = defineStore('user', () => {
         token.value = String(getAccessToken() || '')
         return person
       } catch {
-        clear()
+        // request() 仅在 refresh 失败时 clearTokens；后端重启/网络抖动不要丢掉 refreshToken
+        if (!getAccessToken()) {
+          token.value = ''
+          info.value = undefined
+          try {
+            localStorage.removeItem(USER_INFO_KEY)
+          } catch {
+            // ignore
+          }
+          void import('@/utils/socket').then(({ disconnectWs }) => disconnectWs())
+        }
         return null
       } finally {
         loaded.value = true

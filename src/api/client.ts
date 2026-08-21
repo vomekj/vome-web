@@ -77,7 +77,8 @@ export async function ensureFreshToken(): Promise<string> {
   try {
     return await sharedRefresh()
   } catch {
-    clearTokens()
+    // 网络抖动不要清 refresh；仅已无 refresh 时同步清理
+    if (!getRefreshToken()) clearTokens()
     return ''
   }
 }
