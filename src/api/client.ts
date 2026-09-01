@@ -117,6 +117,12 @@ export async function request<T>(
       headers.set('content-type', 'application/json')
     }
     if (token) headers.set('authorization', `Bearer ${token}`)
+    try {
+      const lang = localStorage.getItem('vome_web_locale')?.trim()
+      if (lang) headers.set('X-Lang', lang)
+    } catch {
+      /* non-browser */
+    }
     return headers
   }
 

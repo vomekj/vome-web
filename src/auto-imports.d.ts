@@ -11,6 +11,7 @@ declare global {
   const SUB_PAGES_PREFIX: typeof import('./utils/page-path').SUB_PAGES_PREFIX
   const TAB_LIST: typeof import('./stores/app').TAB_LIST
   const acceptHMRUpdate: typeof import('pinia').acceptHMRUpdate
+  const addCanvasPaintRipple: typeof import('./utils/canvas-effects').addCanvasPaintRipple
   const appStore: typeof import('./stores/app').appStore
   const applyThemeDom: typeof import('./stores/theme').applyThemeDom
   const bootTheme: typeof import('./stores/theme').bootTheme
@@ -41,6 +42,7 @@ declare global {
   const isShallow: typeof import('vue').isShallow
   const isSubPackagePath: typeof import('./utils/page-path').isSubPackagePath
   const isTabPath: typeof import('./utils/navigation').isTabPath
+  const layerFromStyle: typeof import('./utils/canvas-effects').layerFromStyle
   const mapActions: typeof import('pinia').mapActions
   const mapGetters: typeof import('pinia').mapGetters
   const mapState: typeof import('pinia').mapState
@@ -67,6 +69,7 @@ declare global {
   const openBack: typeof import('./utils/navigation').openBack
   const openPage: typeof import('./utils/navigation').openPage
   const pagePathToSrcFile: typeof import('./utils/page-path').pagePathToSrcFile
+  const parseCssColor: typeof import('./utils/canvas-effects').parseCssColor
   const provide: typeof import('vue').provide
   const reactive: typeof import('vue').reactive
   const readonly: typeof import('vue').readonly
@@ -83,7 +86,9 @@ declare global {
   const shallowRef: typeof import('vue').shallowRef
   const socket: typeof import('./utils/socket').socket
   const startBubble: typeof import('./utils/login-bubble').startBubble
+  const startCanvasPaint: typeof import('./utils/canvas-effects').startCanvasPaint
   const stopBubble: typeof import('./utils/login-bubble').stopBubble
+  const stopCanvasPaint: typeof import('./utils/canvas-effects').stopCanvasPaint
   const storeToRefs: typeof import('pinia').storeToRefs
   const syncDocumentTitle: typeof import('./utils/favicon').syncDocumentTitle
   const themeMode: typeof import('./stores/theme').themeMode
@@ -94,6 +99,7 @@ declare global {
   const toggleTheme: typeof import('./stores/theme').toggleTheme
   const triggerRef: typeof import('vue').triggerRef
   const unref: typeof import('vue').unref
+  const updateCanvasPaint: typeof import('./utils/canvas-effects').updateCanvasPaint
   const useAppStore: typeof import('./stores/app').useAppStore
   const useAttrs: typeof import('vue').useAttrs
   const useCounterStore: typeof import('./stores/counter').useCounterStore
@@ -129,6 +135,9 @@ declare global {
   // @ts-ignore
   export type { ThemeMode } from './stores/theme'
   import('./stores/theme')
+  // @ts-ignore
+  export type { CanvasPaintLayer, CanvasPaintRipple, CanvasPaintOptions } from './utils/canvas-effects'
+  import('./utils/canvas-effects')
 }
 
 // for vue template auto import
@@ -141,6 +150,7 @@ declare module 'vue' {
     readonly SUB_PAGES_PREFIX: UnwrapRef<typeof import('./utils/page-path')['SUB_PAGES_PREFIX']>
     readonly TAB_LIST: UnwrapRef<typeof import('./stores/app')['TAB_LIST']>
     readonly acceptHMRUpdate: UnwrapRef<typeof import('pinia')['acceptHMRUpdate']>
+    readonly addCanvasPaintRipple: UnwrapRef<typeof import('./utils/canvas-effects')['addCanvasPaintRipple']>
     readonly appStore: UnwrapRef<typeof import('./stores/app')['appStore']>
     readonly applyThemeDom: UnwrapRef<typeof import('./stores/theme')['applyThemeDom']>
     readonly bootTheme: UnwrapRef<typeof import('./stores/theme')['bootTheme']>
@@ -171,6 +181,7 @@ declare module 'vue' {
     readonly isShallow: UnwrapRef<typeof import('vue')['isShallow']>
     readonly isSubPackagePath: UnwrapRef<typeof import('./utils/page-path')['isSubPackagePath']>
     readonly isTabPath: UnwrapRef<typeof import('./utils/navigation')['isTabPath']>
+    readonly layerFromStyle: UnwrapRef<typeof import('./utils/canvas-effects')['layerFromStyle']>
     readonly mapActions: UnwrapRef<typeof import('pinia')['mapActions']>
     readonly mapGetters: UnwrapRef<typeof import('pinia')['mapGetters']>
     readonly mapState: UnwrapRef<typeof import('pinia')['mapState']>
@@ -197,6 +208,7 @@ declare module 'vue' {
     readonly openBack: UnwrapRef<typeof import('./utils/navigation')['openBack']>
     readonly openPage: UnwrapRef<typeof import('./utils/navigation')['openPage']>
     readonly pagePathToSrcFile: UnwrapRef<typeof import('./utils/page-path')['pagePathToSrcFile']>
+    readonly parseCssColor: UnwrapRef<typeof import('./utils/canvas-effects')['parseCssColor']>
     readonly provide: UnwrapRef<typeof import('vue')['provide']>
     readonly reactive: UnwrapRef<typeof import('vue')['reactive']>
     readonly readonly: UnwrapRef<typeof import('vue')['readonly']>
@@ -213,7 +225,9 @@ declare module 'vue' {
     readonly shallowRef: UnwrapRef<typeof import('vue')['shallowRef']>
     readonly socket: UnwrapRef<typeof import('./utils/socket')['socket']>
     readonly startBubble: UnwrapRef<typeof import('./utils/login-bubble')['startBubble']>
+    readonly startCanvasPaint: UnwrapRef<typeof import('./utils/canvas-effects')['startCanvasPaint']>
     readonly stopBubble: UnwrapRef<typeof import('./utils/login-bubble')['stopBubble']>
+    readonly stopCanvasPaint: UnwrapRef<typeof import('./utils/canvas-effects')['stopCanvasPaint']>
     readonly storeToRefs: UnwrapRef<typeof import('pinia')['storeToRefs']>
     readonly syncDocumentTitle: UnwrapRef<typeof import('./utils/favicon')['syncDocumentTitle']>
     readonly themeMode: UnwrapRef<typeof import('./stores/theme')['themeMode']>
@@ -224,6 +238,7 @@ declare module 'vue' {
     readonly toggleTheme: UnwrapRef<typeof import('./stores/theme')['toggleTheme']>
     readonly triggerRef: UnwrapRef<typeof import('vue')['triggerRef']>
     readonly unref: UnwrapRef<typeof import('vue')['unref']>
+    readonly updateCanvasPaint: UnwrapRef<typeof import('./utils/canvas-effects')['updateCanvasPaint']>
     readonly useAppStore: UnwrapRef<typeof import('./stores/app')['useAppStore']>
     readonly useAttrs: UnwrapRef<typeof import('vue')['useAttrs']>
     readonly useCssModule: UnwrapRef<typeof import('vue')['useCssModule']>
