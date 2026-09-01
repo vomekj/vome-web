@@ -5,7 +5,7 @@ const TAB_PATHS = new Set(TAB_LIST.map((t) => t.path))
 
 /** 是否 Tab 页（与 uniapp switchTab 集合对齐，不含移动壳） */
 export function isTabPath(url: string): boolean {
-  const path = String(url || '').split('?')[0].replace(/\/$/, '') || '/'
+  const path = (String(url || '').split('?')[0] ?? '').replace(/\/$/, '') || '/'
   return TAB_PATHS.has(path)
 }
 

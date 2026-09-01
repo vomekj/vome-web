@@ -9,7 +9,7 @@ export const SUB_PAGES_PREFIX = '/pages-sub'
 
 /** 是否分包路径 */
 export function isSubPackagePath(path: string): boolean {
-  const p = String(path || '').split('?')[0]
+  const p = String(path || '').split('?')[0] ?? ''
   return p === SUB_PAGES_PREFIX || p.startsWith(`${SUB_PAGES_PREFIX}/`)
 }
 

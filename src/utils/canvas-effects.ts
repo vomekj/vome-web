@@ -234,27 +234,42 @@ function paintLayer(
   const brand = parseCssColor(layer.color)
   const mid = mixRgb(brand, { r: 255, g: 255, b: 255 }, 0.42)
   const soft = mixRgb(brand, { r: 255, g: 255, b: 255 }, 0.22)
+  /** 登录页默认层（无 color）对齐 admin paintBubble */
+  const loginPreset = !String(layer.color || '').trim()
 
   const cx =
     w * clamp01(Number(layer.cx), 0.5) +
-    Math.sin(t * 0.32 * speed) * w * 0.012 * warp
+    (Math.sin(t * 0.32 * speed) * w * (loginPreset ? 0.018 : 0.012) +
+      Math.sin(t * 0.19 * speed) * w * (loginPreset ? 0.012 : 0)) *
+      warp
   const cy =
     h * clamp01(Number(layer.cy), 0.5) +
-    Math.cos(t * 0.27 * speed) * h * 0.014 * warp
+    (Math.cos(t * 0.27 * speed) * h * (loginPreset ? 0.022 : 0.014) +
+      Math.sin(t * 0.38 * speed) * h * (loginPreset ? 0.01 : 0)) *
+      warp
   const baseRx = w * Math.max(0.02, Number(layer.rx) || 0.2)
   const baseRy = h * Math.max(0.02, Number(layer.ry) || 0.2)
 
-  const segments = 72
+  const segments = loginPreset ? 96 : 72
   const points: Array<{ x: number; y: number }> = []
   for (let i = 0; i < segments; i++) {
     const a = (i / segments) * Math.PI * 2
-    const wave =
-      warp *
-      (0.14 * Math.sin(a * 2 + t * 0.85 * speed) +
+    const wave = loginPreset
+      ? 0.14 * Math.sin(a * 2 + t * 0.85 * speed) +
         0.09 * Math.sin(a * 3 - t * 1.05 * speed) +
-        0.055 * Math.sin(a * 5 + t * 0.55 * speed))
+        0.055 * Math.sin(a * 5 + t * 0.55 * speed) +
+        0.04 * Math.cos(a * 4 + t * 0.72 * speed)
+      : warp *
+        (0.14 * Math.sin(a * 2 + t * 0.85 * speed) +
+          0.09 * Math.sin(a * 3 - t * 1.05 * speed) +
+          0.055 * Math.sin(a * 5 + t * 0.55 * speed))
     let rx = baseRx * (1 + wave)
-    let ry = baseRy * (1 + wave * 0.9)
+    let ry = baseRy * (
+      1 +
+      (loginPreset
+        ? wave * 0.9 + 0.05 * Math.sin(a * 1.5 + t * 0.48 * speed)
+        : wave * 0.9)
+    )
     const nx = Math.cos(a)
     const ny = Math.sin(a)
     const roughX = cx + nx * rx
@@ -287,14 +302,23 @@ function paintLayer(
     Math.max(baseRx, baseRy) * 1.05,
   )
   grad.addColorStop(0, 'rgba(255, 255, 255, 0.78)')
-  grad.addColorStop(0.28, rgba(mid, 0.48))
-  grad.addColorStop(0.58, rgba(soft, 0.28))
-  grad.addColorStop(0.82, rgba(brand, 0.12))
-  grad.addColorStop(1, rgba(brand, 0))
+  if (loginPreset) {
+    grad.addColorStop(0.28, 'rgba(186, 196, 255, 0.48)')
+    grad.addColorStop(0.58, 'rgba(120, 135, 255, 0.28)')
+    grad.addColorStop(0.82, 'rgba(155, 168, 255, 0.12)')
+    grad.addColorStop(1, 'rgba(155, 168, 255, 0)')
+  } else {
+    grad.addColorStop(0.28, rgba(mid, 0.48))
+    grad.addColorStop(0.58, rgba(soft, 0.28))
+    grad.addColorStop(0.82, rgba(brand, 0.12))
+    grad.addColorStop(1, rgba(brand, 0))
+  }
 
   ctx.save()
-  ctx.shadowColor = rgba(brand, 0.2 + glow * 0.35)
-  ctx.shadowBlur = Math.min(w, h) * (0.035 + glow * 0.08)
+  ctx.shadowColor = loginPreset
+    ? 'rgba(78, 93, 255, 0.28)'
+    : rgba(brand, 0.2 + glow * 0.35)
+  ctx.shadowBlur = Math.min(w, h) * (loginPreset ? 0.06 : 0.035 + glow * 0.08)
   ctx.fillStyle = grad
   ctx.fill()
   ctx.restore()

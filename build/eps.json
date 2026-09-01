@@ -36,6 +36,7 @@
         },
         "pageColumns": [],
         "dataI18n": false,
+        "dataI18nFields": [],
         "dataI18nTables": []
       },
       {
@@ -137,6 +138,7 @@
         },
         "pageColumns": [],
         "dataI18n": false,
+        "dataI18nFields": [],
         "dataI18nTables": []
       },
       {
@@ -172,6 +174,7 @@
         },
         "pageColumns": [],
         "dataI18n": false,
+        "dataI18nFields": [],
         "dataI18nTables": []
       },
       {
@@ -218,6 +221,7 @@
         },
         "pageColumns": [],
         "dataI18n": false,
+        "dataI18nFields": [],
         "dataI18nTables": []
       }
     ],
@@ -288,6 +292,7 @@
         },
         "pageColumns": [],
         "dataI18n": false,
+        "dataI18nFields": [],
         "dataI18nTables": []
       }
     ],
@@ -369,6 +374,7 @@
         },
         "pageColumns": [],
         "dataI18n": false,
+        "dataI18nFields": [],
         "dataI18nTables": []
       },
       {
@@ -448,6 +454,7 @@
         },
         "pageColumns": [],
         "dataI18n": false,
+        "dataI18nFields": [],
         "dataI18nTables": []
       },
       {
@@ -483,6 +490,7 @@
         },
         "pageColumns": [],
         "dataI18n": false,
+        "dataI18nFields": [],
         "dataI18nTables": []
       },
       {
@@ -540,6 +548,7 @@
         },
         "pageColumns": [],
         "dataI18n": false,
+        "dataI18nFields": [],
         "dataI18nTables": []
       },
       {
@@ -630,6 +639,7 @@
         },
         "pageColumns": [],
         "dataI18n": false,
+        "dataI18nFields": [],
         "dataI18nTables": []
       }
     ],
@@ -667,6 +677,7 @@
         },
         "pageColumns": [],
         "dataI18n": false,
+        "dataI18nFields": [],
         "dataI18nTables": []
       },
       {
@@ -779,6 +790,7 @@
         },
         "pageColumns": [],
         "dataI18n": false,
+        "dataI18nFields": [],
         "dataI18nTables": []
       },
       {
@@ -990,6 +1002,7 @@
         },
         "pageColumns": [],
         "dataI18n": false,
+        "dataI18nFields": [],
         "dataI18nTables": []
       },
       {
@@ -1025,6 +1038,7 @@
         },
         "pageColumns": [],
         "dataI18n": false,
+        "dataI18nFields": [],
         "dataI18nTables": []
       }
     ]

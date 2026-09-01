@@ -12,10 +12,11 @@ export const bubbleRef = ref<HTMLCanvasElement | null>(null)
 const DEFAULT_OPTS: CanvasPaintOptions = {
   layers: [
     {
+      // 与 admin/src/pages/login/index.vue bubbleCenter 一致
       cx: 0.1,
       cy: 0.44,
-      rx: 0.25,
-      ry: 0.31,
+      rx: 0.5,
+      ry: 0.62,
       glow: 0.55,
       warp: 1,
       speed: 1,
