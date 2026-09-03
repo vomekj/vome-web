@@ -37,7 +37,11 @@
         "pageColumns": [],
         "dataI18n": false,
         "dataI18nFields": [],
-        "dataI18nTables": []
+        "dataI18nTables": [
+          "base_dict_info",
+          "base_dict_type",
+          "base_param"
+        ]
       },
       {
         "module": "base",
@@ -139,7 +143,11 @@
         "pageColumns": [],
         "dataI18n": false,
         "dataI18nFields": [],
-        "dataI18nTables": []
+        "dataI18nTables": [
+          "base_dict_info",
+          "base_dict_type",
+          "base_param"
+        ]
       },
       {
         "module": "base",
@@ -175,7 +183,11 @@
         "pageColumns": [],
         "dataI18n": false,
         "dataI18nFields": [],
-        "dataI18nTables": []
+        "dataI18nTables": [
+          "base_dict_info",
+          "base_dict_type",
+          "base_param"
+        ]
       },
       {
         "module": "base",
@@ -222,7 +234,11 @@
         "pageColumns": [],
         "dataI18n": false,
         "dataI18nFields": [],
-        "dataI18nTables": []
+        "dataI18nTables": [
+          "base_dict_info",
+          "base_dict_type",
+          "base_param"
+        ]
       }
     ],
     "i18n": [
@@ -293,7 +309,11 @@
         "pageColumns": [],
         "dataI18n": false,
         "dataI18nFields": [],
-        "dataI18nTables": []
+        "dataI18nTables": [
+          "base_dict_info",
+          "base_dict_type",
+          "base_param"
+        ]
       }
     ],
     "project": [
@@ -375,7 +395,11 @@
         "pageColumns": [],
         "dataI18n": false,
         "dataI18nFields": [],
-        "dataI18nTables": []
+        "dataI18nTables": [
+          "base_dict_info",
+          "base_dict_type",
+          "base_param"
+        ]
       },
       {
         "module": "project",
@@ -455,7 +479,11 @@
         "pageColumns": [],
         "dataI18n": false,
         "dataI18nFields": [],
-        "dataI18nTables": []
+        "dataI18nTables": [
+          "base_dict_info",
+          "base_dict_type",
+          "base_param"
+        ]
       },
       {
         "module": "project",
@@ -491,7 +519,11 @@
         "pageColumns": [],
         "dataI18n": false,
         "dataI18nFields": [],
-        "dataI18nTables": []
+        "dataI18nTables": [
+          "base_dict_info",
+          "base_dict_type",
+          "base_param"
+        ]
       },
       {
         "module": "project",
@@ -549,7 +581,11 @@
         "pageColumns": [],
         "dataI18n": false,
         "dataI18nFields": [],
-        "dataI18nTables": []
+        "dataI18nTables": [
+          "base_dict_info",
+          "base_dict_type",
+          "base_param"
+        ]
       },
       {
         "module": "project",
@@ -640,7 +676,11 @@
         "pageColumns": [],
         "dataI18n": false,
         "dataI18nFields": [],
-        "dataI18nTables": []
+        "dataI18nTables": [
+          "base_dict_info",
+          "base_dict_type",
+          "base_param"
+        ]
       }
     ],
     "user": [
@@ -678,7 +718,11 @@
         "pageColumns": [],
         "dataI18n": false,
         "dataI18nFields": [],
-        "dataI18nTables": []
+        "dataI18nTables": [
+          "base_dict_info",
+          "base_dict_type",
+          "base_param"
+        ]
       },
       {
         "module": "user",
@@ -791,7 +835,11 @@
         "pageColumns": [],
         "dataI18n": false,
         "dataI18nFields": [],
-        "dataI18nTables": []
+        "dataI18nTables": [
+          "base_dict_info",
+          "base_dict_type",
+          "base_param"
+        ]
       },
       {
         "module": "user",
@@ -1003,7 +1051,11 @@
         "pageColumns": [],
         "dataI18n": false,
         "dataI18nFields": [],
-        "dataI18nTables": []
+        "dataI18nTables": [
+          "base_dict_info",
+          "base_dict_type",
+          "base_param"
+        ]
       },
       {
         "module": "user",
@@ -1039,7 +1091,11 @@
         "pageColumns": [],
         "dataI18n": false,
         "dataI18nFields": [],
-        "dataI18nTables": []
+        "dataI18nTables": [
+          "base_dict_info",
+          "base_dict_type",
+          "base_param"
+        ]
       }
     ]
   },

@@ -127,19 +127,8 @@ export async function request<T>(
   }
 
   const doFetch = async (token?: string | null) => {
-    const body =
-      rest.body == null
-        ? undefined
-        : typeof rest.body === 'string' ||
-            rest.body instanceof FormData ||
-            rest.body instanceof URLSearchParams ||
-            rest.body instanceof Blob ||
-            rest.body instanceof ArrayBuffer
-          ? (rest.body as BodyInit)
-          : JSON.stringify(rest.body)
     const res = await fetch(apiUrl(path), {
       ...rest,
-      body,
       headers: buildHeaders(token),
     })
     const raw = await res.text()
@@ -151,13 +140,13 @@ export async function request<T>(
     return { res, raw, json }
   }
 
-  const failAuth = (): never => {
+  const failAuth = () => {
     clearTokens()
     redirectLogin()
     throw new Error('登录已失效，请重新登录')
   }
 
-  const failBiz = (msg: string): never => {
+  const failBiz = (msg: string) => {
     if (showToast && import.meta.env.DEV) {
       console.warn('[api]', msg)
     }
@@ -196,7 +185,7 @@ export async function request<T>(
   failBiz(retryMsg)
 }
 
-configureClient({ baseUrl: config.baseUrl, request, loadStaticEps: fetchPackagedEpsJson })
+configureClient({ request, loadStaticEps: fetchPackagedEpsJson })
 bindEpsHotReload('app')
 
 /** App 侧链式 service：service.user.xxx */
