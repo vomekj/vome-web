@@ -39,36 +39,6 @@ declare namespace Eps {
 		[key: string]: any;
 	}
 
-	interface Project_aiChatEntity {
-		id?: number;
-
-		[key: string]: any;
-	}
-
-	interface Project_aiModelEntity {
-		id?: number;
-
-		[key: string]: any;
-	}
-
-	interface Project_infraEntity {
-		id?: number;
-
-		[key: string]: any;
-	}
-
-	interface Project_kbEntity {
-		id?: number;
-
-		[key: string]: any;
-	}
-
-	interface Project_skillEntity {
-		id?: number;
-
-		[key: string]: any;
-	}
-
 	interface User_commEntity {
 		id?: number;
 
@@ -170,101 +140,6 @@ declare namespace Eps {
 		namespace: string;
 		permission: { locales: string; active: string; pluginlocales: string; pluginactive: string };
 		_permission: { locales: boolean; active: boolean; pluginlocales: boolean; pluginactive: boolean };
-		request: Eps.Request;
-	}
-
-	interface Project_aiChat {
-		/** 会话列表 */
-		sessionlist(data?: any): Promise<any>;
-
-		/** 会话详情 */
-		sessioninfo(data?: any): Promise<any>;
-
-		/** 创建/更新会话 */
-		sessionupsert(data?: any): Promise<any>;
-
-		/** 删除会话 */
-		sessiondelete(data?: any): Promise<any>;
-
-		/** 历史向量检索 */
-		historyretrieve(data?: any): Promise<any>;
-
-		namespace: string;
-		permission: { sessionlist: string; sessioninfo: string; sessionupsert: string; sessiondelete: string; historyretrieve: string };
-		_permission: { sessionlist: boolean; sessioninfo: boolean; sessionupsert: boolean; sessiondelete: boolean; historyretrieve: boolean };
-		request: Eps.Request;
-	}
-
-	interface Project_aiModel {
-		/** 自接模型列表（不含密钥） */
-		list(data?: any): Promise<Project_aiModelEntity[]>;
-
-		/** 添加自接模型 */
-		create(data?: any): Promise<any>;
-
-		/** 更新自接模型 */
-		update(data?: any): Promise<any>;
-
-		/** 删除自接模型 */
-		delete(data?: any): Promise<any>;
-
-		/** 解析自接模型（含密钥，仅本机 agent / 开发模式） */
-		resolve(data?: any): Promise<any>;
-
-		namespace: string;
-		permission: { list: string; create: string; update: string; delete: string; resolve: string };
-		_permission: { list: boolean; create: boolean; update: boolean; delete: boolean; resolve: boolean };
-		request: Eps.Request;
-	}
-
-	interface Project_infra {
-		/** DB / Redis / OSS / pgvector 探测 */
-		health(data?: any): Promise<any>;
-
-		namespace: string;
-		permission: { health: string };
-		_permission: { health: boolean };
-		request: Eps.Request;
-	}
-
-	interface Project_kb {
-		/** 写入知识文档 */
-		upsert(data?: any): Promise<any>;
-
-		/** 向量检索知识块 */
-		search(data?: any): Promise<any>;
-
-		/** 采纳写回 */
-		adoptionWriteback(data?: any): Promise<any>;
-
-		namespace: string;
-		permission: { upsert: string; search: string; adoptionWriteback: string };
-		_permission: { upsert: boolean; search: boolean; adoptionWriteback: boolean };
-		request: Eps.Request;
-	}
-
-	interface Project_skill {
-		/** Skills 列表 */
-		list(data?: any): Promise<Project_skillEntity[]>;
-
-		/** 新建 Skill */
-		create(data?: any): Promise<any>;
-
-		/** 更新 Skill */
-		update(data?: any): Promise<any>;
-
-		/** 删除 Skill */
-		delete(data?: any): Promise<any>;
-
-		/** 向量 Top-K Skills */
-		retrieve(data?: any): Promise<any>;
-
-		/** 空库播种 */
-		seedIfEmpty(data?: any): Promise<any>;
-
-		namespace: string;
-		permission: { list: string; create: string; update: string; delete: string; retrieve: string; seedIfEmpty: string };
-		_permission: { list: boolean; create: boolean; update: boolean; delete: boolean; retrieve: boolean; seedIfEmpty: boolean };
 		request: Eps.Request;
 	}
 
@@ -387,13 +262,6 @@ declare namespace Eps {
 		};
 		i18n: {
 			pack: I18n_pack;
-		};
-		project: {
-			aiChat: Project_aiChat;
-			aiModel: Project_aiModel;
-			infra: Project_infra;
-			kb: Project_kb;
-			skill: Project_skill;
 		};
 		user: {
 			comm: User_comm;
