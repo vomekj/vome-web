@@ -2998,6 +2998,16 @@
       },
       "sha512-yQbXgO/OSZVD2IsiLlro+7Hf6Q18EJrKSEsdoMzKePKXct3gvD8oLcOQdIzGupr5Fj+EDe8gO/lxc1BzfMpxvA=="
     ],
+    "browser-image-compression": [
+      "browser-image-compression@2.0.2",
+      "",
+      {
+        "dependencies": {
+          "uzip": "0.20201231.0"
+        }
+      },
+      "sha512-pBLlQyUf6yB8SmmngrcOw3EoS4RpQ1BcylI3T9Yqn7+4nrQTXJD4sJDe5ODnJdrvNMaio5OicFo75rDyJD2Ucw=="
+    ],
     "browserslist": [
       "browserslist@4.28.6",
       "https://registry.npmmirror.com/browserslist/-/browserslist-4.28.6.tgz",
@@ -7613,6 +7623,12 @@
       "https://registry.npmmirror.com/util-deprecate/-/util-deprecate-1.0.2.tgz",
       {},
       "sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw=="
+    ],
+    "uzip": [
+      "uzip@0.20201231.0",
+      "",
+      {},
+      "sha512-OZeJfZP+R0z9D6TmBgLq2LHzSSptGMGDGigGiEe0pr8UBe/7fdflgHlHBNDASTXB5jnFuxHpNaJywSg8YFeGng=="
     ],
     "validate-npm-package-name": [
       "validate-npm-package-name@5.0.1",

@@ -12,7 +12,8 @@
     <VmAside v-if="showShell && !appStore.isMobile" />
     -->
     <main class="vm-app__main">
-      <RouterView />
+      <!-- localeEpoch：切语种重建当前页，接口带新 X-Lang 重拉（不 F5） -->
+      <RouterView :key="locale.localeEpoch" />
     </main>
     <VmTabbar
       v-if="showShell && appStore.isMobile"
@@ -26,8 +27,10 @@ import VmHeader from '@/components/vm-header.vue'
 // import VmAside from '@/components/vm-aside.vue'
 import VmTabbar from '@/components/vm-tabbar.vue'
 import { ensureFreshToken, getAccessToken } from '@/api/client'
+import { useLocaleStore } from '@/stores/locale'
 
 const route = useRoute()
+const locale = useLocaleStore()
 
 const showShell = computed(() => {
   const path = route.path.replace(/\/$/, '') || '/'

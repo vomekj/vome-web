@@ -1385,7 +1385,7 @@
         "value": 1
       }
     ],
-    "yes_no": [
+    "yes_no_boolean": [
       {
         "id": 71,
         "name": "否",
@@ -1423,7 +1423,7 @@
         "value": true
       }
     ],
-    "base_yes_no": [
+    "yes_no_number": [
       {
         "id": 75,
         "name": "否",

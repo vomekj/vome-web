@@ -126,9 +126,24 @@ export async function request<T>(
     return headers
   }
 
+  const failAuth = (): never => {
+    clearTokens()
+    redirectLogin()
+    throw new Error('登录已失效，请重新登录')
+  }
+
+  const failBiz = (msg: string): never => {
+    if (showToast && import.meta.env.DEV) {
+      console.warn('[api]', msg)
+    }
+    throw new Error(msg)
+  }
+
   const doFetch = async (token?: string | null) => {
+    const { body, ...initRest } = rest
     const res = await fetch(apiUrl(path), {
-      ...rest,
+      ...initRest,
+      body: body as BodyInit | null | undefined,
       headers: buildHeaders(token),
     })
     const raw = await res.text()
@@ -140,35 +155,22 @@ export async function request<T>(
     return { res, raw, json }
   }
 
-  const failAuth = () => {
-    clearTokens()
-    redirectLogin()
-    throw new Error('登录已失效，请重新登录')
-  }
-
-  const failBiz = (msg: string) => {
-    if (showToast && import.meta.env.DEV) {
-      console.warn('[api]', msg)
-    }
-    throw new Error(msg)
-  }
-
   const first = await doFetch(getAccessToken())
   if (first.json?.code === 1000) return first.json.data as T
 
   const firstMsg =
     first.json?.message || first.raw || `请求失败 (${first.res.status})`
   if (!isAuthFailure(first.res.status, firstMsg, skipRefresh, path)) {
-    failBiz(firstMsg)
+    return failBiz(firstMsg)
   }
 
-  if (!getRefreshToken()) failAuth()
+  if (!getRefreshToken()) return failAuth()
 
   let next = ''
   try {
     next = await sharedRefresh()
   } catch {
-    failAuth()
+    return failAuth()
   }
 
   const retry = await doFetch(next)
@@ -180,9 +182,9 @@ export async function request<T>(
     retry.res.status === 401 ||
     isAuthFailure(retry.res.status, retryMsg, false, path)
   ) {
-    failAuth()
+    return failAuth()
   }
-  failBiz(retryMsg)
+  return failBiz(retryMsg)
 }
 
 configureClient({ request, loadStaticEps: fetchPackagedEpsJson })
