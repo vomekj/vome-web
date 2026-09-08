@@ -9,7 +9,12 @@
       @click="open = !open"
     >
       <span class="vm-locale-toggle__flag" aria-hidden="true">
-        {{ locale.currentLang?.flag || '🏳️' }}
+        <img
+          v-if="locale.currentLang?.flag"
+          class="vm-locale-toggle__flag-img"
+          :src="String(locale.currentLang.flag)"
+          alt=""
+        />
       </span>
     </button>
     <div v-if="open" class="vm-locale-toggle__menu" role="menu">
@@ -24,7 +29,12 @@
         @click="switchLocale(lang.code)"
       >
         <span class="vm-locale-toggle__flag" aria-hidden="true">
-          {{ lang.flag || '🏳️' }}
+          <img
+            v-if="lang.flag"
+            class="vm-locale-toggle__flag-img"
+            :src="String(lang.flag)"
+            alt=""
+          />
         </span>
         <span class="vm-locale-toggle__label">{{ lang.name }}</span>
       </button>
@@ -105,8 +115,18 @@ onBeforeUnmount(() => {
 }
 
 .vm-locale-toggle__flag {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   font-size: 18px;
   line-height: 1;
+}
+
+.vm-locale-toggle__flag-img {
+  width: 20px;
+  height: 20px;
+  object-fit: cover;
+  border-radius: 50%;
 }
 
 .vm-locale-toggle__menu {
